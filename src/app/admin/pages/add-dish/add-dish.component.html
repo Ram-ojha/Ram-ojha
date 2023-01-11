@@ -1,0 +1,82 @@
+<app-header></app-header>
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+        <div class="row">
+            <a routerLink="/admin/dishes" class="btn btn-danger">Back</a>
+
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-4">
+                <form [formGroup]="dishForm">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Add New Dish Items</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="">Select Menu Item</label>
+                                <select [ngClass]="{'is-invalid': dishForm.controls.menu.errors && checkForm }" formControlName="menu" class="form-control">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let m of allMenu" value="{{ m.name }}">{{ m.name }}</option>
+
+                                </select>
+
+                                <div *ngIf="dishForm.controls.menu.errors && checkForm" class="invalid-feedback">
+                                    Select Menu Item for Dish
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Dish Name</label>
+                                <input formControlName="name" [ngClass]="{'is-invalid': dishForm.controls.name.errors && checkForm }"  type="text" class="form-control" />
+                                <div *ngIf="dishForm.controls.name.errors && checkForm" class="invalid-feedback">
+                                    Insert Dish Name
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Dish Image</label>
+                                <input type="file" #image formControlName="image" [ngClass]="{'is-invalid': dishForm.controls.image.errors && checkForm }" class="form-control" />
+                                <div *ngIf="dishForm.controls.image.errors && checkForm" class="invalid-feedback">
+                                    <div *ngIf="dishForm.controls.image.errors.required">
+                                        Select Your Image
+                                    </div>
+                                    <div *ngIf="dishForm.controls.image.errors.typeErr">
+                                        This is not a Image type file
+                                    </div>
+                                    <div *ngIf="dishForm.controls.image.errors.sizeErr">
+                                        This image is too big (select only less then 2 mb)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Dish Price</label>
+                                <input formControlName="price" [ngClass]="{'is-invalid': dishForm.controls.price.errors && checkForm }"  type="text" class="form-control" />
+                                <div *ngIf="dishForm.controls.price.errors && checkForm" class="invalid-feedback">
+                                    Insert Dish Price
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="">Dish Detail</label>
+                                <textarea formControlName="detail" [ngClass]="{'is-invalid': dishForm.controls.detail.errors && checkForm }"  class="form-control" ></textarea>
+                                <div *ngIf="dishForm.controls.detail.errors && checkForm" class="invalid-feedback">
+                                    Insert Dish Detail
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="btn btn-primary" type="submit" (click)="submit(image)" >Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<app-footer></app-footer>

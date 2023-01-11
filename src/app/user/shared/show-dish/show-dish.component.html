@@ -1,0 +1,15 @@
+<div>
+    <div class="single-food">
+        <div class="food-img">
+            <img style="height: 200px; width: 100%;" src="{{ apiUrl+x?.image }}" class="img-fluid" alt="">
+        </div>
+        <div class="food-content">
+            <div class="d-flex justify-content-between">
+                <!-- <p>{{ apiUrl+x.image }}</p> -->
+                <h5>{{ x?.name }}<small> ({{ x?.menu }})</small></h5>
+                <span class="style-change">&#8377; {{ x?.price }}</span>
+            </div>
+            <p class="pt-3">{{ x?.detail }}</p>
+        </div>
+    </div>
+</div>

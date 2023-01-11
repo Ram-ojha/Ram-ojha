@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div class="row mt-3">
+        <div class="col-md-6 offset-md-3">
+            <form [formGroup]="adminLoginForm">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Admin Login</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" [ngClass]="{'is-invalid' : adminLoginForm.controls.username.errors && checkForm }" formControlName="username" class="form-control" />
+                        <div class="invalid-feedback" *ngIf="adminLoginForm.controls.username.errors && checkForm">
+                            Insert Username 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" [ngClass]="{'is-invalid' : adminLoginForm.controls.password.errors && checkForm }" formControlName="password" class="form-control" />
+                        <div class="invalid-feedback" *ngIf="adminLoginForm.controls.password.errors && checkForm">
+                            Insert Password
+                        </div>
+                    </div>
+                    <p class="text-danger text-center">
+                        {{ errorMsg }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button (click)="submit()" type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

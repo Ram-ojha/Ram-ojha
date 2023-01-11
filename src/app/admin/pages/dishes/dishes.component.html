@@ -1,0 +1,56 @@
+<app-header></app-header>
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+        <div class="row">
+            <a routerLink="/admin/add-dish" class="btn btn-primary">Add Dishes</a>
+        </div>
+        <div class="row">
+            <div class="col-md-8 offset-md-2 mt-4">
+                <table class="table table-dark table-bordered">
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Dish Name</th>
+                        <th>Menu</th>
+                        <th>Price</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        
+                    </tr>
+                    <tr *ngFor="let d of allDish; let n = index">
+                        <td>{{ n+1 }}</td>
+                        <td>{{ d.name }}</td>
+                        <td>{{ d.menu }}</td>
+                        <td>{{ d.price }}</td>
+                        <td><button class="btn btn-sm btn-info">Edit</button></td>
+                        <td><button data-toggle="modal" (click)="askDelete(d)" data-target="#delModal" class="btn btn-sm btn-danger">Delete</button></td>
+                    </tr>
+
+
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<app-footer></app-footer>
+
+<div id="delModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete !</h3>
+            </div>
+            <Div class="modal-body">
+                <p>Are you sure want to delete <b *ngIf="dish">{{ dish.name }}</b> !</p>
+            </Div>
+            <div class="modal-footer">
+                <button class="btn btn-info" #closeBtn data-dismiss="modal">Close</button>
+                <button class="btn btn-danger" (click)="confDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

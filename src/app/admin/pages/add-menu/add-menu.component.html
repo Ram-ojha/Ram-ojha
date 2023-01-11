@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+        <div class="row">
+            <a routerLink="/admin/menu" class="btn btn-danger">Back</a>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-4">
+                <form [formGroup]="menuForm">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Add New Menu Items</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="">Menu Name</label>
+                            <input [ngClass]="{'is-invalid': menuForm.controls.name.errors && checkForm }" formControlName="name" type="text" class="form-control" />
+                            <div class="invalid-feedback" *ngIf="menuForm.controls.name.errors && checkForm">
+                                Please Insert Menu Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit" (click)="submit()">Add</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<app-footer></app-footer>
