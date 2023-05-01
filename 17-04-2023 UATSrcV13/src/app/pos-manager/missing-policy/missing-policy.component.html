@@ -1,0 +1,136 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <mat-card>
+                <div class="col-md-12">Missing Policy Dashboard for Deepa Raghuwanshi [CF/POS/195485]</div>
+                <hr>
+                <div class="col-md-12">
+                    <div class="bike_area">
+                        <div class="row datepickerpannel">
+                            <div class="col-md-3">
+                                <div class="field-wrapper">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Policy number">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <mat-label>Issue month</mat-label>
+                                    <mat-select>
+                                        <mat-option [value]="1">December-2019</mat-option>
+                                        <mat-option [value]="1">November-2019</mat-option>
+                                        <mat-option [value]="1">October-2019</mat-option>
+                                        <mat-option [value]="1">September-2019</mat-option>
+                                        <mat-option [value]="1">August-2019</mat-option>
+                                        <mat-option [value]="1">July-2019</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="field-wrapper">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Comment">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="field-wrapper">
+                                    <button type="button" class="w--button w--button--orange w--button--large"
+                                        mat-raised-button (click)="fileInput.click()">Choose File</button>
+                                    <input hidden #fileInput type="file" id="file">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="w--button w--button--orange w--button--large"
+                                    title="View Quotes">Submit</button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-12">Missing Policy Request Log</div>
+                        <hr class="marT5">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-tab-group mat-align-tabs="start">
+                                    <mat-tab label="Pending">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Id</th>
+                                                        <th scope="col">Policy Number</th>
+                                                        <th scope="col">Pdf</th>
+                                                        <th scope="col">Issue Month</th>
+                                                        <th scope="col">Uploaded On</th>
+                                                        <th scope="col">Resolved On</th>
+                                                        <th scope="col">Your Comment</th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                    <mat-tab label="In_review">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Id</th>
+                                                        <th scope="col">Policy Number</th>
+                                                        <th scope="col">Pdf</th>
+                                                        <th scope="col">Issue Month</th>
+                                                        <th scope="col">Uploaded On</th>
+                                                        <th scope="col">Resolved On</th>
+                                                        <th scope="col">Your Comment</th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                    <mat-tab label="Identified">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Id</th>
+                                                        <th scope="col">Policy Number</th>
+                                                        <th scope="col">Pdf</th>
+                                                        <th scope="col">Issue Month</th>
+                                                        <th scope="col">Uploaded On</th>
+                                                        <th scope="col">Resolved On</th>
+                                                        <th scope="col">Your Comment</th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                    <mat-tab label="Rejected">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Id</th>
+                                                        <th scope="col">Policy Number</th>
+                                                        <th scope="col">Pdf</th>
+                                                        <th scope="col">Issue Month</th>
+                                                        <th scope="col">Uploaded On</th>
+                                                        <th scope="col">Resolved On</th>
+                                                        <th scope="col">Your Comment</th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

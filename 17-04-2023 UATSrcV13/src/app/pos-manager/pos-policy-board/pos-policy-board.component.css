@@ -1,0 +1,188 @@
+.padLR5 {
+  padding: 0 5px;
+}
+.THM--button {
+  background: #083b66;
+  border-color: #083b66;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 15px;
+  border: solid 1px;
+}
+.box-tap {
+  float: left;
+  width: 100%;
+  padding: 0 12px;
+  position: relative;
+}
+.datepickerpannel {
+  padding-top: 10px;
+}
+.table .thead-dark th {
+  color: #fff;
+  background-color: #083b66;
+  border-color: #083b66;
+}
+mat-table.mat-table .mat-header-row {
+  background: #083b66;
+  color: #fff;
+}
+
+mat-table.mat-table .mat-header-row .mat-header-cell {
+  color: #fff;
+  opacity: 1 !important;
+}
+
+mat-table.mat-table .mat-header-row .mat-header-cell .mat-sort-header-arrow {
+  color: #fff;
+  opacity: 1 !important;
+}
+.payment-mode {
+  float: left;
+  position: relative;
+  width: 100%;
+  margin: 1% 0;
+  border-top: solid 1px #e0e0e0;
+  padding: 10px 0;
+}
+/* .policy_block
+{
+    padding: 10px 0px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 10px;
+    color: #083b66;
+    margin-bottom: 0;
+    font-size: 14px;
+} */
+
+.policy_block {
+  padding: 10px 2px;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-bottom: 0;
+  font-size: 14px;
+  border: solid 2px #ec691f;
+  background: #ec691f;
+  box-shadow: 0 0px 1px -2px rgb(0 0 0 / 32%), 0 1px 1px 0 rgb(0 0 0 / 32%),
+    0 1px 2px 2px rgb(0 0 0 / 32%);
+}
+
+p.policy_block span {
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 20px;
+}
+.title {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+fieldset {
+  border: solid 2px #2b3f55;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+legend {
+  text-align: center;
+  width: auto;
+  padding: 0 8px;
+  font-size: 20px;
+  color: #2b3f55;
+}
+.table {
+  margin-top: 5px;
+}
+
+.left-block {
+  float: left;
+  position: relative;
+  width: 100%;
+  border: solid 1px #cacaca;
+}
+
+h4.Subtitle {
+  padding: 5px 10px;
+  font-size: 18px;
+  text-align: center;
+  background: #083b66;
+  color: #fff;
+  margin: 0 0px;
+}
+
+.side-block {
+  float: left;
+  position: relative;
+  width: 100%;
+  /* border: solid 1px #cacaca; */
+}
+.mat-card {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 0;
+  float: left;
+}
+.policy-dashboard {
+  position: relative;
+  width: 100%;
+  float: left;
+  margin: 20px 0;
+}
+/* Ribbon */
+
+[class^="ribbon-"] {
+  position: relative;
+  margin-bottom: 80px;
+}
+[class^="ribbon-"]:before,
+[class^="ribbon-"]:after {
+  content: "";
+  position: absolute;
+}
+
+.ribbon-3 {
+  width: 99.5%;
+  margin-left: -10px;
+  margin-right: -10px;
+  background: #083b66;
+  margin: 0 auto;
+  z-index: 2;
+  color: #fff;
+}
+.ribbon-3:before {
+  height: 0;
+  width: 0;
+  border-top: 10px solid #083b66;
+  border-left: 10px solid transparent;
+  bottom: -10px;
+}
+.ribbon-3:after {
+  height: 0;
+  width: 0;
+  border-top: 10px solid #083b66;
+  border-right: 10px solid transparent;
+  right: 0;
+  bottom: -10px;
+}
+
+.ribbon-3 h2 {
+  color: #fff;
+  margin: 0 0;
+  font-size: 18px;
+  text-align: center;
+  padding: 8px 0;
+}
+.boxstyle{
+  margin-bottom: 60px;
+  border-radius: 0px;
+}

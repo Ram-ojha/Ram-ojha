@@ -1,0 +1,357 @@
+<br>
+<div class="container-fluid" style="margin-bottom: 60% !important;
+">
+    <div class="mx-auto">
+        <div class="card" style=" 
+            align-items: center;
+            width: 100%;
+            padding: 14px;
+            font-size: 19px;
+        ">
+            <span>Renewals Dashboard</span>
+        </div>
+        <div class="payment-mode">
+
+            <mat-card class="mb-4">
+                <mat-card-content>
+                    <!-- <mat-tab-group> -->
+                    <!-- Bike insurance -->
+                    <!-- <mat-tab> -->
+                    <ng-template mat-tab-label>
+                        <!-- <mat-icon class="example-tab-icon"> motorcycle</mat-icon> -->
+                        Renewal Policies
+                    </ng-template>
+                    <div class="col-md-12">
+                        <div class="bike_area">
+                            <form [formGroup]="PolicyDateForm" (ngSubmit)='getPolicyExpireDate()'>
+                                <div class="row datepickerpanne padT10">
+                                    <div class="col-md-4">
+                                        <div class="field-wrapper">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="From_Date" placeholder="From Date"
+                                                    (click)="From_Date.open()" formControlName="from_Date">
+
+                                                <mat-datepicker-toggle matSuffix [for]="From_Date">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #From_Date></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="field-wrapper">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="To_Date" formControlName="to_Date"
+                                                    placeholder="To Date" (click)="To_Date.open()">
+                                                <mat-datepicker-toggle matSuffix [for]="To_Date">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #To_Date></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" style="margin-top: 0px;"
+                                            class="w--button w--button--orange w--button--large" title="View Quotes">Get
+                                            Data</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <hr>
+                            <div class="row">
+
+                                <!-- <div class="alert alert-warning text-center"
+                                                                                                                                        *ngIf='successfullPaymentRecord.length==0'>No any
+                                                                                                                                        Payments made</div> -->
+                                <div class="col-md-12">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <mat-card *ngIf="successCode != '1'" class='text-center'>
+                                                <span> No results </span>
+                                            </mat-card>
+                                            <!-- <mat-card [hidden]='successCode != "1"'> -->
+
+                                            <mat-form-field style="width: 40%;" [hidden]='successCode != "1"'>
+                                                <input matInput (keyup)="applyFilter($event.target)"
+                                                    placeholder="Search Here...">
+                                            </mat-form-field>
+                                            <button style="margin-left: 533px;" [hidden]='successCode != "1"'
+                                                class="w--button w--button--orange w--button--large" title="View Quotes"
+                                                (click)="exportAsXLSX()">Download
+                                                Excel</button>
+                                            <div class="example-container mat-elevation-z8"
+                                                [hidden]='successCode != "1"' #TABLE>
+
+                                                <mat-table matTableExporter [dataSource]="this.dataSource" matSort
+                                                    #exporter="matTableExporter">
+
+                                                    <!-- VechileOwnerName  Column -->
+                                                    <ng-container matColumnDef="Name">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Name
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                            {{row.Salutation}} {{row.VechileOwnerName }}
+                                                            {{row.VehicleOwnerLastName}}
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                    <!--MobileNo Column -->
+                                                    <ng-container matColumnDef="MobileNo">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Mobile No.
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let row">
+                                                            {{row.MobileNo}}
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                    <!-- SubCateDesc  Column -->
+                                                    <!-- <ng-container matColumnDef="SubCateDesc">
+                                                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                                Policy Type
+                                                                            </mat-header-cell>
+                                                                            <mat-cell *matCellDef="let row"
+                                                                                [style.color]="row.color">
+                                                                                {{row.SubCateDesc}}
+                                                                            </mat-cell>
+                                                                        </ng-container> -->
+                                                    <!-- VehicleModelDesc  Column -->
+                                                    <ng-container matColumnDef="VehicleDetails">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Vehicle Details
+                                                        </mat-header-cell>
+                                                        <mat-cell matTooltip="{{row.VehicleBrandDesc}} {{row.VehicleModelDesc
+                                                                }} {{row.VehicleVarientDesc}}"
+                                                            matTooltipClass="example-tooltip-red" class="overflow"
+                                                            *matCellDef="let row" [style.color]="row.color">
+                                                            {{row.VehicleBrandDesc}} {{row.VehicleModelDesc
+                                                            }} {{row.VehicleVarientDesc}}
+                                                        </mat-cell>
+
+                                                    </ng-container>
+
+                                                    <!-- PolicyNo Column -->
+                                                    <ng-container matColumnDef="PolicyNo">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Policy No.
+                                                        </mat-header-cell>
+                                                        <mat-cell matTooltip=" {{row.PolicyNo}}"
+                                                            matTooltipClass="example-tooltip-red" class="overflow"
+                                                            *matCellDef="let row" [style.color]="row.color">
+                                                            {{row.PolicyNo}}
+                                                        </mat-cell>
+                                                    </ng-container>
+                                                    <!-- EntryDate Column -->
+                                                    <ng-container matColumnDef="EntryDate">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Policy Date
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let row">
+                                                            {{ getDateObject(row.EntryDate) |
+                                                            date:'dd/MM/yy' }}
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                    <!-- InsuranceCateDesc No Column -->
+                                                    <ng-container matColumnDef="InsuranceCateDesc">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Insurance Category
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let row">
+                                                            {{row.InsuranceCateDesc}} </mat-cell>
+                                                    </ng-container>
+
+                                                    <!-- PolicyExpiryDate Column -->
+                                                    <ng-container matColumnDef="PolicyExpiryDate">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Expiry Date
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                            <!-- {{row.PolicyExpiryDate.replace("-","/") | date:'dd/MM/yy'}} -->
+                                                            {{getDateObject(row.PolicyExpiryDate) |
+                                                            date:'dd/MM/yy'}}
+                                                        </mat-cell>
+                                                    </ng-container>
+
+
+
+                                                    <!-- PreviousPolicyStartDate Column -->
+                                                    <!-- <ng-container matColumnDef="PreviousPolicyStartDate">
+                                                                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                                                Previous Policy StartDate
+                                                                                            </mat-header-cell>
+                                                                                            <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                                                                {{row.PreviousPolicyStartDate | date:'dd/MM/yy'}}
+                                                                                            </mat-cell>
+                                                                                        </ng-container> -->
+                                                    <!-- PreviousPolicyExpDate  Column -->
+                                                    <!-- <ng-container matColumnDef="PreviousPolicyExpDate">
+                                                                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                                                Previous Policy ExpDate
+                                                                                            </mat-header-cell>
+                                                                                            <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                                                                {{row.PreviousPolicyExpDate | date:'dd/MM/yy' }}
+                                                                                            </mat-cell>
+                                                                                        </ng-container> -->
+
+
+                                                    <!-- TrnPolicyDate  Column -->
+                                                    <!-- <ng-container matColumnDef="TrnPolicyDate">
+                                                                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                                                Trn Policy Date
+                                                                                            </mat-header-cell>
+                                                                                            <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                                                                {{row?.TrnPolicyDate | date:'dd/MM/yy'}}
+                                                                                            </mat-cell>
+                                                                                        </ng-container> -->
+
+                                                    <!-- VechileRegNo  Column -->
+                                                    <ng-container matColumnDef="VechileRegNo">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Vechile Reg No.
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                            {{row.VechileRegNo}}
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                    <!-- VehicleExpiryDesc  Column -->
+                                                    <!-- <ng-container matColumnDef="VehicleExpiryDesc">
+                                                                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                                                VehicleExpiryDesc
+                                                                                            </mat-header-cell>
+                                                                                            <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                                                                {{row.VehicleExpiryDesc}}
+                                                                                            </mat-cell>
+                                                                                        </ng-container> -->
+
+
+                                                    <mat-header-row *matHeaderRowDef="displayedColumns">
+                                                    </mat-header-row>
+                                                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                                    </mat-row>
+                                                </mat-table>
+
+                                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                                </mat-paginator>
+                                            </div>
+                                            <!-- </mat-card> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </mat-tab> -->
+                    <!-- Bike insurance -->
+
+
+                    <!--- Car Insurance Start -->
+                    <!-- <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <mat-icon class="example-tab-icon"> directions_car</mat-icon>
+                                    Car
+                                </ng-template>
+                                <div class="col-md-12">
+                                    <div class="bike_area">
+                                        <div class="row datepickerpannel padT10">
+                                            <div class="col-md-4">
+                                                <div class="field-wrapper">
+                                                    <mat-form-field>
+                                                        <input matInput [matDatepicker]="From_Date_Car"
+                                                            placeholder="From Date" (click)="From_Date_Car.open()">
+                                                        <mat-datepicker-toggle matSuffix [for]="From_Date_Car">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #From_Date_Car></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="field-wrapper">
+                                                    <mat-form-field>
+                                                        <input matInput [matDatepicker]="To_Date_Car" placeholder="To Date"
+                                                            (click)="To_Date_Car.open()">
+                                                        <mat-datepicker-toggle matSuffix [for]="To_Date_Car">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #To_Date_Car></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="w--button w--button--orange w--button--large"
+                                                    title="View Quotes">Get Data</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-5 styleright">
+                                                    <mat-form-field>
+                                                        <input matInput
+                                                            placeholder="Search using name, email, mobile, registration number">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <mat-card>
+                                                    No results found.
+                                                </mat-card>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab> -->
+                    <!--- Car Insurance End -->
+
+                    <!--- Health Insurance Start -->
+                    <!-- <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <mat-icon class="example-tab-icon"> add_box</mat-icon>
+                                    Health
+                                </ng-template>
+                                <div class="col-md-12">
+                                    <div class="bike_area">
+                                        <div class="row datepickerpannel padT10">
+                                            <div class="col-md-4">
+                                                <div class="field-wrapper">
+                                                    <mat-form-field>
+                                                        <input matInput [matDatepicker]="From_Date_Health"
+                                                            placeholder="From Date" (click)="From_Date_Health.open()">
+                                                        <mat-datepicker-toggle matSuffix [for]="From_Date_Health">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #From_Date_Health></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="field-wrapper">
+                                                    <mat-form-field>
+                                                        <input matInput [matDatepicker]="To_Date_Health"
+                                                            placeholder="To Date" (click)="To_Date_Health.open()">
+                                                        <mat-datepicker-toggle matSuffix [for]="To_Date_Health">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #To_Date_Health></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="w--button w--button--orange w--button--large"
+                                                    title="View Quotes">Get Data</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+    
+                                    </div>
+                                </div>
+                            </mat-tab> -->
+                    <!--- Health Insurance End -->
+                    <!-- </mat-tab-group> -->
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+
+
+</div>

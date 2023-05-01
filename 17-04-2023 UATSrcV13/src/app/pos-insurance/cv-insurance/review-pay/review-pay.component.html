@@ -1,0 +1,356 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<div class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end bike_last_details">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="bike_owner_header">
+        <label>CV OWNER DETAILS</label>
+        <label class="edit">
+          <a (click)="onEditClick(0)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+          </a>
+        </label>
+      </div>
+      <div class="bike_owner_details">
+        <!-- <div>
+            <span
+              >Is car registered on company name:&nbsp;{{
+                reviewData.VehicleAsCompany
+              }}</span
+            >
+          </div> -->
+        <div>
+          <span>First Name: {{ reviewData.VechileOwnerName }}</span>
+        </div>
+        <div>
+          <span>Last Name: {{ reviewData.VehicleOwnerLastName}}</span>
+        </div>
+
+        <div>
+          <span>Mobile Number: {{ reviewData.MobileNo }}</span>
+        </div>
+        <div>
+          <span>Email Id: {{ reviewData.EmailID }}</span>
+        </div>
+        <div>
+          <span>Gender: {{ reviewData.GenderCodeDesc }}</span>
+        </div>
+        <div>
+          <span>DOB: {{ reviewData.DOB }}</span>
+        </div>
+        <div *ngIf="reviewData.NomineeName">
+          <span>Nominee: {{ reviewData.NomineeName }}</span>
+        </div>
+        <div *ngIf="reviewData.NomineeName">
+          <span>Relationship with Nominee: {{ reviewData.RelationshipDesc }}</span>
+        </div>
+        <div *ngIf="reviewData.NomineeName">
+          <span>Nominee's DOB: {{ reviewData.NomineeDOB }}</span>
+        </div>
+        <div *ngIf="reviewData.OwnerGSTNo">
+          <span>GSTIN: {{ reviewData.OwnerGSTNo }}</span>
+        </div>
+      </div>
+
+      <div class="bike_owner_header" *ngIf="!isNewPolicy">
+        <label>Past Policy Details</label>
+        <label class="edit">
+          <a (click)="onEditClick(3)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+          </a>
+        </label>
+      </div>
+      <div class="bike_owner_details" *ngIf="!isNewPolicy">
+        <div>
+          <span>Previous Policy Start Date: {{
+            reviewData.PreviousPolicyStartDate
+            }}</span>
+        </div>
+        <div>
+          <span>Previous Policy Expiry Date:&nbsp;{{
+            reviewData.PreviousPolicyExpDate
+            }}</span>
+        </div>
+        <div>
+          <span>Previous Policy Insurer:&nbsp;{{
+            reviewData.PreviousPolicyInsurerDesc
+            }}</span>
+        </div>
+        <div>
+          <span>Previous Policy No.: {{ reviewData.PreviousPolicyNo }}</span>
+        </div>
+        <div>
+          CV on Mortgage: {{reviewData.MortgageIndDesc}}
+        </div>
+        <div *ngIf="reviewData.MortgageInd == '1'">
+          <div>
+            <span>Loan Provider Name:&nbsp;{{ reviewData.MortgageLBankName }}</span>
+          </div>
+          <div>
+            <span>Loan Provider Address:&nbsp;{{reviewData.MortgageBankAddress}}</span>
+          </div>
+        </div>
+        <!-- <div *ngIf="reviewData.MortgageLBankName">
+            <span
+              >Loan Provider Name:&nbsp;{{ reviewData.MortgageLBankName }}</span
+            >
+          </div>
+          <div *ngIf="reviewData.MortgageBankAddress">
+            <span
+              >Loan Provider Address:&nbsp;{{
+                reviewData.MortgageBankAddress
+              }}</span
+            >
+          </div> -->
+
+        <!-- <div *ngIf="reviewData.MortgageInd">
+            <span
+              >Loan Provider Name:&nbsp;{{ reviewData.MortgageLBankName }}</span
+            >
+          </div>
+          <div *ngIf="reviewData.MortgageInd">
+            <span
+              >Loan Provider Address:&nbsp;{{
+                reviewData.MortgageBankAddress
+              }}</span
+            >
+          </div> -->
+      </div>
+    </div>
+    <!-- <div class="bike_owner_header">
+          <label>PERSONAL DETAILS</label>
+          <label class="edit">
+            <a (click)="onEditClick(0)">
+              <i class="fa fa-pencil" aria-hidden="true"></i> EDIT
+            </a>
+          </label>
+        </div>
+        <div class="bike_owner_details">
+          <div>
+            <span>Gender: {{ reviewData.GenderDesc }}</span>
+          </div>
+          <div>
+            <span>DOB: {{ reviewData.DOB }}</span>
+          </div>
+          <div>
+            <span>Nominee Full Name: {{ reviewData.NomineeName }}</span>
+          </div>
+          <div>
+            <span>Nominee DOB: {{ reviewData.NomineeDOB }}</span>
+          </div>
+          <div>
+            <span>Nominee Relation: {{ reviewData.RelationshipDesc }}</span>
+          </div>
+        </div>
+      </div> -->
+    <div class="col-md-6">
+      <div class="bike_owner_header">
+        <label>COMMUNICATION ADDRESS</label>
+        <label class="edit">
+          <a (click)="onEditClick(1)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+          </a>
+        </label>
+      </div>
+      <div class="bike_owner_details">
+        <div>
+          <span>Area: {{ reviewData.Area }}</span>
+        </div>
+        <div>
+          <span>Postal Address: {{ reviewData.PostalAdd }}</span>
+        </div>
+        <div>
+          <span>Pincode: {{ reviewData.PINCode }}</span>
+        </div>
+        <div>
+          <span>City: {{ reviewData.CityDesc }}</span>
+        </div>
+        <div>
+          <span>State: {{ reviewData.StateDesc }}</span>
+        </div>
+      </div>
+      <div class="bike_owner_header">
+        <label>VEHICLE DETAILS</label>
+        <label class="edit">
+          <a (click)="isNewPolicy ? onEditClick(2) : onEditClick(2)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+          </a>
+        </label>
+      </div>
+      <div class="bike_owner_details">
+        <div>
+          <span>Registration Number:&nbsp;{{
+            reviewData.VechileRegNo ? reviewData.VechileRegNo : "NA"
+            }}</span>
+        </div>
+        <div>
+          <span>Registration Date:&nbsp;{{ reviewData.VechileRegDate }}</span>
+        </div>
+        <div>
+          <span>Engine Number:&nbsp;{{ reviewData.VechileEngineNo }}</span>
+        </div>
+        <div>
+          <span>Chassis Number:&nbsp;{{ reviewData.VechileChassisNo }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="custom-control tnc custom-checkbox mb-3 text-left">
+        <mat-checkbox [formControl]="termAndCon">
+          The information provided by me is correct. I have understood all terms
+          & conditions related to the policy. <br />
+          I authorise Hamara Bima Insurance Brokers Pvt. Ltd. to coordinate with
+          the insurance company on my behalf.<br />
+          I authorise Hamara Bima Insurance Brokers Pvt. Ltd. or it's authorised
+          representative to contact me in relation to my policy via SMS, call,
+          e-Mail or Whatsapp.
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="col-md-12 text-center text-error" *ngIf="errMsg && !termAndCon.value">
+      {{ errMsg }}
+    </div>
+    <div class="col-md-12">
+
+      <button type="button" (click)="onSubmitPay(termAndCon.value)" [disabled]="!termAndCon.value"
+        class="btn communication-address" type="submit">
+        <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+        {{ sessData.amountPayableIncludingGst | currency: "INR":"symbol":"3.0" }} Payment
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Break in case -->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+  </button> -->
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="BreakInCase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLongTitle">Break in Inspection</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="breakInCase" (ngSubmit)="onSubmitBreakInCase()">
+            <div class="col-md-12">
+              <mat-form-field appearance="legacy">
+                <mat-label>OD Meter</mat-label>
+                <input matInput formControlName="odometer" [maxlength]="8" appOnlyNumbers>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="legacy">
+                <mat-label>Inspection Type</mat-label>
+                <mat-select formControlName="InpectionType">
+                  <mat-option value="0">Self</mat-option>
+                  <mat-option value="1">Agent</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="legacy">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput formControlName="MobileNo" [maxlength]="10" appOnlyNumbers>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button data-dismiss="modal" style="background-color: #ec691f; color: white"
+            (click)="onSubmitBreakInCase()">Submit & Next</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+<!-- Break in case end -->
+<!-- Break in case status -->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#breakInCaseStatus">
+    Launch demo modal
+  </button> -->
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="breakInCaseStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLongTitle">Break in Inspection Check Status</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 class="text-center">{{ReturnKeyOfPaymentMsg}}</h4>
+          <br>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button [disabled]="countDownValue != 0" (click)="onSubmitBreakInCaseStatus()"
+            style="background-color: #ec691f; color: white">{{countDownValue != 0?'Please wait ':''}}{{ countDownValue ==
+            0?"Check Status":countDownValue | timerformat}}</button>
+          <button mat-raised-button [hidden]="ReturnKeyOfPaymentMsg!='accepted'"
+            style="background-color: #ec691f; color: white" (click)="onSubmitProposal()"><i class="fa fa-inr"
+              aria-hidden="true"></i>
+            {{ sessData.amountPayableIncludingGst }} Payment</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+<!-- Break in case status end -->
+
+
+
+
+
+<!-- Modal for Inspection from other than third party (by company only i.e. godigit) -->
+<!-- id="BreakinCompanyInspectionModal" -->
+<div class="modal fadein policyexpiry" [ngStyle]="{'display':this.BreakinCompanyInspectionModal}" tabindex="-1"
+  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Break in Policy Status</h5>
+        <!-- <h5 class="modal-title text-center" id="exampleModalLongTitle" > Policy Status</h5> -->
+        <button type="button" class="close" data-dismiss="modal" (click)="closeModalDialog()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <div class="col-md-12 m-auto row">
+          <p>Your Vehicle break-in case is under inspection now. The concerned company will communicate with you
+            shortly. Thank you for your patience</p>
+        </div>
+        <div class="col-md-12 m-auto row">
+          <div class="col-md-4 m-auto text-right font-weight-bold">Policy Proposal Number</div>
+          <div class="col-md-4 m-auto text-left">{{result? result[0].PolicyNo : ''}}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-12 m-auto row">
+            <div class="col-md-4 m-auto text-right font-weight-bold">Policy Status</div>
+            <div class="col-md-4 m-auto text-left">{{result? result[0].ProposalStatusMsg : ''}}</div>
+          </div>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-between">
+          <button mat-raised-button data-dismiss="modal" class="btnstyle1" routerLink='/pos/car-insurance'>Go Home
+          </button>
+
+          <button mat-raised-button data-dismiss="modal" class="btnstyle1">Check Status
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#breakInCaseStatus">
+    Launch demo modal
+  </button> -->

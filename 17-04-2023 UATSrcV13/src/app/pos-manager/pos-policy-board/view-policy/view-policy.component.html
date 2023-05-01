@@ -1,0 +1,32 @@
+<app-loader *ngIf='loading'></app-loader>
+
+<div class="col-md-12">
+    <div class="bike_area">
+        <div class="row datepickerpannel">
+
+            <div class="col-md-4 m-auto">
+                <div class="side-block">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="policy_block">NUMBER OF POLICIES
+                                <br>
+                                <span>{{totalPolicies ? totalPolicies : 0}}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="policy_block">TOTAL PREMIUM
+                                <br>
+
+                                <span><i class="fa fa-inr" aria-hidden="true"></i>
+                                    {{totalPremium ? (totalPremium | number:
+                                    '1.0-0') : 0}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

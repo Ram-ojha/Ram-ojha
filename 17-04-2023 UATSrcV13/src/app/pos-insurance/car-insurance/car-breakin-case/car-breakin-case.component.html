@@ -1,0 +1,98 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> <br /><br /> -->
+<div class="col-md-6 offset-md-3 mt-4">
+  <div class="col-md-12 pad0" *ngIf="BreakInCase">
+    <div class="ribbon-3">
+      <h2>
+        Car Inspection Details
+      </h2>
+    </div>
+    <div class="col-md-12 pl-2 pr-2">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="breakInCase" (ngSubmit)="onSubmitBreakInCase()">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline">
+                <mat-label>ODO Meter</mat-label>
+                <input matInput formControlName="odometer" [maxlength]="8" appOnlyNumbers required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="outline">
+                <mat-label>Inspection Type</mat-label>
+                <mat-select formControlName="InpectionType" required>
+                  <mat-option value="0">Self</mat-option>
+                  <mat-option value="1">Agent</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="outline">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput formControlName="MobileNo" [maxlength]="10" appOnlyNumbers readonly required>
+              </mat-form-field>
+            </div>
+            <span *ngIf='errorMessage' class="text-danger text-center">{{errorMessage}}</span>
+          </form>
+        </div>
+        <div class="card-footer text-right">
+          <button mat-raised-button data-dismiss="modal" class="countdown" (click)="onSubmitBreakInCase()">Submit &
+            Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Break in case end -->
+  </div>
+  <!-- Break in case status -->
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#breakInCaseStatus">
+  Launch demo modal
+</button> -->
+
+  <!-- Modal -->
+  <!-- data-keyboard="false" -->
+  <!-- id="breakInCaseStatus" changes by kishori -->
+  <div class="modal fadein policyexpiry" [ngStyle]="{'display': this.breakInCaseStatusPopUp}" data-keyboard="false"
+    data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLongTitle">Breakin Inspection Check Status</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+          <button mat-raised-button type="button" data-dismiss="modal" routerLink='/pos/car-insurance'>
+            <span aria-hidden="true">
+              <i class="fa fa-home"></i>
+            </span>
+            Go to Home
+          </button>
+        </div>
+        <div class="modal-body pb-0">
+          <h4 class="text-center mb-0">{{ReturnKeyOfPaymentMsg}}</h4>
+          <br>
+          <p *ngIf="ReturnKeyOfPayment != 0">
+            Reference No :- {{ReturnKeyOfPayment}}
+          </p>
+        </div>
+        <div class="modal-footer text-right">
+          <button mat-raised-button class="countdown" [disabled]="countDownValue != 0"
+            (click)="onSubmitBreakInCaseStatus()"
+            *ngIf="ReturnKeyOfPaymentMsg!='accepted' && ReturnKeyOfPaymentMsg!='rejected'">{{countDownValue
+            != 0?'Please wait ':''}}{{ countDownValue
+            ==
+            0?"Check Status":countDownValue | timerformat}}</button>
+          <button *ngIf="ReturnKeyOfPaymentMsg=='rejected'" mat-raised-button class="countdown"
+            (click)="onRejected()">Exit</button>
+          <button mat-raised-button [hidden]="ReturnKeyOfPaymentMsg!='accepted'" class="countdown"
+            (click)="onSubmitProposal()">
+            <!-- <i class="fa fa-inr"
+              aria-hidden="true"></i> -->
+            {{ sessData.amountPayableIncludingGst | currency: "INR":"symbol":"3.0" }} Payment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Break in case status end -->
+</div>

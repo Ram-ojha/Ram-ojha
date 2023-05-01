@@ -1,0 +1,783 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<!-- <app-loader [hidden]="showLoader"></app-loader> -->
+<!--- Main list ----->
+<div class="main-container health-plans">
+    <div class="container">
+        <div class="row">
+            <div class="top-head marT20 marB20 ">
+                <div class="col-md-8 col-xs-12 col-sm-8">
+                    <div class="left-model-name">
+                        <h2>Display {{filteredData.length}} plans for <span
+                                *ngFor="let m of healthQuotes.healthInsuranceMembers">
+                                {{m.FamilyMemberDesc}} ({{m.AgeDesc}}) </span></h2>
+                        <!-- <h4>Showing 79 plans for Self (25 Yrs), Spouse</h4> -->
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-4">
+                    <div class="left-model-name text-right">
+                        <div class="col-md-12">
+                            <h4> <a class="cursor" (click)="edit_Member()"><i class="fa fa-pencil-square-o"></i> Edit
+                                    Member</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="service-check pt-2">
+    <div class="container">
+        <div class="marT50 marB50 row">
+            <!-- Service List --->
+            <div class="col-md-12 col-12">
+                <div class="bike-details-container ">
+                    <div class="row">
+                        <div class="filter-tabs">
+                            <div class="col-md-12 col-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <mat-form-field class="insurers" appearance="fill">
+                                            <mat-label><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Sort
+                                                Plans</mat-label>
+                                            <mat-select [disabled]="disableFilter" name="plans"
+                                                [(ngModel)]="planFilter.premium" (selectionChange)="filterPremium()">
+                                                <!-- <mat-option value="0">Recommended</mat-option> -->
+                                                <mat-option value="1">Premium (low-high)</mat-option>
+                                                <mat-option value="2">Premium (high-low)</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="insurers" appearance="fill">
+                                            <mat-label><i class="fa fa-list" aria-hidden="true"></i> Insurers
+                                            </mat-label>
+                                            <mat-select [disabled]="disableFilter" multiple [formControl]="companies"
+                                                (selectionChange)="MultipalFilterProduct()">
+
+                                                <mat-select-trigger>
+                                                    {{companies.value ? companies.value.length : ''}}
+                                                    <span class="example-additional-selection">
+                                                        <!-- {{companies.value.length}}  -->
+                                                        Insurance selected
+                                                        <!-- (+{{companies.value.length - 1}}
+                                                        {{companies.value?.length === 2 ? 'other' : 'others'}}) -->
+                                                    </span>
+                                                </mat-select-trigger>
+                                                <mat-option [disabled]="disableFilter" *ngFor="let item of insurersList"
+                                                    [value]="item.CompanyCode">
+                                                    {{item.CompanyName}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="insurers" appearance="fill">
+                                            <mat-label><i class="fa fa-shield" aria-hidden="true"></i> Cover</mat-label>
+                                            <mat-select [disabled]="disableFilter" [(ngModel)]="planFilter.sumInsured"
+                                                (selectionChange)="onChangeCover()">
+                                                <!-- <mat-option>Cover</mat-option> -->
+                                                <mat-option *ngFor="let cover of coverList" [value]="cover.id">
+                                                    {{cover.value}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <!-- <mat-form-field class="insurers" appearance="fill">
+                                            <mat-label>Pokemon</mat-label>
+                                            <mat-select [disabled]="disableFilter">
+                                              <mat-option>-- None --</mat-option>
+                                              <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name" [disabled]="group.disabled">
+                                                <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+                                                  {{pokemon.viewValue}}
+                                                </mat-option>
+                                              </mat-optgroup>
+                                            </mat-select>
+                                        </mat-form-field> -->
+
+                                        <!-- <button class="features" [disabled]="disableFilter" (click)="openDialog()">
+                                            <span>Features</span>
+                                            <span style="float: right;">
+                                                <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            </span>
+                                        </button> -->
+                                        <mat-form-field class="insurers" appearance="fill" (click)="openDialog()">
+                                            <mat-label><i class="fa fa-key" aria-hidden="true"></i> Features
+                                            </mat-label>
+                                            <mat-select [disabled]="disableFilter" (click)="openDialog()"
+                                                [(ngModel)]="FeaturesCount">
+                                                <mat-option [value]="1" (click)="openDialog()"
+                                                    *ngIf="SpecialFeatureRow.length">
+                                                    {{SpecialFeatureRow.length}} Features Selected
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="insurers" appearance="fill">
+                                            <mat-label><i class="fa fa-inr" aria-hidden="true"></i> Premium
+                                            </mat-label>
+                                            <mat-select [(ngModel)]="Premium" [disabled]="disableFilter"
+                                                (selectionChange)="MultipalFilterProduct()">
+                                                <mat-option value="0">Premium (Yearly)</mat-option>
+                                                <mat-option *ngFor="let topping of premiumList"
+                                                    value="{{topping.PremiumFrom}},{{topping.PremiumTo}}">
+                                                    {{topping.PremiumText}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <mat-form-field class="insurers" appearance="fill">
+                                            <mat-label><i class="fa fa-calendar" aria-hidden="true"></i> Policy Period
+                                            </mat-label>
+                                            <mat-select [disabled]="disableFilter" name="Baseplans"
+                                                [(ngModel)]="planFilter.Tanure"
+                                                (selectionChange)="filterPolicyPeriod()">
+                                                <mat-option [value]="1">1 Year</mat-option>
+                                                <mat-option [value]="2">2 Year</mat-option>
+                                                <mat-option [value]="3">3 Year</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- <span class="result">
+                                <h4>{{filteredData.length}} matching plans</h4>
+                            </span> -->
+                            <span class="result" *ngIf="showLoader && filteredData.length ==0">
+                                <h4>No matching plans found!</h4>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row" #screen>
+
+
+                        <div class="whatsapp-btn" *ngIf='filteredData.length >0'>
+                            <button class="btn" type="button" (click)="openQuoteSharingForm()"
+                                matTooltip='Share Plans on whatsapp' [disabled]='disableFilter'>
+                                <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="col-md-3" *ngFor="let item of filteredData" [hidden]='filteredData.length == 0'>
+                            <div class="bike-details-box d-none">
+                                <div>
+                                    <!-- (click)="onClickBuyplan(item)" -->
+                                    <figure class="padT10 padB10">
+                                        <!-- <img src="./assets/img/insurance/apollo.png" alt=""> -->
+                                        <!-- <img [src]="item.CompanyLogo" alt=""> -->
+                                        <img src='{{ "assets/img/company-logos/health/" + item.CompanyLogo }}'
+                                            alt="{{item.CompanyLogo}}" />
+
+                                    </figure>
+                                    <ul class="ins-plan-list">
+                                        <li class="itemstyle">Sum Assured:
+                                            <span class="itemsize">
+                                                <i class="fa fa-rupee marL5" aria-hidden="true"></i> {{item.SumInsured}}
+                                            </span>
+                                        </li>
+                                        <li class="itemstyle">Premium/Yr:
+                                            <span class="cut-price">
+                                                <!-- <i class="fa fa-rupee marL5" aria-hidden="true"></i> -->
+                                                <!-- {{item.Premium | numberFormat: 'commas'}} -->
+                                                {{item.Premium | customRoundUp | currency:'INR':'symbol':'3.0'}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <hr>
+                                </div>
+                                <hr>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-checkbox>Compare</mat-checkbox>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label data-toggle="modal" data-target="#exampleModalCenter"
+                                                class="btnpointer">See
+                                                Details</label>
+                                        </div>
+                                        <div class="col-md-4 px-0 marT8">
+                                            <button class="btn btn-primery btnstyle" (click)="onClickBuyplan(item)">Buy
+                                                Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- New Design Html -->
+                            <div class="price-plan">
+                                <div class="price-box">
+                                    <div class="image">
+                                        <figure>
+                                            <!-- <img [src]="item.CompanyLogo" alt=""> -->
+                                            <img src='{{ "assets/img/company-logos/health/" + item.CompanyLogo }}'
+                                                alt="{{item.CompanyLogo}}" />
+                                        </figure>
+                                        <h5 class="prdct_name">{{item.ProductName}}<small
+                                                *ngIf="item.CompanyCode == '1' && item.ProductCode != '689'"> (NCB
+                                                Included)</small></h5>
+                                    </div>
+                                    <ul class="feature-list">
+                                        <li *ngFor='let feature of SpecialFeatureRow'>
+                                            <i class="fa fa-check"></i>
+                                            {{getFeatureSubCategoryDesc(feature.FeatureSubCategoryCode)}}
+                                        </li>
+                                    </ul>
+                                    <ul class="ins-plan-list">
+                                        <li class="itemstyle">Sum Assured
+                                            <span class="itemsize">
+                                                <i class="fa fa-rupee marL5" aria-hidden="true"></i>{{item.SumInsured}}
+                                            </span>
+                                        </li>
+                                        <li class="itemstyle">Premium/Yr
+                                            <span class="cut-price">
+                                                {{item.Premium | customRoundUp | currency:'INR':'symbol':'3.0'}}
+                                            </span>
+                                            <span class="cut" *ngIf="item.HealthDiscountList != null">
+                                                {{item.ActualPremium | customRoundUp | currency:'INR':'symbol':'3.0'}}
+                                            </span>
+                                        </li>
+
+                                    </ul>
+
+                                    <p class="gst-tag">*Including GST</p>
+
+
+                                    <div class="price-tag">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 bdr_R">
+                                                <a href="{{item.HealthBroucherURL}}" class="btnpointer"
+                                                    class="view-details" target="_blank">View Details</a>
+                                            </div>
+                                            <div class="col-md-6 col-12"><a href="{{item.NetworkHospitalsURL}}"
+                                                    class="view-details mt-1" target="_blank">View Hospitals</a></div>
+                                        </div>
+                                        <div class="buy-nw">
+                                            <button class="btn-buy" (click)="onClickBuyplan(item)">Buy Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 marT13" [hidden]="planLoader">
+                            <app-sm-loader></app-sm-loader>
+                        </div>
+                    </div>
+
+                    <div class="divider" *ngIf="plansNotMatchingFeatures.length > 0">
+                        <h4>Other Plans</h4>
+                    </div>
+
+
+                    <!-- /////////////////////sourabh///////////////////// -->
+                    <div class="row" *ngIf="plansNotMatchingFeatures.length > 0">
+
+                        <div class="col-md-3" *ngFor="let item of plansNotMatchingFeatures">
+
+                            <!-- New Design Html -->
+                            <div class="price-plan">
+                                <div class="price-box">
+                                    <div class="image">
+                                        <figure>
+                                            <!-- <img [src]="item.CompanyLogo" alt=""> -->
+                                            <img src='{{ "assets/img/company-logos/health/" + item.CompanyLogo }}'
+                                                alt="{{item.CompanyLogo}}" />
+                                        </figure>
+                                        <h5 class="prdct_name">{{item.ProductName}}</h5>
+                                    </div>
+                                    <ul class="ins-plan-list">
+                                        <li class="itemstyle">Sum Assured
+                                            <span class="cut-price">
+                                                <i class="fa fa-rupee marL5" aria-hidden="true"></i>{{item.SumInsured}}
+                                            </span>
+                                        </li>
+                                        <li class="itemstyle">Premium/Yr
+                                            <span class="cut-price">
+                                                <!-- <i class="fa fa-rupee marL5" aria-hidden="true"></i> -->
+                                                <!-- {{item.Premium | numberFormat: 'commas'}} -->
+                                                {{item.Premium | customRoundUp | currency:'INR':'symbol':'3.0'}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <p class="gst-tag">*Including GST</p>
+                                    <div class="price-tag">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 bdr_R">
+                                                <a href="{{item.HealthBroucherURL}}" class="btnpointer"
+                                                    class="view-details" target="_blank">View Details</a>
+                                            </div>
+                                            <div class="col-md-6 col-12"><a href="{{item.NetworkHospitalsURL}}"
+                                                    class="view-details mt-1" target="_blank">View Hospitals</a></div>
+                                        </div>
+                                        <div class="buy-nw">
+                                            <button class="btn-buy" (click)="onClickBuyplan(item)">Buy Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 marT13" [hidden]="planLoader">
+                            <app-sm-loader></app-sm-loader>
+                        </div>
+                    </div>
+
+                    <!-- ////////////////////sourabh///////////////////// -->
+
+                    <!-- <div class="divider" *ngIf="RemainingCompanies.length > 0">
+                        <h4>Remaining Companies</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="margin-top:2%" *ngFor="let c of RemainingCompanies">
+                            <div class="remain-c">
+                                <img src="{{c.CompanyLogo}}">
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+</section>
+<!-- Bike Result-->
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade Plan_Details" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 pad0">
+                            <div class="plan_card">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="company_logo">
+                                            <img src="./assets/img/insurance/apollo.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <ul class="health-price-list">
+                                            <li>Sum Assured :
+                                                <b><i aria-hidden="true" class="fa fa-rupee marL5"></i> 5 Lakh </b>
+                                            </li>
+                                            <li>Premium/Yr :
+
+                                                <b><i aria-hidden="true" class="fa fa-rupee marL5"></i> 9,610</b>
+                                            </li>
+                                            <li>
+                                                <b></b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3 txt-R ">
+                                        <button class="btn btn-primary" type="submit">
+                                            Buy Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-tab-group>
+                                <mat-tab label="Features">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td class="colum-table-tittle">Main Features</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2">Copay : 0%</td>
+                                                    <td><i class="fa fa-question-circle" aria-hidden="true"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2">Room rent : No limit on room rent </td>
+                                                    <td><i class="fa fa-question-circle" aria-hidden="true"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2">Waiting period : 4 years</td>
+                                                    <td><i class="fa fa-question-circle" aria-hidden="true"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2">Renewal Bonus : 5.0%</td>
+                                                    <td><i class="fa fa-question-circle" aria-hidden="true"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2">Health Checkup : Available</td>
+                                                    <td><i class="fa fa-question-circle" aria-hidden="true"></i></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="marT20">
+                                            <table>
+                                                <tr>
+                                                    <td class="colum-table-tittle">Special Features</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2"><i class="fa fa-check"
+                                                            aria-hidden="true"></i> 100% Restore Benefit </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="colum-table2"><i class="fa fa-check"
+                                                            aria-hidden="true"></i> No Claim Bonus of 50% every year
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <!-- <mat-tab label="Plan Details"> Content 2 </mat-tab> -->
+                                <mat-tab label="Covered">
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Must have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Benefits if you don't claim</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses before Admission</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses after Discharge</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Restore benefits </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Organ donor</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-12 marT20">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Good to have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Pregnancy cover</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Health Checkup</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Daily hospitalization allowance</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Emergency ambulance </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Ayurveda/Homeopathy</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Not Covered">
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Must have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Benefits if you don't claim</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses before Admission</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses after Discharge</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Restore benefits </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Organ donor</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-12 marT20">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Good to have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Pregnancy cover</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Health Checkup</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Daily hospitalization allowance</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Emergency ambulance </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Ayurveda/Homeopathy</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Premium & Cover Change">
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Must have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Benefits if you don't claim</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses before Admission</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses after Discharge</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Restore benefits </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Organ donor</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-12 marT20">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Good to have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Pregnancy cover</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Health Checkup</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Daily hospitalization allowance</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Emergency ambulance </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Ayurveda/Homeopathy</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Network Hospitals (25)">
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Cashless Hospitals in Indore</mat-label>
+                                                    <input matInput placeholder="Placeholder">
+                                                    <mat-icon matSuffix>search</mat-icon>
+                                                </mat-form-field>
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Must have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Benefits if you don't claim</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses before Admission</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Expenses after Discharge</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Restore benefits </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Organ donor</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-12 marT20">
+                                                <table>
+                                                    <tr>
+                                                        <td class="colum-table-tittle">Good to have features</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Pregnancy cover</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Health Checkup</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Daily hospitalization allowance</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Emergency ambulance </td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="colum-table2">Ayurveda/Homeopathy</td>
+                                                        <td><i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<!-- id="FeaturesDialog" changes by kishori -->
+<div class="custom-modal fadein policyexpiry" [ngStyle]="{'display':this.FeaturesDialog}">
+    <div class="modal-content">
+        <div class="col-md-12">
+            <div class="modal-title">
+                <h2>Features</h2>
+            </div>
+            <div class="modal-body">
+                <div *ngFor="let Cat of FeatureCate">
+                    <h4>{{Cat?.FeatureCategoryDesc}}
+                    </h4>
+                    <ul class="subcat" *ngFor="let SubCat of FeatureSubCate">
+                        <li *ngIf="Cat?.FeatureCategoryCode == SubCat.FeatureCategoryCode">
+                            <mat-checkbox type="checkbox" class="example-margin" *ngIf="SubCat.ControlId == 1"
+                                [checked]="isChecked(SubCat.FeatureSubCategoryCode)"
+                                (change)="SpecialFeatureChk(Cat.FeatureCategoryDesc,SubCat.FeatureCategoryCode,SubCat.FeatureSubCategoryCode,true)">
+                                {{SubCat.FeatureSubCategoryDesc}}</mat-checkbox>
+
+                            <mat-radio-button [value]="SubCat.FeatureSubCategoryCode" *ngIf="SubCat.ControlId == 2"
+                                [checked]="isChecked(SubCat.FeatureSubCategoryCode)"
+                                (change)="SpecialFeatureRadio(Cat.FeatureCategoryDesc,SubCat.FeatureCategoryCode,SubCat.FeatureSubCategoryCode,true)">
+                                {{SubCat.FeatureSubCategoryDesc}}
+                            </mat-radio-button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button mat-raised-button color="warn" (click)="closeDialog()">No Thanks</button>
+                    <button mat-raised-button color="primary" (click)="MultipalFilterProduct()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-quotes-sharing-modal #shareQuotesModal [quotesDetailsForSharing]='quotesDetailsForSharing'>
+</app-quotes-sharing-modal>

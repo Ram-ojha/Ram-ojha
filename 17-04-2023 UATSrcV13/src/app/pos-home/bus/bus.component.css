@@ -1,0 +1,15 @@
+.lds-ripple{
+    display: none;
+}
+
+.bike_area{
+    display: block;
+}
+
+.bike-insu-div h4{
+    margin-bottom: 0px;
+}
+
+.bike-insu-div label{
+    font-size: 12px; color: #948080; margin-bottom: 15px;
+}

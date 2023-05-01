@@ -1,0 +1,364 @@
+
+h1.titile {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #083b66;
+    text-decoration: underline;
+}
+.subtitle h4 {
+    font-size: 17px;
+    line-height: 24px;
+}
+.subtitle span {
+    font-weight: 500;
+}
+.main-content h4 {
+    font-size: 18px;
+}
+.main-content h3 {
+    font-size: 16px;
+    line-height: 20px;
+}
+ul.terms {
+    padding: 0;
+}
+ul.terms li{
+    list-style-type: none;
+}
+
+ul.terms li {
+    list-style-type: none;
+    margin-bottom: 12px;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000;
+}
+ul.terms li span {
+    font-weight: 600;
+}
+.main-content h5 {
+    font-size: 15px;
+    font-weight: 500;
+}
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+.mat-expansion-panel-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 24px;
+    border-radius: inherit;
+    border-bottom: solid 1px #eee;
+    margin-bottom: 10px;
+}
+
+/* Certificate Style  */
+
+    /* body {
+        font-family: 'Montserrat', sans-serif;
+        color: #000000;
+    } */
+
+    img {
+        vertical-align: middle;
+        border-style: none;
+        width: 100%;
+    }
+    div#DivPDF {
+        float: left;
+        position: relative;
+        width: 100%;
+    }
+.space{
+    float: left;
+    position: relative;
+    width: 100%;
+    margin: 3.5% auto 0;
+}
+    .main-form {
+        margin: 0 auto 0;
+        width: 1010px;
+        margin-bottom: 30px;
+        border: solid 1px rgba(206, 195, 195, 0.1411764705882353);
+        display: flow-root;
+        position: relative;
+        background: #fff;
+        font-family: 'Montserrat', sans-serif;
+        color: #000000;;
+        /* background-image: url('../Content/assets/images/certificate/bg.png'); */
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .page-container {
+        width: 750px;
+        margin: 0px auto 0px;
+        text-align: justify;
+        display: flow-root;
+        padding: 20px 0;
+    }
+
+    .page-header {
+        width: 90%;
+        padding: 0 0;
+        text-align: center;
+        margin: 6% auto 0;
+    }
+
+    .logo {
+        width: 40%;
+        margin: 0 auto;
+    }
+
+        .logo img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+    .date {
+       
+       
+        margin-top: 15px;
+        text-align: center;
+    }
+    
+  .date p {
+            text-align: right;
+            display: inline-block;
+            margin-right: 0px;
+            margin-left: 450px;
+       }
+    
+.date ul {
+    display: inline-block;
+    text-align: left;
+    margin-left: 0px;
+    padding: 0px;
+    font-weight: bold;
+    font-size: 16px;
+      
+}
+
+        .date h4 {
+            font-size: 28px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #616161;
+            margin-bottom: 0px;
+        }
+
+        .date h5 {
+            margin: 0;
+            font-size: 30px;
+            font-style: italic;
+            font-family: monospace;
+            color: #616161;
+        }
+
+    .photo-frame-img img {
+        
+        width: 130px;
+        height: 130px;
+        
+    }
+
+    .photo-frame-img {
+       
+        width: auto;
+        float: right;
+        text-align: center;
+        margin-right: 0%;
+        background: #1f3e5b;
+        padding-right: 4px;
+        border-top-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border: solid 1px #eee;
+        padding-top: 4px;
+    }
+
+    .titile {
+        font-family: 'Oswald', sans-serif;
+        font-size: 26px;
+        text-align: left;
+        color: #22415d;
+        margin: 0px 0 3%;
+        font-weight: 600;
+    }
+
+    .message {
+        width: 77%;
+        float: left;
+        padding-left: 45px;
+    }
+
+    .hamarabima p {
+        font-family: arial;
+        font-size: 18px;
+        margin: 20px 0;
+    }
+
+    .hamarabima {
+        float: left;
+        margin: 10px 0 0;
+    }
+
+    .signatory {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+        .signatory p {
+            margin: 0px;
+            font-weight: 500;
+        }
+
+            .signatory p:last-child {
+                font-size: 15px;
+            }
+
+    .page-footer p span {
+        font-family: arial;
+        font-size: 13px;
+        filter: blur(0.6px);
+    }
+
+    .footer {
+        float: left;
+        width: 100%;
+        padding: 0 76px;
+        margin: 4% 0px 5%;
+    }
+
+    .left {
+        float: left;
+        width: 60%;
+    }
+
+        .left p {
+            margin: 0 0;
+            font-size: 12px;
+            color: #000;
+            font-weight: 600;
+        }
+
+    .right {
+        float: right;
+        width: 40%;
+        text-align: right;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .signatory {
+        float: left;
+        width: 50%;
+    }
+
+    /*.ribbon {
+        float: right;
+        width: 50%;
+    }
+
+        .ribbon img {
+            width: 100%;
+            max-width: 61%;
+            margin-left: 27%;
+        }*/
+    .ribbon {
+        float: right;
+         width: 40%;
+        height: 40vh;
+        background-repeat: no-repeat;
+        background-size: 232px 248px;
+    }
+
+    .bttm-txt {
+        width: 80%;
+        position: relative;
+        text-align: center;
+        margin: 0 auto 8%;
+    }
+
+        .bttm-txt p {
+            margin: 0 0 0;
+            padding: 0 0;
+            font-size: 13px;
+        }
+
+        p.bottom_line {
+    text-align: center;
+    margin: 0;
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.personal-details {
+    float: left;
+    position: relative;
+    width: 100%;
+    border: solid 1px #000;
+    padding: 5px 5px;
+        margin-bottom: 20px;
+}
+h4.dCertificate,h4.dCertificate span {
+    margin: 0;
+    font-weight: 400;
+}
+
+h4.dCertificate b {
+    font-weight: 500;
+    float: left;
+    width: 40%;
+    border-bottom: dotted 1px #000;
+
+
+}
+
+.personal-details p {
+    float: left;
+    margin: 20px 0 0 0;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+h4.dCertificate span {
+    float: left;
+    width: 58%;
+    border-bottom: dotted 1px #000;
+}
+h4.dCertificate small {
+    float: left;
+    width: 70%;
+    border-bottom: dotted 1px #000;
+    text-align: right;
+}
+.main-content{
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: underline;
+}
+
+.main-form.DivPDF{
+    background-image:url('../../../assets/img/certificate/bg.png');
+}
+.certificate{
+    float:right;
+}
+
+.ribbon{
+    background-image:url('../../../assets/img/certificate/badge.png');
+}

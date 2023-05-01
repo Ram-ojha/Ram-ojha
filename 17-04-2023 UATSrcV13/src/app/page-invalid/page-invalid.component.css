@@ -1,0 +1,36 @@
+.invalid-page {
+    float: left;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.invalid-page img {
+    width: 100%;
+    max-width: 50%;
+    margin: 0% auto 3%;
+}
+.invalid-page p {
+    font-size: 16px;
+    margin: 0 0;
+    font-weight: 600;
+}
+
+a{
+    color: #ffffff;
+}
+
+@media screen and (max-width:991px) {
+
+    
+    .invalid-page img {
+        width: 100%;
+        max-width: 80%;
+        margin: 4% auto;
+    }
+
+    .invalid-page p{
+        margin: 12px 0;
+    }
+}

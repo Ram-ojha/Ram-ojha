@@ -1,0 +1,142 @@
+.padT10 {
+    padding-top: 10px;
+}
+
+.styleright {
+    float: right;
+}
+
+.padT10 {
+    padding-top: 10px;
+}
+
+.example-tooltip-red {
+    background: #ec691f;
+}
+
+.payment-mode {
+    float: left;
+    position: relative;
+    width: 100%;
+    margin: 1% 0;
+    border-top: solid 1px #e0e0e0;
+    padding: 10px 0;
+}
+
+.overflow {
+    overflow: hidden !important;
+    -ms-text-overflow: ellipsis !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+    display: block !important;
+}
+
+.overflow:hover {
+    overflow: visible;
+}
+
+.overflow:hover span {
+    position: relative;
+    background-color: white;
+
+    box-shadow: 0 0 4px 0 black;
+    border-radius: 1px;
+}
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #083b66;
+    border-color: #083b66;
+}
+
+mat-table.mat-table .mat-header-row {
+    background: #083b66;
+    color: #fff;
+}
+
+mat-table.mat-table .mat-header-row .mat-header-cell {
+    color: #fff;
+    opacity: 1 !important;
+}
+
+mat-table.mat-table .mat-header-row .mat-header-cell .mat-sort-header-arrow {
+    color: #fff;
+    opacity: 1 !important;
+}
+
+mat-table.mat-table .mat-header-row .mat-header-cell {
+    padding: 0px 10px !important;
+}
+
+mat-cell.mat-cell,
+mat-cell.mat-footer-cell {
+    padding: 9px 10px !important
+}
+
+mat-footer-row,
+mat-header-row,
+mat-row {
+    padding: 7px 0px !important;
+}
+
+.mat-card {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0;
+    float: left;
+}
+
+.policy-dashboard {
+    position: relative;
+    width: 100%;
+    float: left;
+    margin: 20px 0;
+}
+
+/* Ribbon */
+
+[class^="ribbon-"] {
+    position: relative;
+    margin-bottom: 80px;
+}
+
+[class^="ribbon-"]:before,
+[class^="ribbon-"]:after {
+    content: "";
+    position: absolute;
+}
+
+.ribbon-3 {
+    width: 99.5%;
+    margin-left: -10px;
+    margin-right: -10px;
+    background: #083b66;
+    margin: 0 auto;
+    z-index: 2;
+    color: #fff;
+}
+
+.ribbon-3:before {
+    height: 0;
+    width: 0;
+    border-top: 10px solid #083b66;
+    border-left: 10px solid transparent;
+    bottom: -10px;
+}
+
+.ribbon-3:after {
+    height: 0;
+    width: 0;
+    border-top: 10px solid #083b66;
+    border-right: 10px solid transparent;
+    right: 0;
+    bottom: -10px;
+}
+
+.ribbon-3 h2 {
+    color: #fff;
+    margin: 0 0;
+    font-size: 18px;
+    text-align: center;
+    padding: 8px 0;
+}

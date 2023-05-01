@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Features</h1>
+<div mat-dialog-content class="mat-typography">
+    <form [formGroup]="featuresForm">
+        <label id="example-radio-group-label">Pre Existing Conditions</label>
+        <div class="radioBntBox">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="favoriteSeason" [(ngModel)]="favoriteSeason">
+                <mat-radio-button class="example-radio-button" *ngFor="let season of preExistingConditions"
+                    [value]="season">
+                    {{season}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <label id="example-radio-group-label">Hospital Room Eligibility</label>
+        <div class="radioBntBox">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="favoriteSeason2" [(ngModel)]="favoriteSeason2">
+                <mat-radio-button class="example-radio-button" *ngFor="let season of hospitalRoomEligibility"
+                    [value]="season">
+                    {{season}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div>
+            <section class="example-section">
+                <span class="example-list-section">{{task.heading}} </span>
+                <span class="example-list-section">
+                    <ul>
+                        <li *ngFor="let subtask of task.subtasks">
+                            <mat-checkbox formControlName="subtask" [(ngModel)]="subtask.completed" color="accent" [value]="subtask.heading">
+                                {{subtask.heading}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </span>
+            </section>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" (click)="onOkClick()" cdkFocusInitial>Ok</button>
+</div>

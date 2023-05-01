@@ -1,0 +1,2409 @@
+<!--Future CKYC Form Start-->
+<div class="m-3 ml-5"
+    *ngIf="this.PlanData?.CompanyCode !=='12' && this.PlanData?.CompanyCode !=='4' && this.PlanData?.CompanyCode !=='9'  ">
+    <input (click)="BacktoBuyPlan()" type="button" value="Back" class=" w--button w--button--orange w--button--large">
+</div>
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='2'">
+
+
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <hr style="margin: 0;" />
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onSubmitCKYCInfoFuture()">
+                    <ng-template matStepLabel>CKYC Details</ng-template>
+                    <div class="row ">
+
+                        <div class="col-md-12 select-gender">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <!-- <mat-label>Select Customer Type</mat-label> -->
+                                        <mat-select formControlName="customerType"
+                                            (selectionChange)="onSelectCustomerType($event)">
+                                            <!-- <mat-option value="">Select Doc Type.</mat-option> -->
+                                            <mat-option value="I">Individual</mat-option>
+                                            <!-- <mat-option value="C">Corporate</mat-option> -->
+                                        </mat-select>
+
+                                        <mat-error *ngIf="ckycDetailForm.get('customerType')?.hasError('required')">
+                                            You must make a
+                                            selection</mat-error>
+                                        <mat-error
+                                            *ngIf="ckycDetailForm.get('customerType')?.hasError('pattern') && !ckycDetailForm.get('customerType')?.hasError('required')">
+                                            Your selection is invalid
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Choose one</mat-label>
+                                        <mat-select formControlName="doctype">
+                                            <mat-option value="">Select Doc Type.</mat-option>
+                                            <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocListFilter">
+                                                {{doc?.DocDesc}}</mat-option>
+                                        </mat-select>
+
+                                        <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                            You must make a
+                                            selection</mat-error>
+                                        <mat-error
+                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                            Your selection is invalid
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--!ckycDetailForm.get('doctype')?.value-->
+                                    <!--this.successPanNo==false && this.successDocNo===false-->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                            ckycDetailForm.get('doctype')?.value?.DocDesc:"Select Document Type"}}
+                                        </mat-label>
+
+                                        <input matInput appUppercase
+                                            [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                            placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                            formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                        <!-- <mat-error
+                                                                           *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                                             Please enter a valid Selected Document Number
+                                                                         </mat-error> -->
+                                    </mat-form-field>
+                                </div>
+                                <!--For Individual start-->
+
+                                <div class="col-md-6" *ngIf="ckycDetailForm.get('customerType')?.value ==='I'">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> {{ckycDetailForm.get('customerType')?.value ==="I"?
+                                            "Date of birth":"Date of Corporation"}}</mat-label>
+                                        <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                            required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                            [maxlength]="10" autocomplete="off" />
+                                        <mat-datepicker-toggle matSuffix [for]="dp6">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <!--For Individual End-->
+
+                                <!--For Corporate start-->
+                                <div class="col-md-6" *ngIf="ckycDetailForm.get('customerType')?.value ==='C'">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label> {{ckycDetailForm.get('customerType')?.value ==="I" ?
+                                            "Date of birth":"Date of Corporation"}}</mat-label>
+                                        <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                            required [placeholder]="date" [max]="getMinDate(1)" [min]="getMinDate(99)"
+                                            [maxlength]="10" autocomplete="off" />
+                                        <mat-datepicker-toggle matSuffix [for]="dp6">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <!--For Corporate end-->
+
+
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Full name as per
+                                            {{ckycDetailForm.get('doctype')?.value?.DocDesc}}</mat-label>
+                                        <input matInput appUppercase appOnlyAlpha appTrim
+                                            placeholder="Full name as {{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                            formControlName="FullName" pattern="^[a-zA-Z\s]+$" required [maxlength]="60"
+                                            autocomplete="off" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 select-gender">
+                                    <div class="row">
+                                        <label class="col-md-2 ">Gender
+                                        </label>
+                                        <div class="col-md-10 ">
+                                            <mat-radio-group aria-label="Select an option" class="row"
+                                                formControlName="gender" required>
+                                                <mat-radio-button name="rbdGender" class="col-md-2"
+                                                    [value]="g.GenderCode" *ngFor="let g of gendertypeForFuture">
+                                                    {{ g.GenderDesc }}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 owner-info" *ngIf="errMsg_oi && ckycDetailForm.invalid">
+                                    <span class="text-error">
+                                        {{ errMsg_oi }}
+                                    </span>
+                                </div>
+                                <p *ngIf="this.successcode=='2'" class="msg">
+                                    <span class="text-danger">Verification failed : </span>
+                                    <span class="text-primary" (click)="DocAPI()" style="cursor:pointer;"> Click
+                                        here</span>
+                                    to verify ckyc manually or
+                                    <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                        here
+                                        to change</span>
+                                </p>
+
+                                <p *ngIf="this.successcode=='1'" class="msg">
+                                    <span class="text-success">Verification succesfull : </span>
+                                    {{ckycDetails.FullName}}. Not you?
+                                    <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                        here
+                                        to
+                                        change</span>
+                                </p>
+
+                                <!-- <p *ngIf="this.successcode=='1'">click <span class="text-success" >Success</span>
+                                                   {{ckycDetails.FullName}}</p> -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+
+                            <button type="submit" *ngIf="successcode==''"
+                                class="w--button w--button--orange w--button--large">Validate
+                            </button>
+
+                            <button type="button" (click)="onCheckCkycStausFuture()"
+                                [ngClass]="showTimer ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                                *ngIf="successcode=='2' && btnCkeckStauts" [disabled]="showTimer">
+                                {{showTimer ? display : 'Check Status'}}
+                            </button>
+
+                            <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                                class="btn btn-success w--button--large">Continue as
+                                {{ckycDetails.FullName | titlecase}}</button>
+
+                        </div>
+
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
+<!--Future CKYC Form End-->
+
+
+
+
+<!--SBI CKYC Form Start-->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='7'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <hr style="margin: 0;" />
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onSubmitCKYCInfoSBI()">
+                <ng-template matStepLabel>CKYC Details</ng-template>
+                <div class="row">
+
+                    <div class="col-md-12 select-gender">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <!-- <mat-label>Select Customer Type</mat-label> -->
+                                    <mat-select formControlName="customerType"
+                                        (selectionChange)="onSelectCustomerType($event)">
+                                        <!-- <mat-option value="">Select Doc Type.</mat-option> -->
+                                        <mat-option value="Ind">Individual</mat-option>
+                                        <!-- <mat-option value="LE">Corporate</mat-option> -->
+                                    </mat-select>
+
+                                    <mat-error *ngIf="ckycDetailForm.get('customerType')?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.get('customerType')?.hasError('pattern') && !ckycDetailForm.get('customerType')?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose one</mat-label>
+                                    <mat-select formControlName="doctype">
+                                        <mat-option value="">Select Doc Type.</mat-option>
+                                        <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocListFilter">
+                                            {{doc?.DocDesc}}</mat-option>
+                                    </mat-select>
+
+                                    <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <!--!ckycDetailForm.get('doctype')?.value-->
+                                <!--this.successPanNo==false && this.successDocNo===false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                        ckycDetailForm.get('doctype')?.value?.DocDesc:"Select Document Type"}}
+                                    </mat-label>
+
+                                    <input matInput appUppercase
+                                        [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                        placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                        formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                    <!-- <mat-error
+                                                                           *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                                             Please enter a valid Selected Document Number
+                                                                         </mat-error> -->
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Full name as per {{ckycDetailForm.get('doctype')?.value?.DocDesc}}
+                                    </mat-label>
+                                    <input matInput appUppercase appTrim
+                                        placeholder="Full name as {{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                        appOnlyAlpha formControlName="FullName" pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                                        required [maxlength]="60" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of birth</mat-label>
+                                    <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                        required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                        [maxlength]="10" autocomplete="off" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp6">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pincode</mat-label>
+                                    <input matInput appOnlyNumbers placeholder="PinCode" formControlName="pinCode"
+                                        required [maxlength]="6" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="" appearance="outline">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <span matPrefix>+91 &nbsp;</span>
+                                    <input type="tel" formControlName="mobileNo" required [maxlength]="10"
+                                        appOnlyNumbers matInput placeholder="Mobile Number" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 select-gender">
+                                <div class="row">
+                                    <label class="col-md-2 ">Gender
+                                    </label>
+                                    <div class="col-md-10 ">
+                                        <mat-radio-group aria-label="Select an option" class="row"
+                                            formControlName="gender" required>
+                                            <mat-radio-button name="rbdGender" class="col-md-2" [value]="g.GenderCode"
+                                                *ngFor="let g of gendertypeForSBI">
+                                                {{ g.GenderDesc }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-12 owner-info" *ngIf=" ckycForm.submitted">
+                                        <span class="text-error">
+                                            {{ errMsg_oi }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="this.successcode=='2'" class="msg">
+                                <span class="text-danger">Verification failed : </span>
+                                you have to complete manual CKYC after payment Or
+                                <!-- <span class="text-primary" *ngIf="this.manualKYCurl" (click)="DocAPI()"
+                                    style="cursor:pointer;"> Click here</span>
+                                <span *ngIf="this.manualKYCurl">for manual ckyc or</span> -->
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click here
+                                    to change</span>
+                            </p>
+                            <p *ngIf="this.successcode=='1'" class="msg">
+                                <span class="text-success">Verification succesfull : </span>
+                                {{ckycDetails?.A99ResponseData?.CKYCSearchResult?.CKYCPIdDetails?.CKYCPID?.CKYCName}}.
+                                Not you?
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click here
+                                    to
+                                    change</span>
+                            </p>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12 text-center">
+
+                        <button type="submit" *ngIf="successcode==''"
+                            class="w--button w--button--orange w--button--large">Validate
+                        </button>
+
+
+                        <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                            class="btn btn-success w--button--large">Continue as
+                            {{ ckycDetails?.A99ResponseData?.CKYCSearchResult?.CKYCPIdDetails?.CKYCPID?.CKYCName |
+                            titlecase}}</button>
+
+                        <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='2'"
+                            class="w--button w--button--orange w--button--large ng-star-inserted">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</mat-card>
+<!--SBI CKYC Form END-->
+
+
+
+<!--TATA AIG CKYC Form Start-->
+<div *ngIf="this.PlanData?.CompanyCode=='9'" class="modal verification_area fadein  policyexpiry Plan_Details p-4"
+    tabindex="-1" role="dialog" [ngStyle]="{'display': showModal == true ?  'block' : 'none'}" style="z-index: 0;"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!---->
+    <div class="container " role="document">
+        <div class="modal-content modal-md verification_modal_content">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">CKYC verification (Vehicle owner)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-none">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onSubmitCKYCInfoTataAig()">
+                            <ng-template matStepLabel>CKYC Details</ng-template>
+                            <div class="row ">
+
+                                <div class="col-md-12 "><!--select-gender-->
+                                    <mat-radio-group aria-label="Select an option"
+                                        (change)="onSelectStep($event.value)">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <mat-radio-button name="ckycYesNo" checked value="pan">
+                                                    Search CKYC Number.
+                                                </mat-radio-button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <mat-radio-button name="ckycYesNo" value="form60">
+                                                    Upload Form60 .
+                                                </mat-radio-button>
+                                            </div>
+                                            <!-- <div class="col-md-4">
+                                                    <mat-radio-button name="ckycYesNo"
+                                                        [disabled]="this.isCkycUploadDocTrue" value="upload">
+                                                        Search CKYC using Another Id.
+                                                    </mat-radio-button>
+                                                </div> -->
+                                        </div>
+                                    </mat-radio-group>
+                                    <hr />
+                                    <div class="d-flex align-items-center flex-column row">
+
+                                        <ng-container *ngIf="this.step?.stepInd!==4">
+                                            <ng-container *ngIf="this.step?.stepInd===1">
+
+                                                <div class="col-md-12">
+                                                    <div class="details_form">
+                                                        <span>Proof of Identity</span>
+                                                        <mat-form-field appearance="outline" class="margin_bottom">
+                                                            <mat-label>PAN NO </mat-label>
+
+                                                            <input matInput appUppercase placeholder="PAN No"
+                                                                formControlName="panNo" autocomplete="off" />
+
+                                                        </mat-form-field>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="details_form">
+                                                        <span>Proof of Address</span>
+
+
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Choose one</mat-label>
+                                                            <mat-select formControlName="doctype">
+                                                                <mat-option value="">Select Doc Type.</mat-option>
+                                                                <mat-option [value]="doc"
+                                                                    *ngFor="let doc of  this.CkycDocList">
+                                                                    {{doc?.DocDesc}}</mat-option>
+                                                            </mat-select>
+
+                                                            <mat-error
+                                                                *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                                You must make a
+                                                                selection</mat-error>
+                                                            <mat-error
+                                                                *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                                Your selection is invalid
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                        <!-- </div>
+                                                <div class="col-md-12"> -->
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                                                ckycDetailForm.get('doctype')?.value?.DocDesc:"Select
+                                                                Document Type"}}
+                                                            </mat-label>
+
+                                                            <input matInput appUppercase
+                                                                [readonly]=" ckycDetailForm.get('doctype')?.value ? false:true"
+                                                                placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                                                formControlName="docNo" [textMask]="identityMask"
+                                                                autocomplete="off" />
+
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="this.step?.stepInd===2">
+                                                <div class="col-md-12">
+                                                    <div class="details_form">
+                                                        <span>Upload Form 60</span>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Upload Form 60 </mat-label>
+                                                            <input matInput type="text" formControlName="docData"
+                                                                readonly (click)="fileUpload.click()"
+                                                                [value]="this.fileName">
+
+
+                                                            <input [hidden]="true" type="file" #fileUpload
+                                                                id="fileUpload" name="fileUpload" multiple="multiple"
+                                                                (change)="uploadSingleFile($event,'POI','docData')" />
+
+                                                            <mat-error
+                                                                *ngIf="ckycDetailForm.get('docData')?.hasError('fileExtensionError')">
+                                                                {{ckycDetailForm.get('docData')?.errors?.['fileExtensionError']}}
+                                                            </mat-error>
+                                                            <mat-error
+                                                                *ngIf="!ckycDetailForm.get('docData')?.hasError('required')">
+                                                                {{ckycDetailForm.get('docData')?.errors?.['required']}}
+                                                            </mat-error>
+                                                            <mat-error
+                                                                *ngIf="ckycDetailForm.get('docData')?.hasError('fileSizeError') ">
+                                                                {{ckycDetailForm.get('docData')?.errors?.['fileSizeError']
+                                                                }}
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="details_form">
+                                                        <span>Proof of Address.</span>
+
+
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Choose one</mat-label>
+                                                            <mat-select formControlName="doctype">
+                                                                <mat-option value="">Select Doc Type.</mat-option>
+                                                                <mat-option [value]="doc"
+                                                                    *ngFor="let doc of  this.CkycDocList">
+                                                                    {{doc?.DocDesc}}</mat-option>
+                                                            </mat-select>
+
+                                                            <mat-error
+                                                                *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                                You must make a
+                                                                selection</mat-error>
+                                                            <mat-error
+                                                                *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                                Your selection is invalid
+                                                            </mat-error>
+                                                        </mat-form-field>
+
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                                                ckycDetailForm.get('doctype')?.value?.DocDesc:"Select
+                                                                Document Type"}}
+                                                            </mat-label>
+
+                                                            <input matInput appUppercase
+                                                                [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                                                placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                                                formControlName="docNo" [textMask]="identityMask"
+                                                                autocomplete="off" />
+
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <!-- <div class="col-md-12"> -->
+
+                                                </div>
+
+
+
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="this.step?.stepInd===4">
+                                            <form #otpForm="ngForm" (ngSubmit)="tataAigCallOtpApi(otpForm)">
+                                                <div class="d-flex align-items-center flex-column row">
+                                                    <div class="col-md-12">
+
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Enter OTP </mat-label>
+                                                            <input matInput appUppercase placeholder="Enter OTP "
+                                                                name="otp" appOnlyNumbers ngModel required
+                                                                [maxlength]="6" autocomplete="off" />
+                                                        </mat-form-field>
+
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <button type="submit" *ngIf="this.successcode !='1'"
+                                                            class="w--button w--button--orange w--button--large">
+                                                            Submit OTP
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </ng-container>
+
+                                        <p *ngIf="this.successcode=='2'" class="msg">
+                                            <span class="text-danger">Verification failed : </span>
+                                            <!-- <span class="text-primary" *ngIf="this.manualKYCurl" (click)="DocAPI()"
+                                    style="cursor:pointer;"> Click here</span>
+                                <span *ngIf="this.manualKYCurl">for manual ckyc or</span> -->
+                                            <span class="text-primary" (click)="editDetailsTataAig()"
+                                                style="cursor:pointer;"> Click here
+                                                to change</span>
+                                        </p>
+                                        <p *ngIf="this.successcode=='1'" class="msg">
+                                            <span class="text-success">Verification succesfull : </span>
+                                            {{ckycDetails?.FullName?ckycDetails?.FullName:ckycDetailForm.get('FullName')?.value}}.
+                                            Not you?
+                                            <span class="text-primary" (click)="editDetailsTataAig()"
+                                                style="cursor:pointer;"> Click
+                                                here
+                                                to
+                                                change</span>
+                                        </p>
+                                        <mat-error>
+                                            {{this.errMsg_oi}}
+                                        </mat-error>
+                                        <!-- <p *ngIf="this.successcode=='1'">click <span class="text-success" >Success</span>
+                                                   {{ckycDetails.result.customer_name}}</p> -->
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-12 text-center">
+                                    <ng-container *ngIf="this.step?.stepInd!==4">
+                                        <button type="submit" *ngIf="successcode==''"
+                                            class="w--button w--button--orange w--button--large">Validate
+                                        </button>
+                                    </ng-container>
+
+                                    <button type="button" (click)="onCheckCkycStausFuture()"
+                                        [ngClass]="showTimer ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                                        *ngIf="successcode=='2' && btnCkeckStauts" [disabled]="showTimer">
+                                        {{showTimer ? display : 'Check Status'}}
+                                    </button>
+
+                                    <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                                        class="btn btn-success w--button--large">Continue
+
+                                        {{"as"+
+                                        ckycDetails?.FullName?ckycDetails?.FullName:ckycDetailForm.get('FullName')?.value
+                                        | titlecase}}
+                                    </button>
+
+
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--TATA AIG CKYC Form End-->
+
+
+
+
+<!-- Relience CKYC From Start -->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='11'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <hr style="margin: 0;" />
+
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onSubmitCKYCInfoReliance()">
+                <ng-template matStepLabel>CKYC Details</ng-template>
+                <div class="row">
+
+                    <div class="col-md-12 select-gender">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <!-- <mat-label>Select Customer Type</mat-label> -->
+                                    <mat-select formControlName="customerType"
+                                        (selectionChange)="onSelectCustomerType($event)">
+                                        <!-- <mat-option value="">Select Doc Type.</mat-option> -->
+                                        <mat-option value="Ind">Individual</mat-option>
+                                        <!-- <mat-option value="LE">Corporate</mat-option> -->
+                                    </mat-select>
+
+                                    <mat-error *ngIf="ckycDetailForm.get('customerType')?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.get('customerType')?.hasError('pattern') && !ckycDetailForm.get('customerType')?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose one</mat-label>
+                                    <mat-select formControlName="doctype"
+                                        (selectionChange)="onSelectCustomerType($event)">
+                                        <mat-option value="">Select Doc Type.</mat-option>
+                                        <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocListFilter">
+                                            {{doc?.DocDesc}}</mat-option>
+                                    </mat-select>
+
+                                    <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <!--!ckycDetailForm.get('doctype')?.value-->
+                                <!--this.successPanNo==false && this.successDocNo===false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                        ckycDetailForm.get('doctype')?.value?.DocDesc:"Select Document Type"}}
+                                    </mat-label>
+
+                                    <input matInput appUppercase
+                                        [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                        placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                        formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                    <!-- <mat-error
+                                                                   *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                                     Please enter a valid Selected Document Number
+                                                                 </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6" *ngIf="ckycDetailForm.get('customerType')?.value=='LE'">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of Incorporation:</mat-label>
+                                    <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                        required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                        [maxlength]="10" autocomplete="off" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp6">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6" *ngIf="ckycDetailForm.get('customerType')?.value=='Ind'">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of birth</mat-label>
+                                    <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                        required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                        [maxlength]="10" autocomplete="off" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp6">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Full name as per {{ckycDetailForm.get('doctype')?.value?.DocDesc}}
+                                    </mat-label>
+                                    <input matInput appUppercase appTrim
+                                        placeholder="Full name as {{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                        appOnlyAlpha formControlName="FullName" pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                                        required [maxlength]="60" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pincode</mat-label>
+                                    <input matInput appOnlyNumbers placeholder="PinCode" formControlName="pinCode"
+                                        required [maxlength]="6" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="" appearance="outline">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <span matPrefix>+91 &nbsp;</span>
+                                    <input type="tel" formControlName="mobileNo" required [maxlength]="10"
+                                        appOnlyNumbers matInput placeholder="Mobile Number" autocomplete="off" />
+                                </mat-form-field>
+                            </div> -->
+                            <div class="col-md-6 select-gender">
+                                <div class="row">
+                                    <label class="col-md-2 ">Gender
+                                    </label>
+                                    <div class="col-md-10 ">
+                                        <mat-radio-group aria-label="Select an option" class="row"
+                                            formControlName="gender" required>
+                                            <mat-radio-button name="rbdGender" class="col-md-2" [value]="g.GenderCode"
+                                                *ngFor="let g of gendertypeForFuture">
+                                                {{ g.GenderDesc }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-12 owner-info" *ngIf=" ckycForm.submitted">
+                                        <span class="text-error">
+                                            {{ errMsg_oi }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="this.successcode=='2'" class="msg">
+                                <span class="text-danger">Verification failed : </span>
+                                <span class="text-primary" (click)="DocAPI()" style="cursor:pointer;"> Click here</span>
+                                to
+                                Upload Documents or
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click here
+                                    to change</span>
+                            </p>
+
+                            <p *ngIf="this.successcode=='1'" class="msg">
+                                <span class="text-success">Verification succesfull : </span>
+                                {{this.ckycDetails!.FullName}}. Not you?
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click here
+                                    to
+                                    change</span>
+                            </p>
+
+                            <!-- <p *ngIf="this.successcode=='1'">click <span class="text-success" >Success</span>
+                                           {{ckycDetails.result.customer_name}}</p> -->
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12 text-center">
+
+                        <button type="submit" *ngIf="successcode==''"
+                            class="w--button w--button--orange w--button--large">Validate
+                        </button>
+
+                        <!-- <button type="button" (click)="checkRelianceCkycStatus()"
+                            [ngClass]="showTimer ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                            *ngIf="successcode=='2' && btnCkeckStauts" [disabled]="showTimer">
+                            {{showTimer ? display : 'Check Status'}}
+                        </button> -->
+                        <button type="button" (click)="checkRelianceCkycStatus()" *ngIf="successcode=='2'"
+                            class="btn btn-success w--button--large">Check CKYC Status
+                        </button>
+                        <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                            class="btn btn-success w--button--large">Continue as
+                            {{this.ckycDetails!.FullName | titlecase}}</button>
+
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</mat-card>
+<!--Relience CKYC Form END -->
+
+
+
+<!-- ShreeRam CKYC Form Start -->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='19'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <hr style="margin: 0;" />
+
+    <div class="col-md-12">
+        <div class="row mt-2">
+            <div class="col-md-12 col-12">
+                <mat-radio-group aria-label="Select an option" (change)="onSelectChange($event.value)">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-radio-button name="ckycYesNo" value="CKYC" checked>
+                                Search CKYC using CKYC Number.
+                            </mat-radio-button>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-radio-button name="ckycYesNo" value="DOC">
+                                CKYC Document Upload.
+                            </mat-radio-button>
+                        </div>
+                    </div>
+                </mat-radio-group>
+            </div>
+
+        </div>
+        <form [formGroup]="ckycDetailForm" #oiForm="ngForm" (ngSubmit)="onSubmitCKYCInfoShreeRam()">
+            <ng-template matStepLabel>CKYC Details</ng-template>
+            <div class="row">
+
+
+                <div class="col-md-12 select-gender">
+                    <div class="row">
+                        <ng-container *ngIf=" this.CKYCHideShowShreeRam == true">
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>CKYC NO</mat-label>
+                                    <input matInput placeholder="CKYC NO" formControlName="ckycNo" required
+                                        [maxlength]="14" autocomplete="off" appOnlyNumbers />
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf=" this.CKYCHideShowShreeRam == false">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Father name </mat-label>
+                                    <input matInput appUppercase placeholder="Father name" appOnlyAlpha appTrim
+                                        formControlName="Fathername" pattern="^[^-\s][a-zA-Z0-9_\s-]+$" required
+                                        [maxlength]="60" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Insurer profile Pic</mat-label>
+                                    <input matInput type="text" readonly formControlName="profilePic"
+                                        (click)="fileUpload1.click()" [value]="this.fileNameProPic">
+
+                                    <input [hidden]="true" type="file" #fileUpload1 id="fileUpload1" name="fileUpload1"
+                                        multiple="multiple" (change)="fileProgressShreeRam($event,'profilePic')" />
+
+                                    <mat-error *ngIf="ckycDetailForm.get('profilePic')?.hasError('fileExtensionError')">
+                                        {{ckycDetailForm.get('profilePic')?.errors?.['fileExtensionError']}}
+                                    </mat-error>
+                                    <mat-error *ngIf="!ckycDetailForm.get('profilePic')?.hasError('required')">
+                                        {{ckycDetailForm.get('profilePic')?.errors?.['required']}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ckycDetailForm.get('profilePic')?.hasError('fileSizeError') ">
+                                        {{ckycDetailForm.get('profilePic')?.errors?.['fileSizeError']
+                                        }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <!--this.successPanNo==false && this.successDocNo===false-->
+                                <!--*ngIf="this.successPanNo===false "&& this.successDocNo===false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose one</mat-label>
+                                    <mat-select formControlName="doctypePOI">
+                                        <mat-option value="">Select Doc Type.</mat-option>
+                                        <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocList">{{doc?.DocDesc}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                    <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <!--this.successPanNo!==false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ckycDetailForm.get('doctypePOI')?.value ?
+                                        ckycDetailForm.get('doctypePOI')?.value?.DocDesc:"Select Document
+                                        Type"}}</mat-label>
+                                    <input matInput appUppercase
+                                        placeholder="{{ckycDetailForm.get('doctypePOI')?.value?.DocDesc}} No"
+                                        formControlName="docNoPOI" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Upload Selected Document</mat-label>
+                                    <input matInput type="text" readonly formControlName="docDataPOI"
+                                        (click)="fileUpload2.click()" [value]="this.fileNamePOI">
+
+                                    <input [hidden]="true" type="file" #fileUpload2 id="fileUpload2" name="fileUpload2"
+                                        multiple="multiple" (change)="fileProgressShreeRam($event,'docDataPOI')" />
+
+                                    <mat-error *ngIf="ckycDetailForm.get('docDataPOI')?.hasError('fileExtensionError')">
+                                        {{ckycDetailForm.get('docDataPOI')?.errors?.['fileExtensionError']}}
+                                    </mat-error>
+                                    <mat-error *ngIf="!ckycDetailForm.get('docDataPOI')?.hasError('required')">
+                                        {{ckycDetailForm.get('docDataPOI')?.errors?.['required']}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ckycDetailForm.get('docDataPOI')?.hasError('fileSizeError') ">
+                                        {{ckycDetailForm.get('docDataPOI')?.errors?.['fileSizeError']
+                                        }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <!--this.successPanNo==false && this.successDocNo===false-->
+                                <!--*ngIf="this.successPanNo===false "&& this.successDocNo===false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose one</mat-label>
+                                    <mat-select formControlName="doctypePOA">
+                                        <mat-option value="">Select Doc Type.</mat-option>
+                                        <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocListFilter">
+                                            {{doc?.DocDesc}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                    <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <!--this.successPanNo!==false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ckycDetailForm.get('doctypePOA')?.value ?
+                                        ckycDetailForm.get('doctypePOA')?.value?.DocDesc:"Select Document
+                                        Type"}}</mat-label>
+                                    <input matInput appUppercase
+                                        placeholder="{{ckycDetailForm.get('doctypePOA')?.value?.DocDesc}} No"
+                                        formControlName="docNoPOA" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Upload Selected Document</mat-label>
+                                    <input matInput type="text" readonly formControlName="docDataPOA"
+                                        (click)="fileUpload3.click()" [value]="this.fileNamePOA">
+
+                                    <input [hidden]="true" type="file" #fileUpload3 id="fileUpload3" name="fileUpload3"
+                                        multiple="multiple" (change)="fileProgressShreeRam($event,'docDataPOA')" />
+
+                                    <mat-error *ngIf="ckycDetailForm.get('docDataPOA')?.hasError('fileExtensionError')">
+                                        {{ckycDetailForm.get('docDataPOA')?.errors?.['fileExtensionError']}}
+                                    </mat-error>
+                                    <mat-error *ngIf="!ckycDetailForm.get('docDataPOA')?.hasError('required')">
+                                        {{ckycDetailForm.get('docDataPOA')?.errors?.['required']}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ckycDetailForm.get('docDataPOA')?.hasError('fileSizeError') ">
+                                        {{ckycDetailForm.get('docDataPOA')?.errors?.['fileSizeError']
+                                        }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-12 text-error text-left" *ngIf="errMsg_oi && ckycDetailForm.invalid">
+                        {{ errMsg_oi }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="w--button w--button--orange w--button--large">
+                        Validate
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-card>
+<!-- ShreeRam CKYC Form End -->
+
+
+<!--Iffco Tokio CKYC Form Start-->
+<div *ngIf="this.PlanData?.CompanyCode=='4'" class="modal fadein  policyexpiry Plan_Details p-5" style="z-index: 0;"
+    [ngStyle]="{'display': showModal == true ?  'block' : 'none'}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="container mt-5" role="document">
+        <div class="modal-content modal-md">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">CKYC verification (Vehicle owner)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-none">
+
+                <mat-card>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="ckycDetailForm" #ckycForm="ngForm"
+                                (ngSubmit)="onSubmitCKYCInfoIffcoTokio()">
+                                <ng-template matStepLabel>CKYC Details</ng-template>
+                                <div class="row ">
+
+                                    <div class="col-md-12 select-gender">
+
+                                        <mat-radio-group aria-label="Select an option"
+                                            (change)="onSelectStep($event.value)">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <mat-radio-button name="ckycYesNo"
+                                                        [checked]="isIffcoDefaultRadioButton" value="fetch">
+                                                        Search CKYC Document.
+                                                    </mat-radio-button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-radio-button name="ckycYesNo" value="create">
+                                                        Create CKYC Document.
+                                                    </mat-radio-button>
+                                                </div>
+
+                                            </div>
+                                        </mat-radio-group>
+                                        <hr />
+                                        <ng-container *ngIf="this.isckycFailedForIffcoTokio===false">
+                                            <div class="row">
+
+
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Choose one</mat-label>
+                                                        <mat-select formControlName="doctype">
+                                                            <mat-option value="">Select Doc Type.</mat-option>
+                                                            <mat-option [value]="doc"
+                                                                *ngFor="let doc of  this.CkycDocListFilter">
+                                                                {{doc?.DocDesc}}</mat-option>
+                                                        </mat-select>
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            You must make a selection</mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            Your selection is invalid
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!--!ckycDetailForm.get('doctype')?.value-->
+                                                    <!--this.successPanNo==false && this.successDocNo===false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                                            ckycDetailForm.get('doctype')?.value?.DocDesc:"Select
+                                                            Document Type"}} </mat-label>
+
+                                                        <input matInput appUppercase [textMask]="identityMask"
+                                                            [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                                            placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                                            formControlName="docNo" autocomplete="off" />
+                                                        <!-- <mat-error
+                                                                               *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                                                 Please enter a valid Selected Document Number
+                                                                             </mat-error> appRegexFormateValidation
+                                                                            identity="{{ckycDetailForm.get('doctype')?.value}}" -->
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="this.isckycFailedForIffcoTokio===true">
+                                            <div class="row" *ngIf="this.isCreateFormIffcoTokio===true">
+                                                <div class="col-md-4">
+
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Documnet Type</mat-label>
+                                                        <mat-select formControlName="doctypePOI">
+                                                            <mat-option value="">Select Doc Type.</mat-option>
+                                                            <ng-container *ngFor="let doc of  this.CkycDocList">
+                                                                <mat-option [value]="doc"
+                                                                    *ngIf="doc.DocTypeCodeOdp ===2">{{doc?.DocDesc}}
+                                                                </mat-option>
+                                                            </ng-container>
+
+                                                        </mat-select>
+                                                        <!-- <input matInput appUppercase placeholder="PAN No" readonly
+                                                            formControlName="doctypePOI" autocomplete="off"
+                                                            value="{DocShortDesc: 'PAN', DocDesc: 'PAN', CompanyCode: 4, ApplicableFor: 'Both', DocTypeCodeOdp: 2}" /> -->
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            You must make a selection
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            Your selection is invalid
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--this.successPanNo!==false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>{{ckycDetailForm.get('doctypePOI')?.value ?
+                                                            ckycDetailForm.get('doctypePOI')?.value?.DocDesc:"Select
+                                                            Document Type"}}</mat-label>
+                                                        <input matInput appUppercase
+                                                            placeholder="{{ckycDetailForm.get('doctypePOI')?.value?.DocDesc}} No"
+                                                            [textMask]="identityMaskForPOI" formControlName="docNoPOI"
+                                                            autocomplete="off" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Upload Selected Document</mat-label>
+                                                        <input matInput type="text" formControlName="docDataPOI"
+                                                            readonly (click)="fileUpload2.click()"
+                                                            [value]="this.fileNamePOI">
+
+                                                        <input [hidden]="true" type="file" #fileUpload2 id="fileUpload2"
+                                                            name="fileUpload2" multiple="multiple"
+                                                            (change)="uploadFile($event,'POI','docDataPOI')" />
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOI')?.hasError('fileExtensionError')">
+                                                            {{ckycDetailForm.get('docDataPOI')?.errors?.['fileExtensionError']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="!ckycDetailForm.get('docDataPOI')?.hasError('required')">
+                                                            {{ckycDetailForm.get('docDataPOI')?.errors?.['required']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOI')?.hasError('fileSizeError') ">
+                                                            {{ckycDetailForm.get('docDataPOI')?.errors?.['fileSizeError']
+                                                            }}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--this.successPanNo==false && this.successDocNo===false-->
+                                                    <!--*ngIf="this.successPanNo===false "&& this.successDocNo===false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Documnet Type</mat-label>
+                                                        <mat-select formControlName="doctypePOA">
+                                                            <mat-option value="">Select Doc Type.</mat-option>
+                                                            <ng-container *ngFor="let doc of  this.CkycDocListFilter">
+                                                                <mat-option [value]="doc"
+                                                                    *ngIf="doc.DocTypeCodeOdp !==13 && doc.DocTypeCodeOdp !==2">
+                                                                    {{doc?.DocDesc}}
+                                                                </mat-option>
+                                                            </ng-container>
+
+                                                        </mat-select>
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            You must make a
+                                                            selection</mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            Your selection is invalid
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--this.successPanNo!==false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>{{ckycDetailForm.get('doctypePOA')?.value ?
+                                                            ckycDetailForm.get('doctypePOA')?.value?.DocDesc:"Select
+                                                            Document Type"}}</mat-label>
+                                                        <input matInput appUppercase
+                                                            placeholder="{{ckycDetailForm.get('doctypePOA')?.value?.DocDesc}} No"
+                                                            [textMask]="identityMaskForPOA" formControlName="docNoPOA"
+                                                            autocomplete="off" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Upload Selected Document</mat-label>
+                                                        <input matInput type="text" formControlName="docDataPOA"
+                                                            readonly (click)="fileUpload3.click()"
+                                                            [value]="this.fileNamePOA">
+
+                                                        <input [hidden]="true" type="file" #fileUpload3 id="fileUpload3"
+                                                            name="fileUpload3" multiple="multiple"
+                                                            (change)="uploadFile($event,'POA','docDataPOA')" />
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOA')?.hasError('fileExtensionError')">
+                                                            {{ckycDetailForm.get('docDataPOA')?.errors?.['fileExtensionError']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="!ckycDetailForm.get('docDataPOA')?.hasError('required')">
+                                                            {{ckycDetailForm.get('docDataPOA')?.errors?.['required']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOA')?.hasError('fileSizeError') ">
+                                                            {{ckycDetailForm.get('docDataPOA')?.errors?.['fileSizeError']
+                                                            }}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <p *ngIf="this.successcode=='2'" class="msg">
+                                                    <span class="text-danger">Verification failed : </span>
+                                                    <span class="text-primary" (click)="DocAPI()"
+                                                        style="cursor:pointer;"> Click here</span> to
+                                                    Upload Documents or
+                                                    <span class="text-primary" (click)="editDetails()"
+                                                        style="cursor:pointer;"> Click here
+                                                        to change</span>
+                                                </p>
+
+                                                <p *ngIf="this.successcode=='1'" class="msg">
+                                                    <span class="text-success">Verification succesfull : </span>
+                                                    {{ckycDetails.result.customer_name}}. Not you?
+                                                    <span class="text-primary" (click)="editDetails()"
+                                                        style="cursor:pointer;"> Click here
+                                                        to
+                                                        change</span>
+                                                </p>
+
+                                            </div>
+                                            <div class="row" *ngIf="this.isCreateFormIffcoTokio===false">
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Documnet Type</mat-label>
+                                                        <mat-select formControlName="doctypePOI">
+                                                            <mat-option value="">Select Doc Type.</mat-option>
+                                                            <ng-container *ngFor="let doc of  this.CkycDocList">
+                                                                <mat-option [value]="doc"
+                                                                    *ngIf="doc.DocTypeCodeOdp ===2">{{doc?.DocDesc}}
+                                                                </mat-option>
+                                                            </ng-container>
+
+                                                        </mat-select>
+                                                        <!-- <input matInput appUppercase placeholder="PAN No" readonly
+                                                                                                        formControlName="doctypePOI" autocomplete="off"
+                                                                                                        value="{DocShortDesc: 'PAN', DocDesc: 'PAN', CompanyCode: 4, ApplicableFor: 'Both', DocTypeCodeOdp: 2}" /> -->
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            You must make a selection
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            Your selection is invalid
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--this.successPanNo!==false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>{{ckycDetailForm.get('doctypePOI')?.value ?
+                                                            ckycDetailForm.get('doctypePOI')?.value?.DocDesc:"Select
+                                                            Document Type"}}</mat-label>
+                                                        <input matInput appUppercase
+                                                            placeholder="{{ckycDetailForm.get('doctypePOI')?.value?.DocDesc}} No"
+                                                            formControlName="docNoPOI" autocomplete="off" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Upload Selected Document</mat-label>
+                                                        <input matInput type="text" formControlName="docDataPOI"
+                                                            readonly (click)="fileUpload2.click()"
+                                                            [value]="this.fileNamePOI">
+
+                                                        <input [hidden]="true" type="file" #fileUpload2 id="fileUpload2"
+                                                            name="fileUpload2" multiple="multiple"
+                                                            (change)="uploadFile($event,'POI','docDataPOI')" />
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOI')?.hasError('fileExtensionError')">
+                                                            {{ckycDetailForm.get('docDataPOI')?.errors?.['fileExtensionError']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="!ckycDetailForm.get('docDataPOI')?.hasError('required')">
+                                                            {{ckycDetailForm.get('docDataPOI')?.errors?.['required']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOI')?.hasError('fileSizeError') ">
+                                                            {{ckycDetailForm.get('docDataPOI')?.errors?.['fileSizeError']
+                                                            }}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--this.successPanNo==false && this.successDocNo===false-->
+                                                    <!--*ngIf="this.successPanNo===false "&& this.successDocNo===false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Documnet Type</mat-label>
+                                                        <mat-select formControlName="doctypePOA">
+                                                            <mat-option value="">Select Doc Type.</mat-option>
+                                                            <ng-container *ngFor="let doc of  this.CkycDocListFilter">
+                                                                <mat-option [value]="doc"
+                                                                    *ngIf="doc.DocTypeCodeOdp !==13 && doc.DocTypeCodeOdp !==2">
+                                                                    {{doc?.DocDesc}}
+                                                                </mat-option>
+                                                            </ng-container>
+
+                                                        </mat-select>
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            You must make a
+                                                            selection</mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                            Your selection is invalid
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!--this.successPanNo!==false-->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>{{ckycDetailForm.get('doctypePOA')?.value ?
+                                                            ckycDetailForm.get('doctypePOA')?.value?.DocDesc:"Select
+                                                            Document Type"}}</mat-label>
+                                                        <input matInput appUppercase
+                                                            placeholder="{{ckycDetailForm.get('doctypePOA')?.value?.DocDesc}} No"
+                                                            formControlName="docNoPOA" autocomplete="off" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Upload Selected Document</mat-label>
+                                                        <input matInput type="text" formControlName="docDataPOA"
+                                                            readonly (click)="fileUpload3.click()"
+                                                            [value]="this.fileNamePOA">
+
+                                                        <input [hidden]="true" type="file" #fileUpload3 id="fileUpload3"
+                                                            name="fileUpload3" multiple="multiple"
+                                                            (change)="uploadFile($event,'POA','docDataPOA')" />
+
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOA')?.hasError('fileExtensionError')">
+                                                            {{ckycDetailForm.get('docDataPOA')?.errors?.['fileExtensionError']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="!ckycDetailForm.get('docDataPOA')?.hasError('required')">
+                                                            {{ckycDetailForm.get('docDataPOA')?.errors?.['required']}}
+                                                        </mat-error>
+                                                        <mat-error
+                                                            *ngIf="ckycDetailForm.get('docDataPOA')?.hasError('fileSizeError') ">
+                                                            {{ckycDetailForm.get('docDataPOA')?.errors?.['fileSizeError']
+                                                            }}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <p *ngIf="this.successcode=='2'" class="msg">
+                                                    <span class="text-danger">Verification failed : </span>
+                                                    <span class="text-primary" (click)="DocAPI()"
+                                                        style="cursor:pointer;"> Click here</span> to
+                                                    Upload Documents or
+                                                    <span class="text-primary" (click)="editDetails()"
+                                                        style="cursor:pointer;"> Click here
+                                                        to change</span>
+                                                </p>
+
+                                                <p *ngIf="this.successcode=='1'" class="msg">
+                                                    <span class="text-success">Verification succesfull : </span>
+                                                    {{ckycDetails.result.customer_name}}. Not you?
+                                                    <span class="text-primary" (click)="editDetails()"
+                                                        style="cursor:pointer;"> Click here
+                                                        to
+                                                        change</span>
+                                                </p>
+
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-12 text-center">
+
+                                        <button type="submit" *ngIf="successcode==''"
+                                            [ngClass]="this.ckycDetailForm.invalid || this.ckycDetailForm.untouched ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                                            [disabled]="this.ckycDetailForm.invalid">Validate
+                                        </button>
+                                        <!-- class="w--button w--button--orange w--button--large" -->
+                                        <button type="button" (click)="onCheckCkycStausFuture()"
+                                            [ngClass]="showTimer ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                                            *ngIf="successcode=='2' && btnCkeckStauts" [disabled]="showTimer">
+                                            {{showTimer ? display : 'Check Status'}}
+                                        </button>
+
+                                        <button type="button" (click)="onContinueSuccessClick()"
+                                            *ngIf="successcode=='1'" class="btn btn-success w--button--large">Continue
+                                            as
+                                            {{ckycDetails.result.customer_name | titlecase}}</button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Iffco Tokio CKYC Form End-->
+
+
+
+<!--Universal CKYC Form Start-->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='6'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+    </mat-card-header>
+    <hr style="margin: 0;" />
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onSubmitCKYCInfoUniversal()">
+                <ng-template matStepLabel>CKYC Details</ng-template>
+                <div class="row">
+                    <div class="col-md-12 select-gender">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose one</mat-label>
+                                    <mat-select formControlName="doctype">
+                                        <mat-option value="">Select Doc Type.</mat-option>
+                                        <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocList">
+                                            {{doc?.DocDesc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <!--!ckycDetailForm.get('doctype')?.value-->
+                                <!--this.successPanNo==false && this.successDocNo===false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                        ckycDetailForm.get('doctype')?.value?.DocDesc:"Select
+                                        Document Type"}} </mat-label>
+                                    <input matInput appUppercase
+                                        [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                        placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                        formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                    <!-- <mat-error
+                                                       *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                         Please enter a valid Selected Document Number
+                                                     </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of birth</mat-label>
+                                    <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                        required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                        [maxlength]="10" autocomplete="off" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp6">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label> Full name as per
+                                        {{ckycDetailForm.get('doctype')?.value?.DocDesc}}
+                                    </mat-label>
+                                    <input matInput appUppercase appTrim
+                                        placeholder="Full name as per {{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                        appOnlyAlpha formControlName="FullName" pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                                        required [maxlength]="60" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 select-gender">
+                                <div class="row">
+                                    <label class="col-md-2 ">Gender
+                                    </label>
+                                    <div class="col-md-10 ">
+                                        <mat-radio-group aria-label="Select an option" class="row"
+                                            formControlName="gender" required>
+                                            <mat-radio-button name="rbdGender" class="col-md-2" [value]="g.GenderCode"
+                                                *ngFor="let g of gendertypeForFuture">
+                                                {{ g.GenderDesc }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-12 owner-info" *ngIf=" ckycForm.submitted">
+                                        <span class="text-error">
+                                            {{ errMsg_oi }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="this.successcode=='2'" class="msg">
+                                <span class="text-danger">Verification failed : </span>
+                                <ng-container *ngIf="this.manualKYCurl !==null">
+                                    <span class="text-primary" (click)="DocAPI()" style="cursor:pointer;"> Click
+                                        here</span>
+                                    to verify ckyc manually or
+                                </ng-container>
+
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                    here
+                                    to change</span>
+                            </p>
+                            <p *ngIf="this.successcode=='1'" class="msg">
+                                <span class="text-success">Verification succesfull : </span>
+                                {{ckycDetails.FullName}}. Not you?
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                    here
+                                    to
+                                    change</span>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12 text-center">
+
+                        <button type="submit" *ngIf="successcode==''"
+                            class="w--button w--button--orange w--button--large">Validate
+                        </button>
+
+                        <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                            class="btn btn-success w--button--large">Continue as
+                            {{ckycDetails.FullName | titlecase}}</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</mat-card>
+<!--Universal CKYC Form End-->
+
+
+
+<!--GoDigit CKYC Form Start-->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='8'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <hr style="margin: 0;" />
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="ckycDetailForm" #oiForm="ngForm" (ngSubmit)="onSubmitCKYCInfoForGoDigit()">
+                    <ng-template matStepLabel>CKYC Details</ng-template>
+                    <div class="row pt-4">
+
+                        <div class="col-md-12 select-gender">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Date of birth</mat-label>
+                                        <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                            required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                            [maxlength]="10" autocomplete="off" />
+                                        <mat-datepicker-toggle matSuffix [for]="dp6">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Choose one</mat-label>
+                                        <mat-select formControlName="doctype">
+                                            <mat-option value="">Select Doc Type.</mat-option>
+                                            <mat-option [value]="doc"
+                                                *ngFor="let doc of  this.CkycDocList">{{doc?.DocDesc}}</mat-option>
+                                        </mat-select>
+
+                                        <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                            You must make a
+                                            selection</mat-error>
+                                        <mat-error
+                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                            Your selection is invalid
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                            ckycDetailForm.get('doctype')?.value?.DocDesc:"Select Document Type"}}
+                                        </mat-label>
+                                        <input matInput appUppercase
+                                            [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                            placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                            formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--this.successPanNo===false  && this.successDocNo===false-->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Upload Custormer&apos;s Image </mat-label>
+                                        <input matInput type="text" formControlName="docData" readonly
+                                            (click)="fileUpload.click()" [value]="this.fileName">
+
+
+                                        <input [hidden]="true" type="file" #fileUpload id="fileUpload" name="fileUpload"
+                                            multiple="multiple"
+                                            (change)="uploadSingleFileForGoDigit($event,'POI','docData')" />
+
+                                        <mat-error
+                                            *ngIf="ckycDetailForm.get('docData')?.hasError('fileExtensionError')">
+                                            {{ckycDetailForm.get('docData')?.errors?.['fileExtensionError']}}
+                                        </mat-error>
+                                        <mat-error *ngIf="!ckycDetailForm.get('docData')?.hasError('required')">
+                                            {{ckycDetailForm.get('docData')?.errors?.['required']}}
+                                        </mat-error>
+                                        <mat-error *ngIf="ckycDetailForm.get('docData')?.hasError('fileSizeError') ">
+                                            {{ckycDetailForm.get('docData')?.errors?.['fileSizeError']
+                                            }}
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12 text-error text-left" *ngIf="
+                                                                          errMsg_oi && ckycDetailForm.invalid
+                                                                        ">
+                                {{ errMsg_oi }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+
+                            <button type="submit" class="w--button w--button--orange w--button--large">
+                                Submit CKYC Details
+                                <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i> -->
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
+<!--GoDigit CKYC Form End-->
+
+
+<!--United India CKYC Form Start-->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='16'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <hr style="margin: 0;" />
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="ckycDetailForm" #oiForm="ngForm" (ngSubmit)="onSubmitCKYCInfoForUnitedIndia()">
+                    <ng-template matStepLabel>CKYC Details</ng-template>
+                    <div class="row pt-4">
+
+                        <div class="col-md-12 select-gender">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Date of birth</mat-label>
+                                        <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                            required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                            [maxlength]="10" autocomplete="off" />
+                                        <mat-datepicker-toggle matSuffix [for]="dp6">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Enter Pan No.
+                                        </mat-label>
+                                        <input matInput appUppercase placeholder="Pan No." formControlName="docNo"
+                                            [textMask]="PanMask" autocomplete="off" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6" *ngIf="
+                                                                          errMsg_oi && ckycDetailForm.invalid
+                                                                        ">
+                            <div class="col-md-12 text-error text-left">
+                                {{ errMsg_oi }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p *ngIf="this.successcode=='2'" class="msg">
+                                <span class="text-danger">Verification failed : </span>
+                                <ng-container *ngIf="this.manualKYCurl !==null">
+                                    <span class="text-primary" (click)="DocAPI()" style="cursor:pointer;"> Click
+                                        here</span>
+                                    to verify ckyc manually or
+                                </ng-container>
+
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                    here
+                                    to change</span>
+                            </p>
+                            <p *ngIf="this.successcode=='1'" class="msg">
+                                <span class="text-success">Verification succesfull : </span>
+                                {{ckycDetails.FullName}}. Not you?
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                    here
+                                    to
+                                    change</span>
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+
+                            <button type="submit" *ngIf="successcode==''"
+                                class="w--button w--button--orange w--button--large">Validate
+                            </button>
+
+                            <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                                class="btn btn-success w--button--large">Continue as
+                                {{ckycDetails.FullName | titlecase}}</button>
+
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+
+                        <div class="col-md-12 text-center">
+
+                            <button type="submit" class="w--button w--button--orange w--button--large">
+                                Submit CKYC Details
+                            </button>
+                        </div>
+
+                    </div> -->
+                </form>
+
+
+            </div>
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
+<!--United India CKYC Form End-->
+
+<!--HDFC CKYC Form Start-->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode=='14'">
+    <mat-card-header>
+        <mat-card-title>CKYC verification (Vehicle owner).</mat-card-title>
+    </mat-card-header>
+    <hr style="margin: 0;" />
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onsubmitCKYCInfoHDFC()">
+                <ng-template matStepLabel>CKYC Details</ng-template>
+                <div class="row">
+                    <div class="col-md-12 select-gender">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose one</mat-label>
+                                    <mat-select formControlName="doctype">
+                                        <mat-option value="">Select Doc Type.</mat-option>
+                                        <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocList">
+                                            {{doc?.DocDesc}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        You must make a
+                                        selection</mat-error>
+                                    <mat-error
+                                        *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                        Your selection is invalid
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <!--!ckycDetailForm.get('doctype')?.value-->
+                                <!--this.successPanNo==false && this.successDocNo===false-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                        ckycDetailForm.get('doctype')?.value?.
+                                        DocDesc:"Select Document Type"}} </mat-label>
+                                    <input matInput appUppercase
+                                        [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                        placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                        formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                    <!-- <mat-error
+                                                       *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                         Please enter a valid Selected Document Number
+                                                     </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of birth</mat-label>
+                                    <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                        required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                        [maxlength]="10" autocomplete="off" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp6">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label> Full name as per
+                                        {{ckycDetailForm.get('doctype')?.value?.DocDesc}}
+                                    </mat-label>
+                                    <input matInput appUppercase appTrim
+                                        placeholder="Full name as per {{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                        appOnlyAlpha formControlName="FullName" pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+                                        required [maxlength]="60" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 select-gender">
+                                <div class="row">
+                                    <label class="col-md-2 ">Gender
+                                    </label>
+                                    <div class="col-md-10 ">
+                                        <mat-radio-group aria-label="Select an option" class="row"
+                                            formControlName="gender" required>
+                                            <mat-radio-button name="rbdGender" class="col-md-2" [value]="g.GenderCode"
+                                                *ngFor="let g of gendertypeForFuture">
+                                                {{ g.GenderDesc }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-12 owner-info" *ngIf=" ckycForm.submitted">
+                                        <span class="text-error">
+                                            {{ errMsg_oi }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p *ngIf="this.successcode=='2'" class="msg">
+                                <span class="text-danger">Verification failed : </span>
+                                <ng-container *ngIf="UniqueId.ManualCkycUrl !==null">
+                                    <span class="text-primary" (click)="DocAPI()" style="cursor:pointer;"> Click
+                                        here</span>
+                                    to verify ckyc manually or
+                                </ng-container>
+
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                    here
+                                    to change</span>
+                            </p>
+                            <p *ngIf="this.successcode=='1'" class="msg">
+                                <span class="text-success">Verification succesfull : </span>
+                                {{UniqueId.FullName}}. Not you?
+                                <span class="text-primary" (click)="editDetails()" style="cursor:pointer;"> Click
+                                    here
+                                    to
+                                    change</span>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12 text-center">
+
+                        <button type="submit" *ngIf="successcode==''"
+                            class="w--button w--button--orange w--button--large">Validate
+                        </button>
+
+                        <button type="button" *ngIf="successcode=='2'" (click)="checkCKYCStatusForHDFC()"
+                            class="w--button w--button--orange w--button--large">Check Status
+                        </button>
+
+                        <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                            class="btn btn-success w--button--large">Continue as
+                            {{UniqueId.FullName | titlecase}}</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</mat-card>
+<!--HDFC CKYC Form End-->
+
+
+
+<!--New India CKYC Form Start-->
+<div *ngIf="this.PlanData?.CompanyCode=='12'" class="modal verification_area fadein  policyexpiry Plan_Details p-4"
+    tabindex="-1" role="dialog" [ngStyle]="{'display': showModal == true ?  'block' : 'none'}" style="z-index: 0;"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!---->
+    <div class="container " role="document">
+        <div class="modal-content modal-md verification_modal_content">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">CKYC verification (Vehicle owner)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-none">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        <form [formGroup]="ckycDetailForm" #ckycForm="ngForm" (ngSubmit)="onSubmitCKYCInfoNewIndia()">
+                            <ng-template matStepLabel>CKYC Details</ng-template>
+                            <div class="row ">
+
+                                <div class="col-md-12 select-gender">
+
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Choose one</mat-label>
+                                                <mat-select formControlName="doctype">
+                                                    <mat-option value="">Select Doc Type.</mat-option>
+                                                    <mat-option [value]="doc" *ngFor="let doc of  this.CkycDocList">
+                                                        {{doc?.DocDesc}}</mat-option>
+                                                </mat-select>
+
+                                                <mat-error
+                                                    *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                    You must make a
+                                                    selection</mat-error>
+                                                <mat-error
+                                                    *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                                    Your selection is invalid
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                                    ckycDetailForm.get('doctype')?.value?.DocDesc:"Select Document
+                                                    Type"}}
+                                                </mat-label>
+
+                                                <input matInput appUppercase
+                                                    [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                                    placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}} No"
+                                                    formControlName="docNo" [textMask]="identityMask"
+                                                    autocomplete="off" />
+
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label> Date of birth</mat-label>
+                                                <input matInput [matDatepicker]="dp6" (click)="dp6.open()"
+                                                    formControlName="DOB" required [placeholder]="date"
+                                                    [max]="getMinDate(18)" [min]="getMinDate(99)" [maxlength]="10"
+                                                    autocomplete="off" />
+                                                <mat-datepicker-toggle matSuffix [for]="dp6">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <p *ngIf="this.successcode=='2'" class="msg">
+                                            <span class="text-danger">Verification failed : </span>
+                                            <span class="text-primary" (click)="DocAPI()" style="cursor:pointer;"> Click
+                                                here</span>
+                                            to verify ckyc manually or
+                                            <span class="text-primary" (click)="editDetails()" style="cursor:pointer;">
+                                                Click
+                                                here
+                                                to change</span>
+                                        </p>
+
+                                        <p *ngIf="this.successcode=='1'" class="msg">
+                                            <span class="text-success">Verification succesfull : </span>
+                                            {{ckycDetails.FullName}}. Not you?
+                                            <span class="text-primary" (click)="editDetails()" style="cursor:pointer;">
+                                                Click
+                                                here
+                                                to
+                                                change</span>
+                                        </p>
+
+                                        <!-- <p *ngIf="this.successcode=='1'">click <span class="text-success" >Success</span>
+                                                                           {{ckycDetails.FullName}}</p> -->
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-12 text-center">
+
+                                    <button type="submit" *ngIf="successcode==''"
+                                        [ngClass]="this.ckycDetailForm.invalid ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                                        [disabled]="this.ckycDetailForm.invalid">Validate
+                                    </button>
+
+                                    <!-- <button type="button" (click)="onCheckCkycStausFuture()"
+                                        [ngClass]="showTimer ? 'w--buttonFade ' : 'w--button w--button--orange w--button--large'"
+                                        *ngIf="successcode=='2' && btnCkeckStauts" [disabled]="showTimer">
+                                        {{showTimer ? display : 'Check Status'}}
+                                    </button> -->
+                                    <button type="button" (click)="checkCKYStatusForNewIndia()" *ngIf="successcode=='2'"
+                                        class="btn btn-success w--button--large">
+                                        Check Status</button>
+                                    <button type="button" (click)="onContinueSuccessClick()" *ngIf="successcode=='1'"
+                                        class="btn btn-success w--button--large">Continue as
+                                        {{ckycDetails.FullName | titlecase}}</button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--New India CKYC Form End-->
+
+
+
+<!--Bajaj CKYC From start -->
+<mat-card class="m-5" *ngIf="this.PlanData?.CompanyCode==='13'">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row mt-2">
+                <div class="col-md-12 col-12">
+
+
+                    <mat-radio-group aria-label="Select an option" (change)="onSelectStep($event.value)">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <mat-radio-button name="ckycYesNo" value="CKYC"
+                                    checked><!--onChangeCKYCYesNO(ckycYesNoCode,this.step);-->
+                                    Search CKYC using CKYC Number.
+                                </mat-radio-button>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-radio-button name="ckycYesNo" value="PAN">
+                                    Search CKYC using PAN Number.
+                                </mat-radio-button>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-radio-button [disabled]="isPOIStatusFound" name="ckycYesNo" value="DOC">
+                                    Search CKYC using Document Number.
+                                </mat-radio-button>
+                            </div>
+                        </div>
+
+                    </mat-radio-group>
+
+                    <!-- <input type="button" *ngIf="this.ckycYesNoCode==0 " (click)="onClickBackAndNextCkyc(0,step, 'next')"
+                                class="w--button w--button--orange w--button--large marR10" value="Next" autocomplete="off" /> -->
+                </div>
+
+            </div>
+            <form [formGroup]="ckycDetailForm" #bajajTemplateForm="ngForm" (ngSubmit)="onSubmitCKYCInfoBajaj()">
+                <ng-template matStepLabel>CKYC Details</ng-template>
+                <div class="row pt-4">
+                    <div class="card" style=" 
+        align-items: center;
+        width: 100%;
+        padding: 6px;
+        font-size: 15px;
+    ">
+
+                        <span *ngIf="ckycYesNoCode==1">CKYC</span>
+                        <span
+                            *ngIf="ckycYesNoCode==0 && this.successPanNo!==false &&this.successDocNo===false">POI(Proof
+                            of Identity)</span>
+                        <span *ngIf="ckycYesNoCode==0 &&this.successPanNo===false &&this.successDocNo==false">POA(Proof
+                            of Address)</span>
+                    </div>
+                    <div class="col-md-12 select-gender">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of birth</mat-label>
+                                    <input matInput [matDatepicker]="dp6" (click)="dp6.open()" formControlName="DOB"
+                                        required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                                        [maxlength]="10" autocomplete="off" />
+                                    <mat-datepicker-toggle matSuffix [for]="dp6">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6" *ngIf="this.ckycYesNoCode==1">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>CKYC NO</mat-label>
+                                    <input matInput placeholder="CKYC NO" [textMask]="this.CkycMask"
+                                        formControlName="ckycNo" required autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                            <ng-container *ngIf="this.ckycYesNoCode==0 ">
+                                <div class="col-md-6" *ngIf="this.successPanNo!==false &&this.successDocNo===false">
+                                    <!--this.successPanNo!==false-->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>PAN NO</mat-label>
+                                        <input matInput appUppercase placeholder="PAN NO" formControlName="panNo"
+                                            [textMask]="this.PanMask" autocomplete="off" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6" *ngIf="this.successPanNo===false &&this.successDocNo==false">
+                                    <!--this.successPanNo==false && this.successDocNo===false-->
+                                    <!--*ngIf="this.successPanNo===false "&& this.successDocNo===false-->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Choose one</mat-label>
+                                        <mat-select formControlName="doctype"
+                                            (selectionChange)="onSelectDocument($event)">
+                                            <mat-option value="">Select Doc Type.</mat-option>
+                                            <mat-option [value]="doc"
+                                                *ngFor="let doc of  this.CkycDocList">{{doc?.DocDesc}}</mat-option>
+                                        </mat-select>
+
+                                        <mat-error *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                            You must make a
+                                            selection</mat-error>
+                                        <mat-error
+                                            *ngIf="ckycDetailForm.controls?.['doctype']?.hasError('pattern') && !ckycDetailForm.controls?.['doctype']?.hasError('required')">
+                                            Your selection is invalid
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6" *ngIf="this.successPanNo===false &&this.successDocNo==false">
+                                    <!--!ckycDetailForm.get('doctype')?.value-->
+                                    <!--this.successPanNo==false && this.successDocNo===false-->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>{{ckycDetailForm.get('doctype')?.value ?
+                                            ckycDetailForm.get('doctype')?.value?.DocDesc:"Select
+                                            Document Type"}} </mat-label>
+                                        <input matInput appUppercase
+                                            [readonly]=" ckycDetailForm.get('doctype')?.value?false:true"
+                                            placeholder="{{ckycDetailForm.get('doctype')?.value?.DocDesc}}"
+                                            formControlName="docNo" [textMask]="identityMask" autocomplete="off" />
+                                        <!-- <mat-error
+                                                *ngIf="ckycDetailForm?.controls?.docNo?.errors?.pattern">
+                                                Please enter a valid Selected Document Number
+                                            </mat-error> -->
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6" *ngIf="this.successPanNo==false && this.successFileUpload===true">
+                                    <!--this.successPanNo===false  && this.successDocNo===false-->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Upload Selected Document</mat-label>
+                                        <input matInput type="text" formControlName="docData"
+                                            (click)="fileUpload.click()" [value]="this.fileName" readonly>
+
+                                        <input [hidden]="true" type="file" #fileUpload id="fileUpload" name="fileUpload"
+                                            multiple="multiple" (change)="fileProgress($event)" />
+
+                                        <mat-error
+                                            *ngIf="ckycDetailForm.get('docData')?.hasError('fileExtensionError')">
+                                            {{ckycDetailForm.get('docData')?.errors?.['fileExtensionError']}}
+                                        </mat-error>
+                                        <mat-error *ngIf="!ckycDetailForm.get('docData')?.hasError('required')">
+                                            {{ckycDetailForm.get('docData')?.errors?.['required']}}
+                                        </mat-error>
+                                        <mat-error *ngIf="ckycDetailForm.get('docData')?.hasError('fileSizeError') ">
+                                            {{ckycDetailForm.get('docData')?.errors?.['fileSizeError']
+                                            }}
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+                            </ng-container>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-12 text-error text-left" *ngIf="
+                                          errMsg_oi && ckycDetailForm.invalid
+                                        ">
+                            {{ errMsg_oi }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <p class="msg" *ngIf="successcode=='1'">
+                        <span class="text-danger">Verification Success : </span>
+                        <span> {{ckycDetails!.fullName | titlecase}} Not You?</span>
+                        <span class="text-primary" (click)="editDetailsSBI()" style="cursor:pointer;"> Click here
+                            to change</span>
+                    </p>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12 text-center" *ngIf="successcode==''">
+
+                        <button type="submit" class="w--button w--button--orange w--button--large">
+                            Validate
+                            <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i> -->
+                        </button>
+                    </div>
+                    <!-- <div class="col-md-12 text-center"   *ngIf="successcode=='0'">
+                        <p  class="msg">
+                            <span class="text-danger">Verification failed : </span>
+                            <span class="text-primary" (click)="editDetailsSBI()" style="cursor:pointer;"> Click here
+                                to change</span>
+                        </p>
+                      </div>-->
+                    <div class="col-md-12 text-center" *ngIf="successcode=='1'">
+                        <button type="button" (click)="onContinueSuccessClick()"
+                            class="btn btn-success w--button--large">Continue as
+                            {{ckycDetails!.fullName | titlecase}}</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+</mat-card>
+<!--Bajaj CKYC From end -->
+
+<!-- Button trigger modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->

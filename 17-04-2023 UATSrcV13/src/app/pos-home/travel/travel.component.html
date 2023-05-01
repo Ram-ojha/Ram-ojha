@@ -1,0 +1,766 @@
+<div class="col-md-12 bike_pannal travelpannel">
+    <div class="bike_area" style="display: block">
+        <div class="row">
+            <!-- Select_Bike_not_ know bike _no -->
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 card_popup_not_no_area_view">
+                            <div class="container-two-wheeler-insurance">
+                                <mat-tab-group>
+                                    <mat-tab>
+                                        <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">people
+                                            </mat-icon>
+                                            Family/Self
+                                        </ng-template>
+                                        <div class="col-md-12">
+                                            <div class="tab-content py-3 px-3 px-sm-0 Bike_Manufacturer"
+                                                id="nav-tabContent">
+                                                <div class="row tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                    aria-labelledby="nav-home-tab">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mx-auto">
+                                                                <div class="row">
+                                                                    <!--- Base Plan ----->
+                                                                    <div class="col-md-12">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field class="example-full-width">
+                                                                                <input autocomplete="none" matInput
+                                                                                    placeholder="Destinations">
+                                                                            </mat-form-field>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <label class="col-md-12 text-left">AGE
+                                                                        OF TRAVELLER(S)
+                                                                    </label>
+                                                                    <div class="col-md-2">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Self">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Spouse">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Child 1">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Child 2">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Father">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Mother">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field>
+                                                                                <input matInput [min]="StartDate"
+                                                                                    [matDatepicker]="TRIPSTART"
+                                                                                    (focus)="TRIPSTART.open()"
+                                                                                    (click)="TRIPSTART.open()"
+                                                                                    (click)="TravelStartEndDate(TravelStartDate)"
+                                                                                    (focusout)="TravelStartEndDate(TravelStartDate)"
+                                                                                    #TravelStartDate
+                                                                                    placeholder="TRIP START DATE"
+                                                                                    readonly>
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="TRIPSTART"
+                                                                                    (focusout)="TravelStartEndDate(TravelStartDate)">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #TRIPSTART
+                                                                                    readonly="true">
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field>
+                                                                                <input matInput [min]="EndDate"
+                                                                                    [matDatepicker]="TRIPEND"
+                                                                                    placeholder="TRIP END DATE"
+                                                                                    (focus)="TRIPEND.open()"
+                                                                                    (click)="TRIPEND.open()" readonly>
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="TRIPEND">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #TRIPEND
+                                                                                    readonly="false">
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left"
+                                                                        >
+                                                                        <label>Are all
+                                                                            travellers
+                                                                            residents of
+                                                                            India?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="travellers($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                        <div class="row" *ngIf="residents">
+                                                                            <div class="col-md-12 text-left">
+                                                                                <label>Do
+                                                                                    all
+                                                                                    travellers
+                                                                                    have
+                                                                                    OCI/PIO
+                                                                                    card?
+                                                                                    <mat-radio-group
+                                                                                        aria-label="Select an option"
+                                                                                        style="margin-left: 10px;">
+                                                                                        <mat-radio-button value="1">
+                                                                                            Yes
+                                                                                        </mat-radio-button>
+                                                                                        <mat-radio-button value="2"
+                                                                                            checked>
+                                                                                            No
+                                                                                        </mat-radio-button>
+                                                                                    </mat-radio-group>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-12 text-left">
+                                                                                <div class="row">
+                                                                                    <label class="col-md-7">How
+                                                                                        long
+                                                                                        you
+                                                                                        have
+                                                                                        been
+                                                                                        in
+                                                                                        India?
+                                                                                    </label>
+                                                                                    <div class="col-md-5">
+                                                                                        <select name="long"
+                                                                                            class="form-control">
+                                                                                            <option value="">
+                                                                                                Select
+                                                                                                duration
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Less
+                                                                                                than
+                                                                                                6
+                                                                                                months
+                                                                                            </option>
+                                                                                            <option value="2">
+                                                                                                More
+                                                                                                than
+                                                                                                6
+                                                                                                months
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Is this trip
+                                                                            starting from
+                                                                            India?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="medical($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                        <div class="row medicalconditions" *ngIf="medicalconditions">
+                                                                            <label class="col-md-12"
+                                                                                >Insurance
+                                                                                companies
+                                                                                only cover
+                                                                                trips which
+                                                                                will be
+                                                                                starting
+                                                                                from India.
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Travelling
+                                                                            multiple times
+                                                                            in a year?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="TravellingMultiple($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+
+                                                                        <label *ngIf="duration">Max
+                                                                            trip duration
+                                                                            (in days)
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;">
+                                                                                <mat-radio-button value="1">
+                                                                                    30
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    45
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="1">
+                                                                                    60
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    90
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Any medical
+                                                                            conditions
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-8 mx-auto">
+                                                                        <button
+                                                                            class="w--button w--button--orange w--button--large"
+                                                                            title="View Quotes"
+                                                                            (click)="TRAVELINSURANCE()">View
+                                                                            Quotes
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-tab>
+
+                                    <mat-tab>
+                                        <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">group_add
+                                            </mat-icon>
+                                            Group/Friends
+                                        </ng-template>
+                                        <div class="col-md-12">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="">
+                                                    <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                        id="nav-tabContent">
+                                                        <div class="row tab-pane fade show active" id="nav-insurance"
+                                                            role="tabpanel" aria-labelledby="nav-home-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <!--- Base Plan ----->
+                                                                    <div class="col-md-12">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field class="example-full-width">
+                                                                                <input autocomplete="none" matInput
+                                                                                    placeholder="Destinations">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <label class="col-md-12 text-left">AGE
+                                                                        OF TRAVELLER(S)
+                                                                    </label>
+                                                                    <div class="col-md-2"
+                                                                        *ngFor="let group of groupmember; let i = index">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Member {{i+1}}">
+                                                                        </mat-form-field>
+                                                                    </div>
+
+                                                                    <div class="col-md-2">
+                                                                        <button class="btn btn-primery btn-add"
+                                                                            [disabled]="member"
+                                                                            (click)="memeberadd()">Add</button>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field>
+                                                                                <input matInput [min]="StartDate"
+                                                                                    [matDatepicker]="TRIPSTART2"
+                                                                                    (focus)="TRIPSTART2.open()"
+                                                                                    (click)="TRIPSTART2.open()"
+                                                                                    (click)="TravelStartEndDate(TravelStartDate2)"
+                                                                                    (focusout)="TravelStartEndDate(TravelStartDate2)"
+                                                                                    #TravelStartDate2
+                                                                                    placeholder="TRIP START DATE"
+                                                                                    readonly>
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="TRIPSTART2"
+                                                                                    (focusout)="TravelStartEndDate(TravelStartDate2)">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #TRIPSTART2
+                                                                                    readonly="false">
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field>
+                                                                                <input matInput [min]="EndDate"
+                                                                                    [matDatepicker]="TRIPEND2"
+                                                                                    placeholder="TRIP END DATE"
+                                                                                    (focus)="TRIPEND2.open()"
+                                                                                    (click)="TRIPEND2.open()" readonly>
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="TRIPEND2">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #TRIPEND2
+                                                                                    readonly="false">
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Are all
+                                                                            travellers
+                                                                            residents of
+                                                                            India?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="travellers($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                        <div class="row" *ngIf="residents">
+                                                                            <div class="col-md-12 text-left">
+                                                                                <label>Do
+                                                                                    all
+                                                                                    travellers
+                                                                                    have
+                                                                                    OCI/PIO
+                                                                                    card?
+                                                                                    <mat-radio-group
+                                                                                        aria-label="Select an option"
+                                                                                        style="margin-left: 10px;">
+                                                                                        <mat-radio-button value="1">
+                                                                                            Yes
+                                                                                        </mat-radio-button>
+                                                                                        <mat-radio-button value="2"
+                                                                                            checked>
+                                                                                            No
+                                                                                        </mat-radio-button>
+                                                                                    </mat-radio-group>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-12 text-left">
+                                                                                <div class="row">
+                                                                                    <label class="col-md-7">How
+                                                                                        long
+                                                                                        you
+                                                                                        have
+                                                                                        been
+                                                                                        in
+                                                                                        India?
+                                                                                    </label>
+                                                                                    <div class="col-md-5">
+                                                                                        <select name="long"
+                                                                                            class="form-control">
+                                                                                            <option value="">
+                                                                                                Select
+                                                                                                duration
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Less
+                                                                                                than
+                                                                                                6
+                                                                                                months
+                                                                                            </option>
+                                                                                            <option value="2">
+                                                                                                More
+                                                                                                than
+                                                                                                6
+                                                                                                months
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Is this trip
+                                                                            starting from
+                                                                            India?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="medical($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                        <div class="row" *ngIf="medicalconditions">
+                                                                            <label class="col-md-12"
+                                                                           >Insurance
+                                                                                companies
+                                                                                only cover
+                                                                                trips which
+                                                                                will be
+                                                                                starting
+                                                                                from India.
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Travelling
+                                                                            multiple times
+                                                                            in a year?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="TravellingMultiple($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+
+                                                                        <label *ngIf="duration">Max
+                                                                            trip duration
+                                                                            (in days)
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;">
+                                                                                <mat-radio-button value="1">
+                                                                                    30
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    45
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="1">
+                                                                                    60
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    90
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Any medical
+                                                                            conditions
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-8 mx-auto">
+                                                                        <button
+                                                                            class="w--button w--button--orange w--button--large"
+                                                                            title="View Quotes"
+                                                                            (click)="TRAVELINSURANCE()">View
+                                                                            Quotes
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-tab>
+
+                                    <mat-tab>
+                                        <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">school
+                                            </mat-icon>
+                                            Student
+                                        </ng-template>
+
+                                        <div class="col-md-12">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="">
+                                                    <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                        id="nav-tabContent">
+                                                        <div class="row tab-pane fade show active" id="nav-insurance"
+                                                            role="tabpanel" aria-labelledby="nav-home-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <!--- Base Plan ----->
+                                                                    <div class="col-md-12">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field class="example-full-width">
+                                                                                <input autocomplete="none" matInput
+                                                                                    placeholder="Destinations">
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <label class="col-md-12 text-left">AGE
+                                                                        OF TRAVELLER(S)
+                                                                    </label>
+                                                                    <div class="col-md-2"
+                                                                        *ngFor="let student of allstudent; let i=index">
+                                                                        <mat-form-field class="example-full-width">
+                                                                            <input autocomplete="none" matInput
+                                                                                placeholder="Student {{i+1}}">
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <button class="btn btn-primery btn-add"
+                                                                            (click)="studentadd()"
+                                                                            [disabled]="studentbtn">Add</button>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field>
+                                                                                <input matInput [min]="StartDate"
+                                                                                    [matDatepicker]="TRIPSTART3"
+                                                                                    (focus)="TRIPSTART3.open()"
+                                                                                    (click)="TRIPSTART3.open()"
+                                                                                    (click)="TravelStartEndDate(TravelStartDate)"
+                                                                                    (focusout)="TravelStartEndDate(TravelStartDate)"
+                                                                                    #TravelStartDate3
+                                                                                    placeholder="TRIP START DATE"
+                                                                                    readonly>
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="TRIPSTART3"
+                                                                                    (focusout)="TravelStartEndDate(TravelStartDate3)">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #TRIPSTART3
+                                                                                    readonly="false">
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="field-wrapper">
+                                                                            <mat-form-field>
+                                                                                <input matInput [min]="EndDate"
+                                                                                    [matDatepicker]="TRIPEND3"
+                                                                                    placeholder="TRIP END DATE"
+                                                                                    (click)="TRIPEND3.open()"
+                                                                                    (focus)="TRIPEND3.open()" readonly>
+                                                                                <mat-datepicker-toggle matSuffix
+                                                                                    [for]="TRIPEND3">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #TRIPEND3
+                                                                                    readonly="false">
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Are all
+                                                                            travellers
+                                                                            residents of
+                                                                            India?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="travellers($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                        <div class="row" *ngIf="residents">
+                                                                            <div class="col-md-12 text-left">
+                                                                                <label>Do
+                                                                                    all
+                                                                                    travellers
+                                                                                    have
+                                                                                    OCI/PIO
+                                                                                    card?
+                                                                                    <mat-radio-group
+                                                                                        aria-label="Select an option"
+                                                                                        style="margin-left: 10px;">
+                                                                                        <mat-radio-button value="1">
+                                                                                            Yes
+                                                                                        </mat-radio-button>
+                                                                                        <mat-radio-button value="2"
+                                                                                            checked>
+                                                                                            No
+                                                                                        </mat-radio-button>
+                                                                                    </mat-radio-group>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-12 text-left">
+                                                                                <div class="row">
+                                                                                    <label class="col-md-7">How
+                                                                                        long
+                                                                                        you
+                                                                                        have
+                                                                                        been
+                                                                                        in
+                                                                                        India?
+                                                                                    </label>
+                                                                                    <div class="col-md-5">
+                                                                                        <select name="long"
+                                                                                            class="form-control">
+                                                                                            <option value="">
+                                                                                                Select
+                                                                                                duration
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Less
+                                                                                                than
+                                                                                                6
+                                                                                                months
+                                                                                            </option>
+                                                                                            <option value="2">
+                                                                                                More
+                                                                                                than
+                                                                                                6
+                                                                                                months
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Is this trip
+                                                                            starting from
+                                                                            India?
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;"
+                                                                                (change)="medical($event)">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                        <div class="row" *ngIf="medicalconditions">
+                                                                            <label class="col-md-12"
+                                                                                style="color: red;">Insurance
+                                                                                companies
+                                                                                only cover
+                                                                                trips which
+                                                                                will be
+                                                                                starting
+                                                                                from India.
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 text-left">
+                                                                        <label>Any medical
+                                                                            conditions
+                                                                            <mat-radio-group
+                                                                                aria-label="Select an option"
+                                                                                style="margin-left: 10px;">
+                                                                                <mat-radio-button value="1">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="2">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </label>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-8 mx-auto">
+                                                                        <button
+                                                                            class="w--button w--button--orange w--button--large"
+                                                                            title="View Quotes"
+                                                                            (click)="TRAVELINSURANCE()">View
+                                                                            Quotes
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Select_Bike_not_know bike_no -->
+        </div>
+    </div>
+</div>

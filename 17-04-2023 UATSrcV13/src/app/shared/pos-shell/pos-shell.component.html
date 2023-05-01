@@ -1,0 +1,51 @@
+<!--==========================
+    Top Bar
+  ============================-->
+
+<div class="pos_body">
+    <!--==========================        Header      ============================-->
+    <pos-header></pos-header>
+    <!-- #header -->
+
+
+    <main id="main">
+        <router-outlet></router-outlet>
+        <!-- Side Manubar -->
+        
+        <!-- <a class="sideBaropen" id="sideBarOpen"><i class="fa fa-bars"></i></a> -->
+        <!-- [ngClass]="{showMenu?'active':''}" -->
+        <!-- (click)="onClickMenu()"  -->
+        <!-- [ngClass]="showMenu?'my-class1':'my-class2'" -->
+        <!-- *ngIf="navLinks" -->
+        <div class="servcList" [ngClass]= "{'active' : sideBar}"  >
+            <ul class="MenuSideBar" *ngIf="sideBar">
+                <li [class.active]="rla.isActive" *ngFor="let link of navLinks">
+                    <a [routerLink]="'/pos/'+link.RouteUrl" routerLinkActive #rla="routerLinkActive"
+                        (click)="onMenuChange(link)">
+                        <span>{{link.InsuranceCateDesc}}</span>
+                        <mat-icon>{{link.IconString}}</mat-icon>
+                      
+                    </a>
+                </li>
+            </ul>
+        </div>
+          
+        <!-- <div class="MenuBar">
+            <ul class="MenuSideBar">
+                <li [class.active]="rla.isActive" *ngFor="let link of navLinks">
+                    <a [routerLink]="'/pos/'+link.RouteUrl" routerLinkActive #rla="routerLinkActive"
+                        (click)="onMenuChange(link)">
+                        <mat-icon>{{link.IconString}}</mat-icon>
+                        <span>{{link.InsuranceCateDesc}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+    </main>
+
+    <!--==========================    Footer  ============================-->
+    <pos-footer></pos-footer>
+    <!-- #footer -->
+
+</div>
+      

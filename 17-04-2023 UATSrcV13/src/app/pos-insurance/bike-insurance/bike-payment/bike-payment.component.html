@@ -1,0 +1,292 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> <br /><br /> -->
+<!-- <app-headerforsharedlink></app-headerforsharedlink> -->
+<!--==========================
+    Header
+  ============================-->
+<header id="header">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- <div id="logo" class="pull-left" routerLink="/pos/bike-insurance">
+              <img src="./assets/img/logo.png" class="img-responsive logo-img">
+          </div> -->
+      <div class="col-md-7 col-lg-5">
+        <!-- <div id="logo" class="pull-left" routerLink="/pos"> -->
+        <div id="logo" class="pull-left">
+          <!-- <h1><a href="#body" class="scrollto">Reve<span>al</span></a></h1> -->
+          <img src="./assets/img/logo.png" class="img-responsive logo-img">
+          <h4>Insurance Brokers Pvt. Ltd.</h4>
+          <p>IRDA Direct Broker Code: IRDA/ DB 810/ 20</p>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="col-md-6 offset-md-3 mt-4">
+  <div class="col-md-12 pad0" *ngIf="policyData">
+    <div class="ribbon-3">
+      <h2>Policy Generation {{ errorMessage }} </h2>
+    </div>
+    <div class="policy-genrt">
+      <mat-card *ngIf="this.policyData?.CompanyCode!=='8' && this.policyData?.CompanyCode!=='7' ">
+        <mat-panel-description>
+          <table class="table table-bordered">
+            <tbody>
+              <!-- <tr>
+              <td>URL Params :-</td>
+              <td>{{ urlParams }}</td>
+            </tr>
+            <tr>
+              <td>key :-</td>
+              <td>{{ key }}</td>
+            </tr> -->
+              <tr *ngIf='policyData.PaymentInd ===1 ; else failure'>
+                <td>Policy No : </td>
+                <td>{{ policyData.PolicyNo }}</td>
+              </tr>
+              <ng-template #failure>
+                <tr>
+                  <td>Transaction No : </td>
+                  <td>{{ policyData.TransactionNo }}</td>
+                </tr>
+              </ng-template>
+              <tr>
+                <td>Transaction Status : </td>
+                <!-- <td>{{ policyData.TxnDescription || policyData.PaymentStatus }}</td> -->
+                <td>{{ policyData.TxnDescription }}</td>
+              </tr>
+              <tr>
+                <td>Vechile Owner Name : </td>
+                <td>{{ policyData.VechileOwnerName }} {{policyData.VehicleOwnerLastName}}</td>
+              </tr>
+              <tr>
+                <td>Mobile No : </td>
+                <td>{{ policyData.MobileNo }}</td>
+              </tr>
+              <!-- <tr *ngIf="ProposalPolicyNumber">
+              <td>Proposal Policy Number :-</td>
+              <td>{{ ProposalPolicyNumber }}</td>
+            </tr>
+            <tr>
+              <td>Proposal Partner Code :-</td>
+              <td>{{ policyData.ProposalPartnerCode }}</td>
+            </tr>
+            <tr *ngIf="ProposalStatusMsg">
+              <td>Proposal Status Msg :-</td>
+              <td>{{ ProposalStatusMsg }}</td>
+            </tr> -->
+            </tbody>
+          </table>
+          <div class="col-md-12 text-center">
+            <h4 *ngIf="this.urlParams == 'Transaction Failed'"> {{this.urlParams}} </h4>
+            <!-- <button type="button" [disabled]="ProposalPolicyNumber"
+              [hidden]="this.urlParams == 'Transaction Failed' ||  this.key == 'error'" class="btn btn-primary"
+              (click)="updatePayment()">
+              Check Payment Status</button>&nbsp; -->
+            <button type="button" class="btn btn-success" routerLink="/pos/">
+              Home
+              <i class="fa fa-backward" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <!-- [disabled]="!ProposalPolicyNumber" -->
+            <button type="button"
+              *ngIf="this.urlParams != 'Transaction Failed' &&  this.key != 'error' && (policyData && policyData.PaymentInd === 1)"
+              target="_blank" (click)="downloadPolicy()" class="btn btn-info">
+              {{btnText}}
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <button type="button" *ngIf="this.urlParams == 'Transaction Failed' ||  this.key == 'error'"
+              class="btn btn-success">
+              <a routerLink="/pos/bike-insurance">Go Back </a>
+              <i class="fa fa-backward" aria-hidden="true"></i>
+            </button>
+          </div>
+        </mat-panel-description>
+      </mat-card>
+
+
+      <mat-card *ngIf="this.policyData?.CompanyCode==='8' ">
+        <mat-panel-description>
+          <table class="table table-bordered">
+            <tbody>
+              <!-- <tr>
+                    <td>URL Params :-</td>
+                    <td>{{ urlParams }}</td>
+                  </tr>
+                  <tr>
+                    <td>key :-</td>
+                    <td>{{ key }}</td>
+                  </tr> -->
+              <tr *ngIf='policyData.PaymentInd ===1 ; else failure'>
+                <td>Policy No : </td>
+                <td>{{ policyData.PolicyNo }}</td>
+              </tr>
+              <ng-template #failure>
+                <tr>
+                  <td>Transaction No : </td>
+                  <td>{{ policyData.TransactionNo }}</td>
+                </tr>
+              </ng-template>
+              <tr>
+                <td>Transaction Status : </td>
+                <!-- <td>{{ policyData.TxnDescription || policyData.PaymentStatus }}</td> -->
+                <td>{{ policyData.TxnDescription }}</td>
+              </tr>
+              <tr>
+                <td>Vechile Owner Name : </td>
+                <td>{{ policyData.VechileOwnerName }} {{policyData.VehicleOwnerLastName}}</td>
+              </tr>
+              <tr>
+                <td>Mobile No : </td>
+                <td>{{ policyData.MobileNo }}</td>
+              </tr>
+              <tr>
+                <td>Policy Status : </td>
+                <td>{{ this.ckycData?.policyStatus }}</td>
+              </tr>
+
+              <tr>
+                <td>KYC Verification Status : </td>
+                <td>{{this.ckycData?.kycVerificationStatus }}</td>
+              </tr>
+              <tr *ngIf="this.ckycData?.mismatchType !='S' ">
+                <td>Reason : </td>
+                <td>{{ this.goDigitMismatchType}} ,Please click <a target="_blank" [href]="this.ckycData?.link">here</a>
+                  to upload
+                  documents.</td>
+              </tr>
+              <!-- <tr *ngIf="this.ckycData?.link !='' || this.ckycData?.link !==null || this.ckycData?.link!==undefined">
+                  <td>Link : </td>
+                  <td>{{ this.ckycData?.link }}</td>
+                </tr> -->
+              <!-- <tr *ngIf="ProposalPolicyNumber">
+                    <td>Proposal Policy Number :-</td>
+                    <td>{{ ProposalPolicyNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Proposal Partner Code :-</td>
+                    <td>{{ policyData.ProposalPartnerCode }}</td>
+                  </tr>
+                  <tr *ngIf="ProposalStatusMsg">
+                    <td>Proposal Status Msg :-</td>
+                    <td>{{ ProposalStatusMsg }}</td>
+                  </tr> -->
+            </tbody>
+          </table>
+          <div class="col-md-12 text-center">
+            <h4 *ngIf="this.urlParams == 'Transaction Failed'"> {{this.urlParams}} </h4>
+            <!-- <button type="button" [disabled]="ProposalPolicyNumber"
+              [hidden]="this.urlParams == 'Transaction Failed' ||  this.key == 'error'" class="btn btn-primary"
+              (click)="updatePayment()">
+              Check Payment Status</button>&nbsp; -->
+            <button type="button" class="btn btn-success" routerLink="/pos/">
+              Home
+              <i class="fa fa-backward" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <!-- [disabled]="!ProposalPolicyNumber" -->
+            <button type="button"
+              *ngIf="this.urlParams != 'Transaction Failed' &&  this.key != 'error' && (policyData && policyData.PaymentInd === 1)"
+              target="_blank" (click)="downloadPolicy()" class="btn btn-info">
+              {{btnText}}
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <button type="button" *ngIf="this.urlParams == 'Transaction Failed' ||  this.key == 'error'"
+              class="btn btn-success">
+              <a routerLink="/pos/bike-insurance">Go Back </a>
+              <i class="fa fa-backward" aria-hidden="true"></i>
+            </button>
+          </div>
+        </mat-panel-description>
+      </mat-card>
+
+
+      <mat-card *ngIf="this.policyData?.CompanyCode==='7' ">
+        <mat-panel-description>
+          <table class="table table-bordered">
+            <tbody>
+              <!-- <tr>
+                    <td>URL Params :-</td>
+                    <td>{{ urlParams }}</td>
+                  </tr>
+                  <tr>
+                    <td>key :-</td>
+                    <td>{{ key }}</td>
+                  </tr> -->
+              <tr *ngIf='policyData.PaymentInd ===1 ; else failure'>
+                <td>Policy No : </td>
+                <td>{{ policyData.PolicyNo }}</td>
+              </tr>
+              <ng-template #failure>
+                <tr>
+                  <td>Transaction No : </td>
+                  <td>{{ policyData.TransactionNo }}</td>
+                </tr>
+              </ng-template>
+              <tr>
+                <td>Transaction Status : </td>
+                <!-- <td>{{ policyData.TxnDescription || policyData.PaymentStatus }}</td> -->
+                <td>{{ policyData.TxnDescription }}</td>
+              </tr>
+              <tr>
+                <td>Vechile Owner Name : </td>
+                <td>{{ policyData.VechileOwnerName }} {{policyData.VehicleOwnerLastName}}</td>
+              </tr>
+              <tr>
+                <td>Mobile No : </td>
+                <td>{{ policyData.MobileNo }}</td>
+              </tr>
+
+              <tr *ngIf="this.sbiCkycStatus?.Res == 1 ">
+                <td>KYC Verification Status : </td>
+                <td>{{this.sbiCkycStatus?.Res == 1?"Your CKYC is not verified.":"CKYC Success." }}</td>
+              </tr>
+              <tr *ngIf="this.sbiCkycStatus?.Res == 1 ">
+                <td>Reason : </td>
+                <td> kindly proceed with Manual CKYC otherwise Policy will get cancelled after couple of days of
+                  issuance and claim will not be settled ,Please click <a target="_blank"
+                    [href]="this.sbiCkycStatus?.Msg + policyData.PolicyNo">here</a>
+                  for Manual CKYC.</td>
+              </tr>
+
+            </tbody>
+          </table>
+          <div class="col-md-12 text-center">
+            <h4 *ngIf="this.urlParams == 'Transaction Failed'"> {{this.urlParams}} </h4>
+            <!-- <button type="button" [disabled]="ProposalPolicyNumber"
+              [hidden]="this.urlParams == 'Transaction Failed' ||  this.key == 'error'" class="btn btn-primary"
+              (click)="updatePayment()">
+              Check Payment Status</button>&nbsp; -->
+            <button type="button" class="btn btn-success" routerLink="/pos/">
+              Home
+              <i class="fa fa-backward" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <!-- [disabled]="!ProposalPolicyNumber" -->
+            <button type="button"
+              *ngIf="this.urlParams != 'Transaction Failed' &&  this.key != 'error' && (policyData && policyData.PaymentInd === 1)"
+              target="_blank" (click)="downloadPolicy()" class="btn btn-info">
+              {{btnText}}
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <button type="button" *ngIf="this.urlParams == 'Transaction Failed' ||  this.key == 'error'"
+              class="btn btn-success">
+              <a routerLink="/pos/bike-insurance">Go Back </a>
+              <i class="fa fa-backward" aria-hidden="true"></i>
+            </button>
+          </div>
+        </mat-panel-description>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+<app-quotes-sharing-modal #shareQuotesModal [quotesDetailsForSharing]='quotesDetailsForSharing'>
+</app-quotes-sharing-modal>

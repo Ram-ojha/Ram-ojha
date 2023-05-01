@@ -1,0 +1,83 @@
+.Previous_policy {
+  height: 100%;
+  width: 100%;
+  background: rgb(231 234 238 / 97%);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 9999;
+  padding-top: 100px;
+}
+
+.policy_card {
+  padding: 0px;
+}
+
+.policy_card_header {
+  width: 100%;
+  background: #083b66;
+  font-size: 16px;
+  padding: 4px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.policy_card_body {
+  padding: 10px;
+}
+
+.policy_details {
+  font-size: 10px;
+  margin-bottom: 0px;
+  border-top: 1px solid #efefef;
+  padding-top: 6px;
+}
+
+.close {
+  color: #ffefef;
+  opacity: 1;
+  margin-right: 6px;
+}
+.policyExpiryType {
+  /* width: 350px; */
+  margin: 10px;
+  border: #0c2e8a solid 1px;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  /* transform: scale(1); */
+  box-shadow: none;
+  transition: all 0.45s ease-in-out;
+  -moz-transition: all 0.45s ease-in-out;
+  -webkit-transition: all 0.45s ease-in-out;
+}
+.policyExpiryType:hover {
+  background: #083b66;
+  /* transform: scale(1.1); */
+  box-shadow: none;
+  transition: all 0.45s ease-in-out;
+  -moz-transition: all 0.45s ease-in-out;
+  -webkit-transition: all 0.45s ease-in-out;
+}
+
+.policyExpiryType:hover .mat-expansion-panel-header-description {
+  color: #ffffff;
+}
+.policyExpiryType span {
+  font-weight: 500;
+}
+.policyExpiryType:hover span {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 767px) {
+  .policyExpiryType {
+    width: 100%;
+  }
+}

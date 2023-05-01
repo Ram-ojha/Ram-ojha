@@ -1,0 +1,184 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <mat-card>
+                <section>
+                    <div class="container main-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="Profile">Profile Details | CF/POS/195485</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="profile-section">
+                                    <a href="">
+                                        <img [src]="profileImage" class="img-thumbnail radius-primary">
+                                    </a>
+                                    <h5 class="mb-0 mt-3">{{  profileDetails['NameEnglish']}}</h5>
+                                    <!-- <p class="mb-0">Interface Designer, Posh</p>
+                                    <p class="mb-0">Live at NY, USA</p> -->
+                                    <a routerLink="/manage/profile">Change Photo</a>
+                                    <hr class="color-9">
+
+                                </div>
+                                <div class="document-uploader">
+                                    <h4 class="color-black mb-2">Document Uploader </h4>
+                                    <ul>
+                                        <li>Highest Education Certificate <a  routerLink="/manage/profile">View</a></li>
+                                        <li>Cancelled Cheque <a href="#" routerLink="/manage/profile">View</a></li>
+                                        <li>PAN Card Document <a href="#" routerLink="/manage/profile">View</a></li>
+                                        <li>Aadhar Card Front <a href="#" routerLink="/manage/profile">View</a></li>
+                                        <li>Aadhar Card Back <a href="#" routerLink="/manage/profile">View</a></li>
+                                        <li>Signature <a href="#" routerLink="/manage/profile">View</a></li>
+                                        <li>Terms &amp; ConditionsDownload <a href="#" routerLink="/manage/profile">Download</a>
+                                        </li>
+                                        <li>GST Certificate <a href="#" routerLink="/manage/profile">Add</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <!-- <div class="profile-detail-section">
+                                    <h4 class="color-black mb-2">Profile</h4>
+                                    <p class="color-3">With Posh you can make a web application too. That's what we mean
+                                        by doing more
+                                        with Posh.</p>
+                                </div> -->
+                                <div class="divprofile-register">
+                                    <div class="col-md-12">
+                                        <h4 class="color-black mb-2">Personal Information</h4>
+                                    </div>
+                                    <form [formGroup]="ProfileForm" (ngSubmit)="OnSubmitPOSProfile()">
+                                        <div class="personal-info1">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <mat-form-field class="">
+                                                        <input readonly matInput placeholder="Full Name"
+                                                            formControlName="NameEnglish">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <mat-form-field class="">
+                                                        <input readonly matInput placeholder="Email Id" value=""
+                                                            formControlName="EmailID1">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="Aadhar Number"
+                                                                    value="" formControlName="AadharNumber">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="Mobile No"
+                                                                    value="" formControlName="MobileNo1">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="PIN Code" value=""
+                                                                    formControlName="LPinCode">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="Date of Birth"
+                                                                    value="" formControlName="DOB">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <mat-form-field class="">
+                                                        <textarea readonly matInput placeholder="Communication Address"
+                                                            formControlName="LAddress">
+                                                    </textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <h4 class="color-black mb-2">Payout Details</h4>
+                                        </div>
+                                        <div class="personal-info1">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="Beneficiary Name"
+                                                                    value="" formControlName="PayoutBeneficiaryName">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput
+                                                                    placeholder="Savings Account Number"
+                                                                    formControlName="PayoutAccountNo" value="">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="IFSC Code"
+                                                                    value="" formControlName="PayoutIFSCNo">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <mat-form-field class="">
+                                                                <input readonly matInput placeholder="PAN Number"
+                                                                    value="" formControlName="PANNo">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <h4 class="color-black mb-2">Other Details (Optional)</h4>
+                                        </div>
+
+                                        <div class="personal-info1">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <mat-form-field class="">
+                                                        <input readonly matInput placeholder="GSTIN (Optional)">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <button type="submit" class="btn btn-primary btnupdate" hidden>UPDATE</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </mat-card>
+        </div>
+    </div>
+</div>

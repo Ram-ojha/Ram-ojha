@@ -1,0 +1,333 @@
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+#header {
+  padding: 5px 0;
+  height: 75px;
+  transition: all 0.5s;
+  z-index: 997;
+  background: #fff;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 20%), 0 3px 6px rgb(0 0 0 / 19%);
+  float: left;
+  margin-bottom: 0px;
+  width: 100%;
+  border-bottom: solid 3px #083b66;
+}
+
+#header #logo h1 {
+  font-size: 42px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+}
+
+#header #logo h1 a {
+  color: #0c2e8a;
+  line-height: 1;
+  display: inline-block;
+}
+
+#header #logo h1 a span {
+  color: #50d8af;
+}
+
+#header #logo img {
+  padding: 0;
+  margin: 0;
+}
+#header h4 {
+  float: right;
+  color: #083b66;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 12px 5px 0;
+}
+#header p {
+  font-size: 13px;
+  color: #555;
+  margin: -7px 0 2px 54px;
+  font-weight: 500;
+}
+
+/* New Header Sublinks */
+ul.main-menu li a {
+  padding: 10px 8px;
+  text-decoration: none;
+  display: inline-block;
+  color: #083b66;
+  font-weight: 500;
+  font-size: 18px;
+  outline: 0;
+  text-transform: capitalize;
+}
+ul.main-menu li {
+  display: inline-block;
+  margin-right: 20px;
+}
+ul.main-menu {
+  list-style-type: none;
+  width: 100%;
+  margin: 6px 0;
+  padding: 0;
+}
+
+.menu-login {
+  padding: 0 0;
+}
+
+ul.menu-login li {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+/*New  Sub Header Style */
+
+.subheader {
+  background: #083b66;
+  position: relative;
+  float: left;
+  width: 100%;
+  box-shadow: 0 6px 6px rgb(0 0 0 / 27%), 0 6px 6px rgb(0 0 0 / 19%);
+  border-bottom: solid 0px #ffffff;
+  padding: 2px 0 0;
+}
+.subheader a {
+  font-size: 20px;
+  margin: 0 0 0 1%;
+  line-height: 24px;
+  color: white !important;
+  text-align: right;
+  float: right;
+}
+
+.subheader h4 {
+  float: right;
+  color: #fff;
+  font-size: 15px;
+  margin: 0 0 0 0;
+  line-height: 22px;
+}
+
+.subheader .fa-times {
+  font-size: 19px;
+  line-height: 18px;
+}
+.padT9{
+  padding-top: 9px;
+}
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+  }
+
+  #header #logo h1 {
+    font-size: 34px;
+  }
+
+  #header #logo img {
+    max-height: 40px;
+  }
+
+  .subheader h4 {
+    float: left;
+    color: #fff;
+    font-size: 15px;
+    margin: 0 0 0 0;
+    line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+  #header h4 {
+    float: right;
+    color: #083b66;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 14px 5px 0;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  #header h4 {
+    float: right;
+    color: #083b66;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 12px 5px 0;
+  }
+
+  #header p {
+    font-size: 13px;
+    color: #555;
+    margin: -7px 0 2px 54px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  ul.main-menu.sublinks-mobileNav {
+    list-style-type: none;
+    width: 100%;
+    margin: 1px 0;
+    text-align: center;
+    padding: 0;
+    background: #083b66;
+  }
+  ul.main-menu.sublinks-mobileNav li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  ul.main-menu.sublinks-mobileNav li a {
+    padding: 7px 8px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    outline: 0;
+    text-transform: capitalize;
+  }
+  .ribbon-3 {
+    width: 98%;
+    height: 35px;
+    margin-left: -10px;
+    margin-right: -10px;
+    background: #083b66;
+    margin: 0 auto 10px;
+    z-index: 2;
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 641px) {
+  #header p {
+    font-size: 13px;
+    color: #555;
+    margin: -7px 0 2px 54px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  ul.main-menu.sublinks-mobileNav {
+    list-style-type: none;
+    width: 100%;
+    margin: 1px 0;
+    text-align: center;
+    padding: 0;
+    background: #083b66;
+  }
+  ul.main-menu.sublinks-mobileNav li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  ul.main-menu.sublinks-mobileNav li a {
+    padding: 7px 8px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    outline: 0;
+    text-transform: capitalize;
+  }
+  .ribbon-3 {
+    width: 98%;
+    height: 35px;
+    margin-left: -10px;
+    margin-right: -10px;
+    background: #083b66;
+    margin: 0 auto 10px;
+    z-index: 2;
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 640px) and (min-width: 450px) {
+  #header h4 {
+    float: right;
+    color: #083b66;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 12px 5px 0;
+  }
+
+  ul.main-menu.sublinks-mobileNav {
+    list-style-type: none;
+    width: 100%;
+    margin: 1px 0;
+    text-align: center;
+    padding: 0;
+    background: #083b66;
+  }
+  ul.main-menu.sublinks-mobileNav li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  ul.main-menu.sublinks-mobileNav li a {
+    padding: 7px 8px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    outline: 0;
+    text-transform: capitalize;
+  }
+  #main {
+    margin-top: 0 !important;
+  }
+
+  #header {
+    padding: 5px 0;
+    height: 70px !important;
+  }
+}
+
+@media screen and (max-width: 449px) and (min-width: 320px) {
+  #header h4 {
+    float: left;
+    font-size: 14px;
+    margin: -8px 47px 0;
+  }
+
+  #header p {
+    font-size: 12px;
+    color: #555;
+    margin: 1px 11px 0px 47px;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  nav#mobile-nav ul {
+    padding-top: 9px;
+    padding: 20px 20px;
+  }
+
+  nav#mobile-nav ul a {
+    color: #fff;
+  }
+
+  ul.main-menu.sublinks-mobileNav {
+    list-style-type: none;
+    width: 100%;
+    margin: 1px 0;
+    text-align: center;
+    padding: 0;
+    background: #083b66;
+  }
+  ul.main-menu.sublinks-mobileNav li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  ul.main-menu.sublinks-mobileNav li a {
+    padding: 7px 8px;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    outline: 0;
+    text-transform: capitalize;
+  }
+}

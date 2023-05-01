@@ -1,0 +1,173 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<div class="col-md-6 offset-md-3 mt-4">
+    <div class="col-md-12 pad0" *ngIf="policyData">
+        <div class="ribbon-3">
+            <h2>Policy Generation {{successStatus == "0" ? "Failure" : "Successfull"}}</h2>
+        </div>
+        <div class="policy-genrt">
+            <mat-card>
+                <mat-panel-description>
+                    <!--------- table for payment success --------->
+                    <table class="table table-bordered" *ngIf='successStatus==="1"'>
+                        <ng-container *ngIf="this.comp_code == '17'">
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{ this.policyData[0].Name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Number</td>
+                                    <td>{{policyData[0].MobileNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Policy Number</td>
+                                    <td>{{policyData[0].PolicyNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction Number</td>
+                                    <td>{{policyData[0].TransactionNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction Date</td>
+                                    <td>{{policyData[0].TransactionDate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Premium</td>
+                                    <td><i class="fa fa-inr"></i>{{policyData[0].ProposalPremium}}</td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Policy Status</td>
+                                    <td>{{policyData[0].PaymentStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </ng-container>
+                        <ng-container *ngIf="this.comp_code != '17'">
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{ policyData?.ProposalName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Number</td>
+                                    <td>{{policyData?.MobileNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Policy Number</td>
+                                    <td>{{policyData?.PolicyNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction Number</td>
+                                    <td>{{policyData?.TransactionNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction Date</td>
+                                    <td>{{policyData?.TransactionDate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Premium</td>
+                                    <td><i class="fa fa-inr"></i>{{policyData?.ProposalPremium}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sum Insured</td>
+                                    <td><i class="fa fa-inr"></i>{{SumInsured}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tenure</td>
+                                    <td>{{policyData?.Tenure}} Year</td>
+                                </tr>
+                                <tr>
+                                    <td>Policy Status</td>
+                                    <td>{{policyData?.PolicyStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </ng-container>
+
+                    </table>
+
+                    <!--------- table for payment failure --------->
+                    <table class="table table-bordered" *ngIf="successStatus== '0'">
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ policyData?.ProposalName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Number</td>
+                                <td>{{policyData?.MobileNo}}</td>
+                            </tr>
+                            <tr>
+                                <td>Reference-Id</td>
+                                <td>{{policyData?.RegistrationNo}}</td>
+                            </tr>
+                            <tr>
+                                <td>Policy Status</td>
+                                <td>{{policyData?.PolicyStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="col-md-12 text-center">
+                    <button type="button" *ngIf="download" class="btn btn-primary">
+                        Download
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                </div> -->
+                    <div class="col-md-12 text-center">
+                        <!-- <button type="button" [disabled]="!policyData" class="btn btn-primary">
+                        Update payment</button>&nbsp; -->
+                        <!-- [disabled]="!ProposalPolicyNumber" -->
+                        <button type="button" class="btn btn-primary" *ngIf="successStatus== '1'"
+                            (click)="PolicydownloadPdf()" [disabled]="policyData.OdpSuccessFailInd == 3">
+                            Generate Policy
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-primary" *ngIf="successStatus== '0'" (click)="Repayment()">
+                            Retry Payment
+                        </button>
+                        <button type="button" class="btn btn-info marL10" routerLink="/pos/health-insurance">
+                            Go To Home
+                        </button>
+                    </div>
+                </mat-panel-description>
+            </mat-card>
+        </div>
+    </div>
+    <div class="col-md-12 pad0" *ngIf="!policyData">
+        <div class="ribbon-3">
+            <h2>Payment Response Recieved</h2>
+        </div>
+        <div class="policy-genrt">
+            <mat-card>
+                <mat-panel-description>
+                    <!--------- table for payment success --------->
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Registration Number</td>
+                                <td>{{ this.regNo}}</td>
+                            </tr>
+                            <tr>
+                                <td>Application Number</td>
+                                <td>{{ApplicationNo}}</td>
+                            </tr>
+                            <tr>
+                                <td>Policy Status</td>
+                                <td>Api Integration pending for this company</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="col-md-12 text-center">
+
+                        <button type="button" class="btn btn-info marL10" routerLink="/pos/health-insurance">
+                            Go To Home
+                        </button>
+                    </div>
+                </mat-panel-description>
+            </mat-card>
+        </div>
+    </div>
+</div>

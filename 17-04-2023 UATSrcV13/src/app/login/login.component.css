@@ -1,0 +1,345 @@
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+#header {
+  padding: 10px 0;
+  height: 75px;
+  transition: all 0.5s;
+  z-index: 997;
+  background: #fff;
+  box-shadow: 0px 6px 9px 0px rgba(0, 0, 0, 0.06);
+}
+
+#header #logo h1 {
+  font-size: 42px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+}
+
+#header #logo h1 a {
+  color: #0c2e8a;
+  line-height: 1;
+  display: inline-block;
+}
+
+#header #logo h1 a span {
+  color: #50d8af;
+}
+
+#header #logo img {
+  padding: 0;
+  margin: 0;
+}
+#header h4 {
+  float: right;
+  color: #083b66;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 12px 5px 0;
+}
+#header p {
+  font-size: 13px;
+  color: #555;
+  margin: -7px 0 2px 54px;
+  font-weight: 500;
+}
+.icon-field .fa{
+  font-size: 21px;
+   color: #a6a6a6;
+}
+.login_proceed{
+  color: #ec691f; cursor: pointer;
+}
+.fade-in.top{
+  margin-top: 120px;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+  }
+
+  #header {
+    padding: 5px 0;
+    height: 80px;
+  }
+
+  #header #logo h1 {
+    font-size: 34px;
+  }
+
+  #header #logo img {
+    max-height: 40px;
+  }
+}
+/* for Fade animation  */
+.fade-in {
+  animation: fadeIn ease 1.5s;
+  -webkit-animation: fadeIn ease 1.5s;
+  -moz-animation: fadeIn ease 1.5s;
+  -o-animation: fadeIn ease 1.5s;
+  -ms-animation: fadeIn ease 1.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* end fade css */
+/* from login */
+#main {
+  /* background-color: #f9f9f9; */
+  float: left;
+  width: 100%;
+}
+.pos_body {
+  /* background-color: #f9f9f9; */
+  float: left;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../src/assets/img/poslogin.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* all loading css */
+#footer {
+  background: #f2f5f8;
+  padding: 0 0 5px 0;
+  font-size: 14px;
+  float: left;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  bottom: 0px;
+  position: fixed;
+  z-index: 1;
+}
+#footer .copyright {
+  text-align: center;
+  padding-top: 5px;
+}
+
+/* from master end */
+
+.mat-card {
+  padding: 0px;
+}
+.login_info {
+  width: 100%;
+  background: linear-gradient(
+      256deg,
+      rgb(236, 105, 31, 1),
+      rgb(236, 105, 31, 1)
+    )
+    repeat;
+  background: -moz-linear-gradient(
+      256deg,
+      rgba(179, 212, 255, 1),
+      rgba(33, 168, 228, 1)
+    )
+    repeat;
+  border-radius: 4px 0 0 4px;
+  padding: 50px 0;
+  position: relative;
+}
+.login_heading {
+  text-align: center;
+  font-size: 24px;
+  padding: 88px 0 18px 0;
+  color: #fff;
+  border-radius: 5px 5px 0 0;
+  font-weight: 400;
+}
+.mat-card {
+  margin-top: 30%;
+  border: solid 1px rgb(7 59 102 / 62%);
+}
+.login_icon {
+  font-size: 85px;
+  text-align: center;
+  display: block;
+  color: #073b66;
+}
+span.login_icon h2 {
+  margin: 8px 0;
+  color: #073b66;
+  font-size: 22px;
+  font-weight: 500;
+}
+.login-form {
+  float: left;
+  position: relative;
+  width: 100%;
+  padding-bottom: 25px;
+}
+.login_heading em {
+  font-weight: 300;
+  display: block;
+  font-size: 18px;
+  padding: 14px 0 0 0;
+}
+.login_subtext {
+  width: 100%;
+  padding: 6px 25px;
+  margin: 0;
+  box-sizing: border-box;
+}
+ul.subtext_data {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+ul.subtext_data li {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.login_proceed {
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+}
+.login_proceed button {
+  background: #ec691f;
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  padding: 10px 0px;
+  border: 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  min-width: 135px;
+  letter-spacing: 1px;
+  position: relative;
+  cursor: pointer;
+}
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+  .logo-img {
+    height: 40px;
+  }
+  #header h4 {
+    float: right;
+    font-size: 16px;
+    margin: 12px 5px 0;
+  }
+  #header p {
+    font-size: 12px;
+    margin: -7px 0px 2px 54px;
+  }
+  .nav-menu a {
+    padding: 5px 4px;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  #header h4 {
+    font-size: 19px;
+    margin: 11px 5px 0;
+  }
+  #header p {
+    font-size: 13px;
+    margin: -7px 0px 2px 54px;
+  }
+
+  #services .box {
+    height: auto;
+    padding: 30px;
+  }
+
+  .col-md-4.offset-md-8.box-tap {
+    margin-left: 60% !important;
+    width: 100%;
+    max-width: 100% !important;
+  }
+}
+
+@media screen and (min-width: 450px) and (max-width: 767px) {
+  #header h4 {
+    font-size: 16px;
+  }
+
+  #header p {
+    font-size: 13px;
+    margin: -7px 0px 2px 48px;
+  }
+  #services .box {
+    height: auto;
+    padding: 30px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 449px) {
+  #header {
+    padding: 10px 0;
+    height: 90px !important;
+  }
+
+  #header h4 {
+    float: left;
+    font-size: 14px;
+    margin: -8px 47px 0px;
+  }
+  #header p {
+    font-size: 12px;
+    color: #555;
+    margin: 5px 10px 0px 30px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  .mat-card {
+    margin-top: 20%;
+  }
+}

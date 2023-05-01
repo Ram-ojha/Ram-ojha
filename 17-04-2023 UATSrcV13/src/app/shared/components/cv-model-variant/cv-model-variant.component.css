@@ -1,0 +1,13 @@
+.Select_Bike {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background: rgba(231, 234, 238, 1);
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 5;
+  overflow: auto;
+}
+

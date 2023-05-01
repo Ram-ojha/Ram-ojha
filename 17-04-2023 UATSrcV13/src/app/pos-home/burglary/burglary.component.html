@@ -1,0 +1,765 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+
+<div class="col-md-12 bike_pannal">
+    <div class="bike_area">
+        <div class="row">
+
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 card_popup_not_no_area_view">
+                            <div class="container-two-wheeler-insurance">
+                                <mat-horizontal-stepper [selectedIndex]="selectedTab" [linear]="true" #stepper>
+
+                                    <mat-step label="Primary details">
+                                        <div class="col-md-12">
+                                            <div class="tab-content py-3 px-3 px-sm-0 Bike_Manufacturer"
+                                                id="nav-tabContent">
+                                                <div class="row tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                    aria-labelledby="nav-home-tab">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mx-auto">
+                                                                <div class="bike-insu-div">
+                                                                    <h4>
+                                                                        Primary details
+                                                                    </h4>
+                                                                </div>
+                                                                <form (keydown.enter)="$event.preventDefault()">
+                                                                    <div class="row">
+                                                                        <!--- Base Plan ----->
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="Proposer Name"
+                                                                                        title="Proposer Name" required>
+                                                                                </mat-form-field>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput maxlength="10"
+                                                                                        appOnlyNumbers
+                                                                                        title="Mobile Number" required
+                                                                                        placeholder="Mobile Number">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput maxlength="100"
+                                                                                        title="Email Id" required
+                                                                                        placeholder="Email Id">
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="Proposer Address"
+                                                                                        title="Proposer Address"
+                                                                                        required>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field>
+                                                                                    <mat-label>Policy Period Sought
+                                                                                    </mat-label>
+                                                                                    <mat-select required>
+                                                                                        <mat-option [value]="1">slot 1
+                                                                                        </mat-option>
+                                                                                        <mat-option [value]="1">slot 2
+                                                                                        </mat-option>
+                                                                                        <mat-option [value]="1">slot 3
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field>
+                                                                                    <mat-label>Is this on stand
+                                                                                        alone basis ?
+                                                                                    </mat-label>
+                                                                                    <mat-select required>
+                                                                                        <mat-option [value]="1">
+                                                                                            Yes
+                                                                                        </mat-option>
+                                                                                        <mat-option [value]="1">
+                                                                                            No
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-8">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field>
+                                                                                    <mat-label>Any Loss history
+                                                                                        for proposed area and
+                                                                                        premises in last 5 years
+                                                                                        ?</mat-label>
+                                                                                    <mat-select required>
+                                                                                        <mat-option [value]="1">
+                                                                                            Yes
+                                                                                        </mat-option>
+                                                                                        <mat-option [value]="1">
+                                                                                            No
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="Please list claim amount"
+                                                                                        title="Complete risk location address"
+                                                                                        required>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="NOS of claims"
+                                                                                        title="NOS of claims" required>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field>
+                                                                                    <mat-label>Years of claim
+                                                                                    </mat-label>
+                                                                                    <mat-select required>
+                                                                                        <mat-option [value]="1">
+                                                                                            2020</mat-option>
+                                                                                        <mat-option [value]="1">
+                                                                                            2019
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="Cause of claim"
+                                                                                        title="Cause of claim" required>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- here -->
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field>
+                                                                                    <mat-label>Name of the previous
+                                                                                        insurer</mat-label>
+                                                                                    <mat-select required>
+                                                                                        <mat-option [value]="1">Bajaj
+                                                                                        </mat-option>
+                                                                                        <mat-option [value]="1">Bajaj
+                                                                                        </mat-option>
+                                                                                        <mat-option [value]="1">Bajaj
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="IMD Code"
+                                                                                        title="IMD Code" required>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-form-field
+                                                                                    class="example-full-width">
+                                                                                    <input matInput required
+                                                                                        placeholder="IMD Name"
+                                                                                        title="IMD Name" required>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="field-wrapper">
+                                                                                <mat-checkbox>Terms and C D
+                                                                                </mat-checkbox>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 text-center text-error"
+                                                                            *ngIf="errMsg">
+                                                                            {{errMsg}}
+                                                                        </div>
+                                                                        <div class="col-md-8 mx-auto">
+                                                                            <button title="Next"
+                                                                                (click)="onNextClick(1)"
+                                                                                class="w--button w--button--orange w--button--large">
+                                                                                Next</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </mat-step>
+
+                                    <mat-step label="Risk Details">
+                                        <div class="col-md-12">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="">
+                                                    <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                        id="nav-tabContent">
+                                                        <div class="row tab-pane fade show active" id="nav-insurance"
+                                                            role="tabpanel" aria-labelledby="nav-home-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="bike-insu-div">
+                                                                            <h4>
+                                                                                Risk Details
+                                                                            </h4>
+                                                                        </div>
+                                                                        <form (keydown.enter)="$event.preventDefault()">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Complete risk location address"
+                                                                                                title="Complete risk location address"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field>
+                                                                                            <mat-label>Complete
+                                                                                                occupation</mat-label>
+                                                                                            <mat-select required>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Residence
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Shop
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    College
+                                                                                                </mat-option>
+                                                                                            </mat-select>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Please provide related fire policy number/details"
+                                                                                                title="Please provide related fire policy number/details"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-checkbox>Is godown
+                                                                                        </mat-checkbox>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Nature of goods stored"
+                                                                                                title="Nature of goods stored"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field>
+                                                                                            <mat-label>Standalone basis
+                                                                                            </mat-label>
+                                                                                            <mat-select required>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Yes
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    No
+                                                                                                </mat-option>
+                                                                                            </mat-select>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Incase of industrial/manufacturing activity"
+                                                                                                title="Incase of industrial/manufacturing activity"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Nature of industry/manufacturing type"
+                                                                                                title="Nature of industry/manufacturing type"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+
+                                                                                        <mat-label>Do you wish to opt
+                                                                                            for 1st loss basis?
+                                                                                        </mat-label><br>
+                                                                                        <mat-radio-group required>
+                                                                                            <mat-radio-button
+                                                                                                [value]="1">
+                                                                                                Yes
+                                                                                            </mat-radio-button>
+                                                                                            <mat-radio-button
+                                                                                                [value]="1">
+                                                                                                No
+                                                                                            </mat-radio-button>
+                                                                                        </mat-radio-group>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field>
+                                                                                            <mat-label>please specify
+                                                                                                the percentage of opt
+                                                                                                for 1st loss [minimum is
+                                                                                                25%]
+                                                                                            </mat-label>
+                                                                                            <mat-select required>
+                                                                                                <mat-option [value]="1">
+                                                                                                    25%
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    50%
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    100%
+                                                                                                </mat-option>
+                                                                                            </mat-select>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+
+
+
+                                                                            </div>
+                                                                            <hr>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 text-center text-error"
+                                                                                    *ngIf="errMsg">
+                                                                                    {{errMsg}}
+                                                                                </div>
+                                                                                <div class="col-md-8 mx-auto">
+                                                                                    <input type="button"
+                                                                                        class="w--button w--button--orange w--button--large"
+                                                                                        (click)="onClickBackToTab(0)"
+                                                                                        value="Back">
+                                                                                    &nbsp;
+                                                                                    &nbsp;
+                                                                                    <button title="View Quotes"
+                                                                                        type="submit"
+                                                                                        (click)="onNextClick(2)"
+                                                                                        class="w--button w--button--orange w--button--large">
+                                                                                        Next</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-step>
+
+                                    <mat-step label="Security Measure details">
+                                        <div class="col-md-12">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="">
+                                                    <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                        id="nav-tabContent">
+                                                        <div class="row tab-pane fade show active" id="nav-insurance"
+                                                            role="tabpanel" aria-labelledby="nav-home-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="bike-insu-div">
+                                                                            <h4>
+                                                                                Security Measure details
+                                                                            </h4>
+                                                                        </div>
+                                                                        <form (keydown.enter)="$event.preventDefault()">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-label>Whether any 24hr
+                                                                                            Watch
+                                                                                            and ward is there?
+                                                                                        </mat-label><br>
+                                                                                        <mat-radio-group
+                                                                                            aria-label="Select an option">
+                                                                                            <mat-radio-button value="1">
+                                                                                                Yes
+                                                                                            </mat-radio-button>
+                                                                                            <mat-radio-button value="1">
+                                                                                                No
+                                                                                            </mat-radio-button>
+                                                                                        </mat-radio-group>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field>
+                                                                                            <mat-label>Select option
+                                                                                            </mat-label>
+                                                                                            <mat-select required>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Common Security
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Own security
+                                                                                                </mat-option>
+
+                                                                                            </mat-select>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <mat-label>Select option
+                                                                                            </mat-label>
+                                                                                            <mat-select required>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Armed security
+                                                                                                </mat-option>
+                                                                                                <mat-option [value]="1">
+                                                                                                    Unarmed security
+                                                                                                </mat-option>
+                                                                                            </mat-select>
+                                                                                        </mat-form-field>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-label>
+                                                                                            Burglar alarm installed & In
+                                                                                            working condition ?
+                                                                                        </mat-label>
+                                                                                        <br>
+                                                                                        <mat-radio-group
+                                                                                            aria-label="Select an option">
+                                                                                            <mat-radio-button value="1">
+                                                                                                Yes
+                                                                                            </mat-radio-button>
+                                                                                            <mat-radio-button value="1">
+                                                                                                No
+                                                                                            </mat-radio-button>
+                                                                                        </mat-radio-group>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-label>
+                                                                                            CC TV installed & in working
+                                                                                            condition ?
+                                                                                        </mat-label>
+                                                                                        <mat-radio-group
+                                                                                            aria-label="Select an option">
+                                                                                            <mat-radio-button value="1">
+                                                                                                Yes
+                                                                                            </mat-radio-button>
+                                                                                            <mat-radio-button value="1">
+                                                                                                No
+                                                                                            </mat-radio-button>
+                                                                                        </mat-radio-group>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <hr>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 text-center text-error"
+                                                                                    *ngIf="errMsg">
+                                                                                    {{errMsg}}
+                                                                                </div>
+                                                                                <div class="col-md-8 mx-auto">
+                                                                                    <input type="button"
+                                                                                        class="w--button w--button--orange w--button--large"
+                                                                                        (click)="onClickBackToTab(1)"
+                                                                                        value="Back">
+                                                                                    &nbsp;
+                                                                                    &nbsp;
+                                                                                    <button title="View Quotes"
+                                                                                        type="submit"
+                                                                                        (click)="onNextClick(3)"
+                                                                                        class="w--button w--button--orange w--button--large">
+                                                                                        Next</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-step>
+
+                                    <mat-step label="Details of property(ies) to be covered">
+                                        <div class="col-md-12">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="">
+                                                    <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                        id="nav-tabContent">
+                                                        <div class="row tab-pane fade show active" id="nav-insurance"
+                                                            role="tabpanel" aria-labelledby="nav-home-tab">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="bike-insu-div">
+                                                                            <h4>
+                                                                                Details of property(ies) to be covered
+                                                                            </h4>
+                                                                        </div>
+                                                                        <form (keydown.enter)="$event.preventDefault()">
+
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Plant and machineries"
+                                                                                                title="Plant and machineries"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Furnitures, fixtures and fittings"
+                                                                                                title="Furnitures, fixtures and fittings"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Electrical fixtures, items and fittings"
+                                                                                                title="Electrical fixtures, items and fittings"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Stock of raw materials"
+                                                                                                title="Stock of raw materials"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Stock of finished goods"
+                                                                                                title="Stock of finished goods"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Stock of semi-finished goods"
+                                                                                                title="Stock of semi-finished goods"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Stock in process"
+                                                                                                title="Stock in process"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Stock in trade [incase occupied as shop premise]"
+                                                                                                title="Stock in trade [incase occupied as shop premise]"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Office equipments"
+                                                                                                title="Office equipments"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="field-wrapper">
+                                                                                        <mat-form-field
+                                                                                            class="example-full-width">
+                                                                                            <input matInput required
+                                                                                                placeholder="Other contents"
+                                                                                                title="(not described above & description of contents to be provided)"
+                                                                                                required>
+                                                                                        </mat-form-field>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+
+
+                                                                            <hr>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 text-center text-error"
+                                                                                    *ngIf="errMsg">
+                                                                                    {{errMsg}}
+                                                                                </div>
+                                                                                <div class="col-md-8 mx-auto">
+                                                                                    <input type="button"
+                                                                                        class="w--button w--button--orange w--button--large"
+                                                                                        (click)="onClickBackToTab(2)"
+                                                                                        value="Back">
+                                                                                    &nbsp;
+                                                                                    &nbsp;
+                                                                                    <button title="View Quotes"
+                                                                                        type="submit"
+                                                                                        class="w--button w--button--orange w--button--large">
+                                                                                        Review</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-step>
+
+
+
+                                </mat-horizontal-stepper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

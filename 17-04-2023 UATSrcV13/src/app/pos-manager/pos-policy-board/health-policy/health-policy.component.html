@@ -1,0 +1,262 @@
+<app-loader *ngIf='loading'></app-loader>
+
+<div class="col-md-12">
+    <div class="bike_area">
+        <div class="row  pr-2 pl-2 datepickerpannel">
+            <div class="col-md-8">
+                <div class="left-block">
+                    <h4 class="Subtitle">Search Record</h4>
+                    <form [formGroup]='dateForm' (ngSubmit)='filterByDate()'>
+                        <div class="row pt-2 pr-2 pl-2">
+                            <div class="col-md-4">
+                                <div class="field-wrapper">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>From</mat-label>
+                                        <input matInput [matDatepicker]="From_Date_Health" placeholder="From Date"
+                                            (click)="From_Date_Health.open()" formControlName='fromDate'
+                                            [readonly]='successCode !== "1"' [disabled]='successCode !== "1"'>
+                                        <mat-datepicker-toggle matSuffix [for]="From_Date_Health">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #From_Date_Health>
+                                        </mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="field-wrapper">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>To</mat-label>
+                                        <input matInput [matDatepicker]="To_Date_Health" placeholder="To Date"
+                                            (click)="To_Date_Health.open()" formControlName='toDate'
+                                            [readonly]='successCode !== "1"' [disabled]='successCode !== "1"'>
+                                        <mat-datepicker-toggle matSuffix [for]="To_Date_Health">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #To_Date_Health>
+                                        </mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="THM--button mt-0 w--button--orange w--button--large"
+                                    title="View Quotes" [disabled]='successCode !== "1"'>Get
+                                    Data</button>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf='errorMessage'>
+                            <div class="col-md-4 m-auto p-2">
+                                <mat-error>
+                                    {{errorMessage}}
+
+                                </mat-error>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="side-block">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="policy_block">NUMBER OF POLICIES
+                                <br>
+                                <span>
+                                    {{policyAndPremiumStats?
+                                    policyAndPremiumStats.NoOfPolicies:0}}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="policy_block">TOTAL PREMIUM
+                                <br>
+                                <i class="fa fa-inr" aria-hidden="true"></i>
+                                <span>
+                                    {{policyAndPremiumStats?(policyAndPremiumStats.TotalPremiumPerYr | number:
+                                    '1.0-0'):0 }}
+                                </span>
+
+                                <!-- {{totalPremium}} -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="payment-mode">
+        <div class="row">
+            <!-- *ngIf='successCode==="1"' -->
+
+            <div class="col-md-12">
+                <mat-tab-group mat-align-tabs="start">
+                    <mat-tab label="Payment Done">
+                        <!-- <div class="alert alert-warning text-center"
+                            *ngIf='successfullPaymentRecord.length==0'>No any
+                            Payments made</div> -->
+                        <div class="col-md-12">
+                            <div class="row" [hidden]='successCode !== "1"'>
+                                <!-- filter by name -->
+                                <div class="col-md-3 float-right">
+                                    <div class="example-header">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Enter Name" [formControl]="nameFilter">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <!-- (keyup)="nameFilter($event.target.value)" -->
+                                <!--  -->
+
+                                <!-- filter by policy No. -->
+                                <div class="col-md-3 float-right">
+                                    <div class="example-header">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Enter Policy No."
+                                                [formControl]="policyNoFilter">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- clear filters button -->
+                                <div class="col-md-3 float-right p-2">
+                                    <div class="example-header">
+                                        <button mat-stroked-button color='primary' (click)="clearFilter()"
+                                            [disabled]='clearAllFilters'>
+                                            Clear
+                                            Filters
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-card *ngIf="(noResults$ | async) || !dataSource" class='text-center'>
+                                        <span> No results </span>
+                                    </mat-card>
+                                    <div class="example-container mat-elevation-z8" [hidden]='successCode !== "1"'>
+
+                                        <mat-table [dataSource]="dataSource" matSort>
+
+                                            <!-- Name Column -->
+                                            <ng-container matColumnDef="name">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Name
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.name}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Mobile No Column -->
+                                            <ng-container matColumnDef="mobileNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.mobileNo}} </mat-cell>
+                                            </ng-container>
+
+
+
+                                            <!-- Reg No Column -->
+                                            <ng-container matColumnDef="regNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Reg. No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.regNo}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Insurer Column -->
+                                            <ng-container matColumnDef="insurer">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Insurer
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.insurer}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Premium Column -->
+                                            <ng-container matColumnDef="premium">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Premium
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.premium}}
+                                                </mat-cell>
+                                            </ng-container>
+
+
+                                            <!-- Payment Date Column -->
+                                            <ng-container matColumnDef="paymentDate">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Date
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.paymentDate | date}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Policy No. Column -->
+                                            <ng-container matColumnDef="policyNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Policy No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.policyNo}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <mat-header-row *matHeaderRowDef="displayedColumns">
+                                            </mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                            </mat-row>
+                                        </mat-table>
+
+                                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Payment Pending">
+                        <div class="alert alert-warning text-center">
+                            No any
+                            Pending
+                            Payment
+                        </div>
+                        <!-- <div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Mobile</th>
+                                        <th scope="col">Vehicle Type</th>
+                                        <th scope="col">Vehicle</th>
+                                        <th scope="col">Reg. No</th>
+                                        <th scope="col">Insurer</th>
+                                        <th scope="col">Premium</th>
+                                        <th scope="col">Payment Date</th>
+                                        <th scope="col">Policy No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>SIGNET INDUSTRIES LTD</th>
+                                        <td>9993090435</td>
+                                        <td>fourwheeler</td>
+                                        <td>Ford Ecosport 1.5 Trend Plus</td>
+                                        <td>RJ14NC2845</td>
+                                        <td>Iffco Tokio General Insurance</td>
+                                        <td>16585</td>
+                                        <td>01-06-2019</td>
+                                        <td>M8153517</td>
+                                      
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

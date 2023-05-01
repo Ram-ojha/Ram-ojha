@@ -1,0 +1,84 @@
+table {
+    width: 100%;
+}
+
+hr {
+    margin-bottom: 0;
+}
+
+.policy-grid {
+    position: relative;
+    width   : 100%;
+}
+
+.cdk-overlay-container .cdk-overlay-connected-position-bounding-box .mat-select-panel-wrap .cdk-overlay-pane {
+    margin-top: 30px !important;
+}
+
+.modal-header {
+    display                : inline-block;
+    align-items            : flex-start;
+    justify-content        : space-between;
+    padding                : 6px 15px;
+    border-bottom          : 1px solid #dee2e6;
+    border-top-left-radius : .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.modal-footer {
+    display                   : flex;
+    align-items               : center;
+    justify-content           : flex-end;
+    padding                   : 5px 5px;
+    border-top                : 1px solid #dee2e6;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius : .3rem;
+}
+
+.card-heading {
+    background-color: #083b66 !important;
+    color           : #fff;
+    padding         : 5px 15px;
+}
+
+.card-heading h4 {
+    margin   : 0 0;
+    font-size: 20px;
+}
+
+
+tr.mat-header-row {
+    height    : 30px;
+    background: #083b66;
+    color     : #fff;
+}
+
+tr.mat-row {
+    height: 30px;
+}
+
+tr.mat-header-row th {
+    color         : #fff;
+    vertical-align: middle;
+    padding-left  : 10px;
+}
+
+tr.mat-row td {
+    color         : #000000;
+    vertical-align: middle;
+    padding-left  : 10px;
+}
+
+.modal-content .card-heading {
+    font-size: 18px;
+}
+
+.citystyle {
+    text-transform: uppercase;
+}
+
+.btnstyle {
+    height   : 28px;
+    padding  : 2px 18px;
+    font-size: 14px;
+}

@@ -1,0 +1,48 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <!--- Base Plan ----->
+        <div class="col-md-6">
+            <div class="field-wrapper">
+                <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select>
+                        <mat-option [value]="1">Male</mat-option>
+                        <mat-option [value]="0">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="field-wrapper">
+                <mat-form-field class="example-full-width">
+                    <input autocomplete="none" matInput placeholder="Full Name">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="field-wrapper">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Date of Birth">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="field-wrapper">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Mobile Number">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button class="w--button w--button--orange w--button--large" title="View Quotes" (click)="term_life()">View
+                Quotes
+            </button>
+        </div>
+    </div>
+</div>

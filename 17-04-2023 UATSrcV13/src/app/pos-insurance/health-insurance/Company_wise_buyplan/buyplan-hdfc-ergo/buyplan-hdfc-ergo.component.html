@@ -1,0 +1,1411 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<div class="bikeinsurance healthPlansForm">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12" [hidden]="isreview">
+                                <div class="insurer_apply">
+                                    <section class="example-section">
+                                        <!-- [disabled]="Proposer_Insurer_Not_Self" -->
+                                        <mat-checkbox [checked]="Proposer_Insurer" (change)="ProposerInsurer($event)"
+                                            class="example-margin">Proposer and
+                                            Insurer
+                                            are not same?</mat-checkbox>
+                                    </section>
+                                </div>
+                            </div>
+                            <!--- Left Side Bar -->
+                            <!-- <div class="col-md-8 Traveller" *ngIf="!isreview"> -->
+                            <div class="col-md-12 Traveller" [hidden]="isreview">
+                                <mat-vertical-stepper [linear]="true" (selectionChange)="onChangeTab($event)" #stepper
+                                    class="materila-card" [selectedIndex]="tabIndex">
+
+                                    <!--- Proposer details Start-->
+                                    <mat-step [completed]="false" [stepControl]="proposerForm" *ngIf="Proposer_Insurer">
+                                        <form [formGroup]="proposerForm" (ngSubmit)="onSubmitProposer()">
+                                            <ng-template matStepLabel>Proposer Details</ng-template>
+                                            <div class="row padT10">
+                                                <div class="col-md-1 padR0">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Salutation</mat-label>
+                                                        <mat-select formControlName="PropGenderTitle"
+                                                            (selectionChange)="onSelectSalutation($event)" required>
+                                                            <mat-option [value]="s.value" *ngFor="let s of salutations">
+                                                                {{s.value}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Your First Name</mat-label>
+                                                        <input matInput appUppercase placeholder="Your First Name"
+                                                            appOnlyAlpha [maxLength]="30"
+                                                            formControlName="PropFirstName" required>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Your Last Name</mat-label>
+                                                        <input matInput appUppercase placeholder="Your Last Name"
+                                                            appOnlyAlpha [maxLength]="30" formControlName="PropLastName"
+                                                            required>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Date Of Birth</mat-label>
+                                                        <!-- <input matInput [matDatepicker]="dp3" formControlName="PropDOB"
+                                                            required placeholder="Date of Birth" [max]="minDate(17)"
+                                                            [min]="minDate(73)" [maxlength]="10"> -->
+                                                        <input matInput [matDatepicker]="dp3"
+                                                            *ngIf="companyData.CompanyCode == 14"
+                                                            formControlName="PropDOB" required
+                                                            placeholder="Date of Birth" [max]="minDateHdfc(17)"
+                                                            [min]="minDate(73)" [maxlength]="10">
+                                                        <!-- <input matInput [matDatepicker]="dp3"  *ngIf="companyData.CompanyCode == 11" formControlName="PropDOB"
+                                                            required placeholder="Date of Birth" [max]="minDate(17)"
+                                                            [min]="minDate(73)" [maxlength]="10"> -->
+                                                        <mat-datepicker-toggle matSuffix [for]="dp3">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- disabled='companyData.CompanyCode == 14' -->
+                                                <div class="col-md-2">
+                                                    <!-- <mat-form-field  appearance="outline" *ngIf="companyData.CompanyCode == 14">
+                                                        <mat-label>Gender</mat-label>
+
+                                                        <input matInput formControlName="gender" [value]="(this.proposerForm.get('PropGenderTitle').value) == ('Mr') ? 'Male' : 'Female' "
+                                                        readonly >
+                                                    </mat-form-field> -->
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Gender</mat-label>
+                                                        <mat-select formControlName="gender" [(value)]="gen[0]"
+                                                            required>
+                                                            <mat-option [value]="g" *ngFor="let g of gen">
+                                                                {{g.GenderDesc}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Flat/House No, Street</mat-label>
+                                                        <input matInput placeholder="Flat/House no, Street"
+                                                            formControlName="AddFlatNo" required [maxLength]="50">
+                                                    </mat-form-field>
+                                                </div>
+                                                <!-- <div class="col-md-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Area</mat-label>
+                                                        <input matInput appUppercase placeholder="Area"
+                                                            formControlName="AddArea" [maxLength]="100" required>
+                                                    </mat-form-field>
+                                                </div> -->
+                                                <div class="col-md-5" *ngIf="stateList.length != 0">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select State</mat-label>
+                                                        <input type="text" placeholder="Select State" matInput required
+                                                            formControlName="state" [matAutocomplete]="autoState">
+                                                        <mat-autocomplete autoActiveFirstOption
+                                                            [displayWith]="displayFn.bind(this)"
+                                                            (optionSelected)="onSelectState('proposer')"
+                                                            #autoState="matAutocomplete">
+                                                            <mat-option
+                                                                *ngFor="let s of filteredProposerStateList | async"
+                                                                [value]="s.StateCode">
+                                                                {{s.StateDesc}}
+                                                            </mat-option>
+                                                            <mat-option [value]="" *ngIf="!filteredProposerStateList">
+                                                                <p class="text-danger">Not Found</p>
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                        <mat-error *ngIf='cf["state"]?.errors?.["incorrect"]'>
+                                                            Please select a
+                                                            valid option from the list</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <!-- <div class="col-md-4" *ngIf="stateList.length != 0">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select City</mat-label>
+                                                        <input type="text" appUppercase placeholder="Select City"
+                                                            matInput formControlName="city" [matAutocomplete]="autoCity"
+                                                            required style="text-transform: uppercase;">
+                                                        <mat-autocomplete autoActiveFirstOption
+                                                            (optionSelected)="onSelectCity()"
+                                                            #autoCity="matAutocomplete">
+                                                            <mat-option *ngFor="let s of filteredCityList | async"
+                                                                [value]="s.CityCode">
+                                                                {{s.CityDesc}}
+                                                            </mat-option>
+                                                            <mat-option [value]="" *ngIf="!filteredCityList">
+                                                                <p class="text-danger">Not Found</p>
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div> -->
+                                                <!-- <div class="col-md-4" *ngIf="stateList.length != 0">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Area</mat-label>
+                                                        <input type="text" appUppercase placeholder="Select Area"
+                                                            matInput formControlName="city" [matAutocomplete]="autoArea"
+                                                            required style="text-transform: uppercase;">
+                                                        <mat-autocomplete autoActiveFirstOption
+                                                            #autoArea="matAutocomplete">
+                                                            <mat-option *ngFor="let s of filteredStateList | async"
+                                                                [value]="s.CityCode">
+                                                                {{s['areaName']}}
+                                                            </mat-option>
+                                                            <mat-option [value]="" *ngIf="!filteredCityList">
+                                                                <p class="text-danger">Not Found</p>
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div> -->
+
+
+                                                <div class="col-md-5" *ngIf="stateList.length == 0">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>State</mat-label>
+                                                        <input matInput appUppercase placeholder="State"
+                                                            formControlName="state" required readonly>
+                                                    </mat-form-field>
+                                                </div>
+                                                <!-- <div class="col-md-4" *ngIf="stateList.length == 0">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>City</mat-label>
+                                                        <input matInput appUppercase placeholder="city"
+                                                            formControlName="city" required readonly>
+                                                    </mat-form-field>
+                                                </div> -->
+
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select City</mat-label>
+                                                        <input type="text" appUppercase placeholder="Select City"
+                                                            matInput formControlName="city" [matAutocomplete]="autoCity"
+                                                            required style="text-transform: uppercase;">
+                                                        <mat-autocomplete autoActiveFirstOption
+                                                            #autoCity="matAutocomplete"
+                                                            [displayWith]="proposerCityDisplayFn"
+                                                            (optionSelected)="onSelectCity('proposer')">
+                                                            <mat-option *ngFor="let s of filteredCityList | async"
+                                                                [value]="s">
+                                                                {{s.CityDesc}}
+                                                            </mat-option>
+                                                            <mat-option [value]="" *ngIf="!filteredCityList">
+                                                                <p class="text-danger">Not Found</p>
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                        <mat-error *ngIf='pf["city"]?.errors?.["incorrect"]'>Please
+                                                            select a
+                                                            valid option from the list</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <!-- *ngIf="stateList.length == 0" -->
+                                                <!-- <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Pincode</mat-label>
+                                                        <input matInput appUppercase placeholder="Pincode"
+                                                            formControlName="AddPincode" readonly>
+                                                    </mat-form-field>
+                                                </div> -->
+
+                                                <!-- <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Pincode</mat-label>
+                                                        <input type="text" appUppercase placeholder="Select Pincode"
+                                                            matInput formControlName="AddPincode"
+                                                            [matAutocomplete]="autoPinCode" required
+                                                            style="text-transform: uppercase;">
+                                                        <mat-autocomplete autoActiveFirstOption
+                                                            #autoPinCode="matAutocomplete">
+                                                            <mat-option *ngFor="let s of filteredPincodeList | async"
+                                                                [value]="s">
+                                                                {{s.Pincode}}
+                                                            </mat-option>
+                                                            <mat-option [value]="" *ngIf="!filteredPincodeList">
+                                                                <p class="text-danger">Not Found</p>
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                        <mat-error *ngIf='pf["AddPincode"].errors?.incorrect'>Please
+                                                            select a
+                                                            valid option from the list</mat-error>
+                                                    </mat-form-field>
+                                                </div> -->
+
+
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Pincode</mat-label>
+                                                        <input type="text" placeholder="Pincode" matInput appOnlyNumbers
+                                                            [maxLength]="6" [min]="1" [minlength]="5"
+                                                            formControlName="AddPincode" [matAutocomplete]="autoPin"
+                                                            required>
+                                                        <mat-autocomplete autoActiveFirstOption [disableRipple]="false"
+                                                            (optionSelected)='onSelectPincode("proposer")'
+                                                            #autoPin="matAutocomplete">
+                                                            <mat-option *ngFor="let s of filteredPincode | async"
+                                                                [value]="s.Pincode">
+                                                                {{s.Pincode}}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Select Area</mat-label>
+                                                        <input type="text" appUppercase placeholder="Select Area"
+                                                            matInput formControlName="AddArea"
+                                                            [matAutocomplete]="autoArea" required
+                                                            style="text-transform: uppercase;">
+                                                        <mat-autocomplete autoActiveFirstOption
+                                                            #autoArea="matAutocomplete"
+                                                            [displayWith]="proposerAreaDisplayFn">
+                                                            <mat-option *ngFor="let s of areaForProposer | async"
+                                                                [value]="s">
+                                                                {{s['AreaDesc']}}
+                                                            </mat-option>
+                                                            <mat-option [value]="" *ngIf="!areaForProposer">
+                                                                <p class="text-danger">Not Found</p>
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                        <mat-error *ngIf='pf["AddArea"]?.errors?.["incorrect"]'>Please
+                                                            select
+                                                            a
+                                                            valid option from the list</mat-error>
+
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Relationship</mat-label>
+                                                        <mat-select formControlName="proposerRelationCode" required>
+                                                            <mat-option [value]="r"
+                                                                *ngFor="let r of praposalrelationList">
+                                                                {{r.FamilyMemberDesc}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+
+                                            <div style="text-align: right;">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="text-error text-right" style="margin-top:25px;"
+                                                            *ngIf="errMsg || proposerForm.invalid">
+                                                            {{errMsg}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <button
+                                                            class="w--button w--button--orange w--button--large">Next:
+                                                            Insured Details <i class="fa fa-arrow-right"
+                                                                aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <!--- Insured Members Start -->
+                                    <!-- *ngIf="m.FamilyMemberDesc !='Self'" -->
+                                    <mat-step [completed]="false" [stepControl]="insuredMembersForm.form">
+
+                                        <ng-template matStepLabel>Insured Members</ng-template>
+                                        <form [formGroup]="CommonForm">
+                                            <div class="row" style="padding-top: 10px;">
+                                                <div class="col-md-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Mobile (+91)</mat-label>
+                                                        <!-- <span matPrefix>+91 &nbsp;</span> -->
+                                                        <input matInput placeholder="Mobile" formControlName="MobileNo"
+                                                            required [maxLength]="10" appOnlyNumbers>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Email ID</mat-label>
+                                                        <input matInput formControlName="EmailId" required
+                                                            [maxlength]="70" placeholder="Email">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <form #insuredMembersForm="ngForm" name="insuredMembersForm"
+                                            (ngSubmit)="onSubmitMemberDetails(insuredMembersForm)">
+                                            <div class="row" *ngFor="let m of memberDetails;let i=index;">
+                                                <div style="padding-top: 0px;border-bottom: 2px solid #044da1;">
+                                                    <div class="details_form">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-12 col-lg-12"
+                                                                style="color: #044da1;">
+                                                                <h5 class="insr_name">
+                                                                    {{m.FamilyMemberDesc}}
+                                                                </h5>
+                                                            </div>
+                                                            <div class="col-md-1 col-12 col-lg-1 padR0">
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="(m.FamilyMemberCode == 1 && m.GenderCode == 1)">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[0].value"
+                                                                        [value]="salutations[0].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 1 && m.GenderCode == 2">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[1].value"
+                                                                        [value]="salutations[1].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="(m.FamilyMemberCode == 2 && m.GenderCode == 2)">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[0].value"
+                                                                        [value]="salutations[0].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 2 && m.GenderCode == 1">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[1].value"
+                                                                        [value]="salutations[1].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+
+
+                                                                <!-- //for other gender start -->
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="(m.FamilyMemberCode == 1 || m.FamilyMemberCode == 2 ) && m.GenderCode == 3">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <mat-select required name="GenderTitle{{i}}"
+                                                                        [(ngModel)]="selectedSalutation">
+
+                                                                        <mat-option [value]="s.value"
+                                                                            *ngFor="let s of salutations;index as i">
+                                                                            {{s.value}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+
+                                                                <!-- <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 1 && m.GenderCode == 3">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[1].value"
+                                                                        [value]="salutations[1].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field> -->
+                                                                <!-- <mat-form-field appearance="outline"
+                                                                    *ngIf="(m.FamilyMemberCode == 2 && m.GenderCode == 3)">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[0].value"
+                                                                        [value]="salutations[0].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field> -->
+                                                                <!-- //for other gender end -->
+
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 3 || m.FamilyMemberCode == 5 || m.FamilyMemberCode == 8 || m.FamilyMemberCode == 10 ">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[0].value"
+                                                                        [value]="salutations[0].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 4 || m.FamilyMemberCode == 7 || m.FamilyMemberCode == 9">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[2].value"
+                                                                        [value]="salutations[2].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 6">
+                                                                    <mat-label>Salutation</mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" required
+                                                                        [(ngModel)]="salutations[1].value"
+                                                                        [value]="salutations[1].value"
+                                                                        name="GenderTitle{{i}}" readonly>
+                                                                </mat-form-field>
+
+                                                            </div>
+                                                            <div class="col-md-4 col-12 col-lg-4">
+                                                                <div class="field-wrapper">
+                                                                    <!-- <mat-form-field class="" style="display: none;">
+                                                                        <mat-label>FamilyMember</mat-label>
+                                                                        <input matInput appUppercase appOnlyAlpha
+                                                                            [maxlength]="30"
+                                                                            name="FamilyMemberCode{{i}}" required
+                                                                            [(ngModel)]="m.FamilyMemberCode">
+                                                                    </mat-form-field> -->
+
+                                                                    <mat-form-field class="" appearance="outline">
+                                                                        <mat-label>First Name</mat-label>
+                                                                        <input matInput appUppercase appOnlyAlpha
+                                                                            [maxlength]="30"
+                                                                            placeholder="{{m.FamilyMemberDesc}} first name"
+                                                                            name="FirstName{{i}}" required
+                                                                            [(ngModel)]="m.FirstName">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-12 col-lg-4">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field class="" appearance="outline">
+                                                                        <mat-label>Last Name</mat-label>
+                                                                        <input matInput appUppercase appOnlyAlpha
+                                                                            [maxlength]="30"
+                                                                            placeholder="{{m.FamilyMemberDesc}} last name"
+                                                                            name="LastName{{i}}" required
+                                                                            [(ngModel)]="m.LastName">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-12 col-lg-3">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field appearance="outline">
+                                                                        <mat-label>Date Of Birth</mat-label>
+                                                                        <input matInput [matDatepicker]="dp5"
+                                                                            *ngIf="companyData.CompanyCode== 14"
+                                                                            name="DOB{{i}}" placeholder="Date Of Birth"
+                                                                            required [(ngModel)]="m.DOB"
+                                                                            [max]="maxDateCur(m.Age)"
+                                                                            [min]="minDateCur(m.Age)"
+                                                                            [maxlength]="10" />
+                                                                        <!-- <input matInput [matDatepicker]="dp5"
+                                                                            *ngIf="companyData.CompanyCode== 11"
+                                                                             name="DOB{{i}}" placeholder="Date Of Birth"
+                                                                             required [(ngModel)]="m.DOB"
+                                                                             [max]="maxDate(m.Age)"
+                                                                             [min]="minDate(m.Age)" [maxlength]="10"> -->
+                                                                        <mat-datepicker-toggle matSuffix [for]="dp5">
+                                                                        </mat-datepicker-toggle>
+                                                                        <mat-datepicker #dp5 disabled="false">
+                                                                        </mat-datepicker>
+                                                                    </mat-form-field>
+
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-12 col-lg-2">
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="(m.FamilyMemberCode == 1 && m.GenderCode == 1)">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[0].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[0]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 1 && m.GenderCode == 2">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[1].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[1]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 2 && m.GenderCode == 1">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[1].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[1]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 2 && m.GenderCode == 2">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[0].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[0]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+
+                                                                <!-- for other Gender start -->
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 1 && m.GenderCode == 3">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[2].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[2]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 2 && m.GenderCode == 3">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[2].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[2]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+                                                                <!-- for other Gender end -->
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 3 || m.FamilyMemberCode == 5 || m.FamilyMemberCode == 8 || m.FamilyMemberCode == 10">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[0].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[0]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+                                                                <mat-form-field appearance="outline"
+                                                                    *ngIf="m.FamilyMemberCode == 4 || m.FamilyMemberCode == 6 || m.FamilyMemberCode == 7 || m.FamilyMemberCode == 9">
+                                                                    <mat-label>Gender </mat-label>
+                                                                    <input matInput appUppercase appOnlyAlpha
+                                                                        [maxlength]="30" name="gendershow{{i}}"
+                                                                        [(ngModel)]="genderList[1].GenderDesc" readonly>
+                                                                    <input type="hidden" [(ngModel)]="genderList[1]"
+                                                                        name="gender{{i}}">
+                                                                </mat-form-field>
+
+                                                            </div>
+                                                            <div class="col-md-3 col-12 col-lg-3">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Height (Feet)</mat-label>
+                                                                    <mat-select [(ngModel)]="m.HeightInFeet" required
+                                                                        name="HeightInFeet{{i}}">
+                                                                        <mat-option [value]="feet.id"
+                                                                            *ngFor="let feet of feets">
+                                                                            {{feet.value}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-3 col-12 col-lg-3">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Height (Inch)</mat-label>
+                                                                    <mat-select [(ngModel)]="m.HeightInInch" required
+                                                                        name="HeightInInch{{i}}">
+                                                                        <mat-option [value]="inch.id"
+                                                                            *ngFor="let inch of inches">
+                                                                            {{inch.value}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-2 col-12 col-lg-2">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field class="" appearance="outline">
+                                                                        <mat-label>Weight (KG)</mat-label>
+                                                                        <input matInput placeholder="Weight (KG)"
+                                                                            (keypress)="WeightSelection(insuredMembersForm,i)"
+                                                                            name="Weight{{i}}" [(ngModel)]="m.Weight"
+                                                                            required appOnlyNumbers [maxlength]="3">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-12 col-lg-2" *ngIf="m.Age >= 18">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Occupation</mat-label>
+                                                                    <mat-select [(ngModel)]="m.OccupationDesc" required
+                                                                        name="occupation{{i}}">
+                                                                        <mat-option [value]="o"
+                                                                            *ngFor="let o of occupations">
+                                                                            {{o.OccupationDesc}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: left;margin-top: 7px;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <mat-error *ngIf="WeightValidation && WeightTouchedValidation">
+                                                            <div *ngIf="WeightValidation.max || WeightValidation.min"
+                                                                class="text-error">
+                                                                Please enter weight between 5 kg to 250 kg
+                                                            </div>
+                                                        </mat-error>
+                                                        <div class="text-error text-right" style="margin-top:25px;"
+                                                            *ngIf="errMsg || insuredMembersForm.invalid">
+                                                            {{errMsg}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <input type="button" (click)="onClickBack(0)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back"
+                                                            [hidden]="!Proposer_Insurer">
+                                                        <button
+                                                            class="w--button w--button--orange w--button--large">Next:
+                                                            Communication Address <i class="fa fa-arrow-right"
+                                                                aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                    <!--- Insured Members End -->
+
+                                    <!-- Address Details Start -->
+                                    <mat-step [stepControl]="communicationAddressForm">
+                                        <form [formGroup]="communicationAddressForm"
+                                            (ngSubmit)="onSubmitCommunicationAddress()">
+                                            <!-- <ng-template matStepLabel>Social Status/Communication Address</ng-template> -->
+                                            <ng-template matStepLabel>Communication Address</ng-template>
+                                            <!-- <div class="details_form"> -->
+                                            <!-- <div class=" marT10">
+                                                <fieldset class="commuctn_div">
+                                                    <legend>Social Status</legend>
+                                                    <mat-checkbox class="col-md-6" formControlName="SocialStatusBpl"
+                                                        (change)="SocialStatusSelect($event)" value="1">
+                                                        <mat-label>Belongs to BPL Family</mat-label>
+                                                    </mat-checkbox>
+                                                    <mat-checkbox class="col-md-6"
+                                                        formControlName="SocialStatusDisabled"
+                                                        (change)="SocialStatusSelect($event)">
+                                                        <mat-label>Physically Handicaped/Disabled</mat-label>
+                                                    </mat-checkbox>
+                                                    <mat-checkbox class="col-md-6"
+                                                        formControlName="SocialStatusInformal"
+                                                        (change)="SocialStatusSelect($event)">
+                                                        <mat-label>Working In Informal Sector</mat-label>
+                                                    </mat-checkbox>
+                                                    <mat-checkbox class="col-md-6"
+                                                        formControlName="SocialStatusUnorganized"
+                                                        (change)="SocialStatusSelect($event)">
+                                                        <mat-label>Working In UnOrganized Sector</mat-label>
+                                                    </mat-checkbox>
+                                                    <mat-checkbox class="col-md-6" [checked]="NoneOfTheAbove"
+                                                        (change)="SocialStatusNoneOfTheAbove($event)">
+                                                        <mat-label>None Of The Above</mat-label>
+                                                    </mat-checkbox>
+                                                </fieldset>
+                                            </div> -->
+                                            <div class=" marT10">
+                                                <fieldset class="commucftn_div">
+                                                    <!-- <legend>Communication Address</legend> -->
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Flat/House No, Street</mat-label>
+                                                                    <input matInput placeholder="Flat/House no, Street"
+                                                                        formControlName="AddFlatNo" required
+                                                                        [maxLength]="50">
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Address</mat-label>
+                                                                    <input matInput placeholder="Address"
+                                                                        formControlName="address" required
+                                                                        [maxLength]="50">
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>State</mat-label>
+                                                                    <input type="text" placeholder="Select State"
+                                                                        (focusout)="onChangeStateInput()" matInput
+                                                                        required formControlName="state"
+                                                                        [matAutocomplete]="autoState"
+                                                                        autocomplete="on" />
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        (optionSelected)="onChangeState()"
+                                                                        #autoState="matAutocomplete">
+                                                                        <mat-option
+                                                                            *ngFor="let s of filteredStateList | async"
+                                                                            [value]="s.StateDesc">
+                                                                            {{ s.StateDesc }}
+                                                                        </mat-option>
+                                                                        <mat-option [value]=""
+                                                                            *ngIf="!filteredStateList">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                    <!-- {{af.get('state').errors| json }} -->
+                                                                    <mat-error
+                                                                        *ngIf='af.get("state")?.errors?.["requireMatch"]'>
+                                                                        Please select a valid State name from the list!
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <!-- <mat-form-field appearance="outline">
+                                                                    <mat-label>City</mat-label>
+                                                                    <input matInput appUppercase placeholder="State"
+                                                                        formControlName="city" required readonly>
+                                                                </mat-form-field> -->
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>City</mat-label>
+                                                                    <input type="text" placeholder="Select City"
+                                                                        (change)="onChangeCityInput()" matInput required
+                                                                        formControlName="city"
+                                                                        [matAutocomplete]="autoCity" />
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        (optionSelected)="onChangeCity()"
+                                                                        #autoCity="matAutocomplete">
+                                                                        <mat-option
+                                                                            *ngFor="let c of filteredCityList | async "
+                                                                            [value]="c.CityDesc">
+                                                                            {{ c.CityDesc }}
+                                                                        </mat-option>
+                                                                        <mat-option [value]=""
+                                                                            *ngIf="!filteredCityList">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                    <mat-error
+                                                                        *ngIf='af.get("city")?.errors?.["requireMatch"]'>
+                                                                        Please select a valid City name from the list!
+                                                                    </mat-error>
+                                                                </mat-form-field>
+
+                                                            </div>
+
+                                                            <!-- <div class="col-md-5">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select State</mat-label>
+                                                                    <input type="text" placeholder="Select State"
+                                                                        matInput required formControlName="state"
+                                                                        [matAutocomplete]="autoStateForMember">
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        [displayWith]="displayFn.bind(this)"
+                                                                        (optionSelected)="onSelectState('members')"
+                                                                        #autoStateForMember="matAutocomplete">
+                                                                        <mat-option
+                                                                            *ngFor="let s of filteredStateListForMembers | async"
+                                                                            [value]="s.StateCode">
+                                                                            {{s.StateDesc}}
+                                                                        </mat-option>
+                                                                        <mat-option [value]=""
+                                                                            *ngIf="!filteredStateListForMembers">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                    <mat-error *ngIf='cf["state"].errors?.incorrect'>
+                                                                        Please select a
+                                                                        valid option from the list</mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select City</mat-label>
+                                                                    <input type="text" appUppercase
+                                                                        placeholder="Select City" matInput
+                                                                        formControlName="city"
+                                                                        [matAutocomplete]="autoCityForMembers" required
+                                                                        style="text-transform: uppercase;">
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        (optionSelected)="onSelectCity('member')"
+                                                                        #autoCityForMembers="matAutocomplete"
+                                                                        [displayWith]="proposerCityDisplayFn">
+                                                                        <mat-option
+                                                                            *ngFor="let s of filteredCityListForMemebers | async"
+                                                                            [value]="s">
+                                                                            {{s.CityDesc}}
+                                                                        </mat-option>
+                                                                        <mat-option [value]=""
+                                                                            *ngIf="!filteredCityListForMemebers">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                    <mat-error *ngIf='cf["city"].errors?.incorrect'>
+                                                                        Please select a
+                                                                        valid option from the list</mat-error>
+
+                                                                </mat-form-field>
+                                                            </div> -->
+
+                                                            <div class="col-md-6">
+                                                                <!-- <mat-form-field appearance="outline">
+                                                                    <mat-label>Pincode</mat-label>
+                                                                    <input matInput appUppercase placeholder="Pincode"
+                                                                        formControlName="AddPincode" required readonly>
+                                                                </mat-form-field> -->
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Area Pincode</mat-label>
+                                                                    <input type="text" placeholder="Area Pincode"
+                                                                        (change)="onChangePinCodeInput()" matInput
+                                                                        required formControlName="AddPincode"
+                                                                        [matAutocomplete]="autoPincode"
+                                                                        [maxlength]="6" />
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        (optionSelected)="onChangePincode()"
+                                                                        #autoPincode="matAutocomplete">
+                                                                        <mat-option
+                                                                            *ngFor="let c of filteredautoPincodeList | async"
+                                                                            [value]="c.Pincode">
+                                                                            {{c.Pincode}},{{c.Area_Name}}
+                                                                        </mat-option>
+                                                                        <mat-option [value]="" *ngIf="!pincode">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                    <mat-error
+                                                                        *ngIf='af.get("AddPincode")?.errors?.["requireMatch"]'>
+                                                                        Please select a valid Pincode from the list!
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select Area</mat-label>
+                                                                    <input type="text" appUppercase
+                                                                        placeholder="Select Area" matInput
+                                                                        formControlName="AddArea"
+                                                                        [matAutocomplete]="autoAreaForMembers" required
+                                                                        style="text-transform: uppercase;">
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        #autoAreaForMembers="matAutocomplete"
+                                                                        [displayWith]="proposerAreaDisplayFn">
+                                                                        <mat-option
+                                                                            *ngFor="let s of areaForMembers | async"
+                                                                            [value]="s">
+                                                                            {{s.AreaDesc}}
+                                                                        </mat-option>
+                                                                        <mat-option [value]="" *ngIf="!areaForMembers">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                    <mat-error
+                                                                        *ngIf='cf["AddArea"].errors?.["incorrect"]'>
+                                                                        Please select a
+                                                                        valid option from the list</mat-error>
+
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <!-- <div class="col-md-5">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select State</mat-label>
+                                                                    <input type="text" placeholder="Select State" matInput required
+                                                                        formControlName="state" [matAutocomplete]="autoState">
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        [displayWith]="displayFn.bind(this)"
+                                                                        (optionSelected)="AddressonSelectState()"
+                                                                        #autoState="matAutocomplete">
+                                                                        <mat-option *ngFor="let s of filteredStateList | async"
+                                                                            [value]="s.StateCode">
+                                                                            {{s.StateDesc}}
+                                                                        </mat-option>
+                                                                        <mat-option [value]="" *ngIf="!filteredStateList">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Select City</mat-label>
+                                                                    <input type="text" appUppercase placeholder="Select City"
+                                                                        matInput formControlName="city" [matAutocomplete]="autoCity"
+                                                                        required style="text-transform: uppercase;">
+                                                                    <mat-autocomplete autoActiveFirstOption
+                                                                        (optionSelected)="AddressononSelectCity()"
+                                                                        #autoCity="matAutocomplete">
+                                                                        <mat-option *ngFor="let s of filteredCityList | async"
+                                                                            [value]="s.CityCode">
+                                                                            {{s.CityDesc}}
+                                                                        </mat-option>
+                                                                        <mat-option [value]="" *ngIf="!filteredCityList">
+                                                                            <p class="text-danger">Not Found</p>
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Pincode</mat-label>
+                                                                    <input type="text" placeholder="Pincode" matInput appOnlyNumbers
+                                                                        [maxLength]="6" [min]="1" [minlength]="5"
+                                                                        formControlName="AddPincode" [matAutocomplete]="autoPin"
+                                                                        required>
+                                                                    <mat-autocomplete autoActiveFirstOption [disableRipple]="false"
+                                                                        #autoPin="matAutocomplete">
+                                                                        <mat-option *ngFor="let s of filteredPincode | async"
+                                                                            [value]="s.Pincode">
+                                                                            {{s.Pincode}}
+                                                                        </mat-option>
+                                                                    </mat-autocomplete>
+                                                                </mat-form-field>
+                                                            </div> -->
+                                                            <div class="col-md-6">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>Proof Of Identity</mat-label>
+                                                                    <mat-select formControlName="identity" required>
+                                                                        <mat-option
+                                                                            *ngFor="let identity of Useridentity"
+                                                                            [value]="identity">
+                                                                            {{identity.viewValue}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-6"
+                                                                [hidden]="!communicationAddressForm.get('identity')?.value">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>
+                                                                        {{communicationAddressForm.get('identity')?.value?.['viewValue']}}
+                                                                    </mat-label>
+                                                                    <input matInput appUppercase
+                                                                        placeholder="{{communicationAddressForm.get('identity')?.value?.['viewValue']}}"
+                                                                        formControlName="IdentityNo"
+                                                                        [textMask]="identityMask" required>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="text-error text-right" style="margin-top:25px;"
+                                                            *ngIf="errMsg && communicationAddressForm.invalid">
+                                                            {{errMsg}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input *ngIf="!Proposer_Insurer" type="button"
+                                                            (click)="onClickBack(0)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back">
+
+                                                        <input *ngIf="Proposer_Insurer" type="button"
+                                                            (click)="onClickBack(1)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back">
+
+                                                        <button
+                                                            class="w--button w--button--orange w--button--large">Next:
+                                                            Nominee Details <i class="fa fa-arrow-right"
+                                                                aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <!-- Address Details End -->
+
+                                    <!-- Nominee Details Start -->
+                                    <mat-step [stepControl]="nomineeForm">
+                                        <form [formGroup]="nomineeForm" (ngSubmit)="onSubmitNominee()">
+                                            <ng-template matStepLabel>Nominee Details</ng-template>
+                                            <div class="row" style="padding-top: 10px;">
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Nominee Full Name</mat-label>
+                                                        <input matInput placeholder="Nominee Full Name" appOnlyAlpha
+                                                            appUppercase [maxlength]="30" formControlName="NomineeName"
+                                                            required>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Date Of Birth</mat-label>
+                                                        <input matInput [matDatepicker]="dp4" formControlName="age"
+                                                            required placeholder="Date of Birth" [max]="setMinDays(180)"
+                                                            [min]="minDate(90)" [maxlength]="10"
+                                                            (dateChange)="appointeedetails($event)">
+                                                        <mat-datepicker-toggle matSuffix [for]="dp4">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Relationship With Proposer</mat-label>
+                                                        <mat-select formControlName="nominee" required>
+                                                            <mat-option [value]="r"
+                                                                *ngFor="let r of nomineerelationList">
+                                                                {{r.FamilyMemberDesc}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 10px;" *ngIf="AppointeeDetails">
+                                                <div class="col-md-6">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Appointee Name</mat-label>
+                                                        <input matInput placeholder="Appointee Name" appOnlyAlpha
+                                                            appUppercase [maxlength]="30"
+                                                            formControlName="AppointeeName" required>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Date Of Birth</mat-label>
+                                                        <input matInput [matDatepicker]="dp6"
+                                                            formControlName="AppointeeDOB" required
+                                                            placeholder="Date of Birth" [max]="minDate(18)"
+                                                            [min]="minDate(90)" [maxlength]="10">
+                                                        <mat-datepicker-toggle matSuffix [for]="dp6">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Relationship With Nominee</mat-label>
+                                                        <mat-select formControlName="AppointeeRelationCode" required>
+                                                            <mat-option [value]="r" *ngFor="let r of appointeList">
+                                                                {{r.FamilyMemberDesc}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="text-error text-right" style="margin-top:25px;"
+                                                            *ngIf="errMsg && nomineeForm.invalid">
+                                                            {{errMsg}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input *ngIf="!Proposer_Insurer" type="button"
+                                                            (click)="onClickBack(1)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back">
+
+                                                        <input *ngIf="Proposer_Insurer" type="button"
+                                                            (click)="onClickBack(2)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back">
+
+                                                        <button class="w--button w--button--orange w--button--large"
+                                                            *ngIf="companyQueTree.length != 0">Next: Medical
+                                                            Details <i class="fa fa-arrow-right"
+                                                                aria-hidden="true"></i></button>
+                                                        <button class="w--button w--button--orange w--button--large"
+                                                            *ngIf="companyQueTree.length == 0">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <!-- Nominee Details End -->
+
+                                    <!---- Medical History Details Start -->
+                                    <mat-step *ngIf="companyQueTree.length">
+                                        <form name="medicalForm" [formGroup]="qnaForm" #medicalForm="ngForm"
+                                            (ngSubmit)="onSubmitReview()">
+                                            <ng-template matStepLabel>Medical History</ng-template>
+                                            <div class="col-md-12 col-xs-12 col-lg-12">
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <div class="col-md-5"></div>
+                                                    <mat-checkbox class="col-md-3" (change)='noneForAll($event)'
+                                                        [checked]='isNoneForAllChecked()'>
+                                                        <mat-label>None for all</mat-label>
+                                                    </mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12 col-lg-12" style="padding-top: 10px;">
+                                                <div [hidden]="companyQueTree.length == 0">
+                                                    <div *ngFor="let parent of companyQueTree;let i=index;">
+                                                        <div class="row ">
+                                                            <div class="col-md-5">{{parent.QuestionDesc}}</div>
+                                                            <div class="col-md-7 ">
+                                                                <div class="row" formGroupName="{{parent.QuestionID}}">
+                                                                    <!-- [checked]="isNoneChecked(parent.QuestionID)" -->
+                                                                    <!-- *ngIf="parent.Childrens.length > 0" -->
+                                                                    <!-- ReCallQuotation($event,0,parent.Childrens[i].ReCallQuotation) -->
+                                                                    <span class="col-md-3">
+                                                                        <mat-checkbox
+                                                                            formControlName="none{{parent.QuestionID}}"
+                                                                            (change)="onChekedChange($event,parent,0,0,'none',0)">
+                                                                            <mat-label>None</mat-label>
+                                                                        </mat-checkbox>
+                                                                    </span>
+                                                                    <!-- [checked]="isChecked(parent.QuestionID,member.FamilyMemberCode,member.RecordNo)" -->
+
+                                                                    <mat-checkbox class="col-md-3"
+                                                                        formControlName="{{member.RecordNo}}"
+                                                                        *ngFor="let member of parent.Members;let cmi=index;"
+                                                                        (change)="onChekedChange($event,parent,member.FamilyMemberCode,member.RecordNo,'',cmi)">
+                                                                        <mat-label>{{member.FamilyMemberDesc}}
+                                                                        </mat-label>
+                                                                    </mat-checkbox>
+                                                                    <!-- {{medicalForm.getControl('none').value}} -->
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div [hidden]="isHidden(parent.QuestionID)">
+                                                            <div *ngFor="let child of parent.Childrens">
+                                                                <div class="row" formArrayName={{child.QuestionID}}>
+
+                                                                    <div style="font-size: 15px" class="col-md-5">
+                                                                        {{child.QuestionDesc}}
+                                                                    </div>
+                                                                    <div class="col-md-7 pad0">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3"></div>
+                                                                            <div class="col-md-3"
+                                                                                *ngFor="let md of child.Members;let frmArry=index;">
+                                                                                <!-- {{md | json}} -->
+                                                                                <div [ngSwitch]="child.ControlName">
+                                                                                    <mat-form-field
+                                                                                        *ngSwitchCase="'textbox'">
+                                                                                        <input
+                                                                                            *ngIf="companyData.CompanyCode==9"
+                                                                                            #MemberDesc
+                                                                                            formControlName="{{frmArry}}"
+                                                                                            matInput appOnlyNumbers
+                                                                                            placeholder="{{md.FamilyMemberDesc}}"
+                                                                                            [id]="child.QuestionID+frmArry+md.FamilyMemberDesc"
+                                                                                            (change)="GetFamilyMemberDesc(md.RecordNo,child.QuestionID,MemberDesc.value)">
+
+                                                                                        <input
+                                                                                            *ngIf="companyData.CompanyCode!=9"
+                                                                                            #MemberDesc
+                                                                                            formControlName="{{frmArry}}"
+                                                                                            matInput
+                                                                                            placeholder="{{md.FamilyMemberDesc}}"
+                                                                                            [id]="child.QuestionID+frmArry+md.FamilyMemberDesc"
+                                                                                            (change)="GetFamilyMemberDesc(md.RecordNo,child.QuestionID,MemberDesc.value)">
+                                                                                    </mat-form-field>
+
+                                                                                    <!-- ReCallQuotation($event,1,child.ReCallQuotation) -->
+                                                                                    <!-- (change)="onChekedChange($event,child,md.FamilyMemberCode,md.RecordNo,'',frmArry)" -->
+                                                                                    <mat-checkbox
+                                                                                        *ngSwitchCase="'checkbox'"
+                                                                                        [checked]="isChecked(child.QuestionID,md.FamilyMemberCode,md.RecordNo)"
+                                                                                        formControlName="{{frmArry}}"
+                                                                                        (change)="multipalselect($event);
+                                                                                            GetFamilyMemberDescCheck(md.RecordNo,child.QuestionID,md.FamilyMemberCode,$event);
+                                                                                            multipallist($event,child,md.FamilyMemberCode,md.RecordNo);
+                                                                                            subenabledisable($event,child,frmArry)">
+                                                                                        <mat-label>
+                                                                                            {{md.FamilyMemberDesc}}
+                                                                                        </mat-label>
+                                                                                    </mat-checkbox>
+
+                                                                                    <mat-form-field
+                                                                                        *ngSwitchCase="'date'">
+                                                                                        <input
+                                                                                            formControlName="{{frmArry}}"
+                                                                                            matInput #MemberDesc
+                                                                                            placeholder="{{md.FamilyMemberDesc}}"
+                                                                                            (focus)="picker.open()"
+                                                                                            [matDatepicker]="picker"
+                                                                                            [max]="currentDate"
+                                                                                            [min]="md.DOB"
+                                                                                            [id]="child.QuestionID+frmArry+md.FamilyMemberDesc"
+                                                                                            (dateChange)="GetFamilyMemberDesc(md.RecordNo,child.QuestionID,MemberDesc.value)">
+                                                                                        <mat-datepicker #picker
+                                                                                            disabled="false">
+                                                                                            <!-- [min]="minDate(md.Age,1,1)" -->
+                                                                                        </mat-datepicker>
+                                                                                    </mat-form-field>
+
+                                                                                    <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+                                                                                <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+                                                                            </select> -->
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <!-- only check multipal check box -->
+                                                                <div [hidden]="isHidden(child.QuestionID)">
+                                                                    <div *ngFor="let child1 of child.Childrens"
+                                                                        formArrayName={{child1.QuestionID}}>
+                                                                        <!-- formArrayName={{child1.QuestionID}} -->
+                                                                        <div class="row">
+                                                                            <div style="font-size: 15px"
+                                                                                class="col-md-5">
+                                                                                {{child1.QuestionDesc}}
+                                                                            </div>
+                                                                            <div class="col-md-7 pad0">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-3"></div>
+                                                                                    <div class="col-md-3"
+                                                                                        *ngFor="let md1 of child1.Members;let subarray=index;">
+                                                                                        <div
+                                                                                            [ngSwitch]="child1.ControlName">
+
+                                                                                            <mat-form-field
+                                                                                                *ngSwitchCase="'textbox'"
+                                                                                                class="example-full-width">
+                                                                                                <input matInput
+                                                                                                    placeholder="{{md1.FamilyMemberDesc}}"
+                                                                                                    #MemberDesc matInput
+                                                                                                    formControlName="{{subarray}}"
+                                                                                                    id="{{child1.QuestionID+md1.FamilyMemberCode}}"
+                                                                                                    (change)="GetFamilyMemberDesc(md1.RecordNo,child1.QuestionID,MemberDesc.value)">
+                                                                                            </mat-form-field>
+
+                                                                                            <!-- [max]="currentDate"
+                                                                                            [min]="md.DOB" -->
+                                                                                            <mat-form-field
+                                                                                                *ngSwitchCase="'date'">
+                                                                                                <input
+                                                                                                    formControlName="{{subarray}}"
+                                                                                                    matInput #MemberDesc
+                                                                                                    placeholder="{{md1.FamilyMemberDesc}}"
+                                                                                                    (focus)="picker1.open()"
+                                                                                                    [matDatepicker]="picker1"
+                                                                                                    id="{{child1.QuestionID+md1.FamilyMemberCode}}"
+                                                                                                    (dateChange)="GetFamilyMemberDesc(md1.RecordNo,child1.QuestionID,MemberDesc.value)">
+                                                                                                <mat-datepicker #picker1
+                                                                                                    disabled="false">
+                                                                                                    <!-- [min]="minDate(md.Age,1,1)" -->
+                                                                                                </mat-datepicker>
+                                                                                            </mat-form-field>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- only check multipal check box -->
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="col-md-12 text-error text-left "
+                                                        *ngIf="errMsg || qnaForm.invalid">
+                                                        {{errMsg}}
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div style="text-align: right;">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="text-error text-right" style="margin-top:25px;"
+                                                            *ngIf="errMsg || qnaForm.invalid">
+                                                            {{errMsg}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input *ngIf="!Proposer_Insurer" type="button"
+                                                            (click)="onClickBack(2)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back">
+
+                                                        <input *ngIf="Proposer_Insurer" type="button"
+                                                            (click)="onClickBack(3)"
+                                                            class="w--button w--button--orange w--button--large"
+                                                            style="margin-right: 10px;" value="Back">
+
+                                                        <button
+                                                            class="w--button w--button--orange w--button--large">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                </mat-vertical-stepper>
+
+                            </div>
+
+                            <!-- <div class="col-md-8 mr-auto ml-auto text-center" *ngIf="isreview"> -->
+                            <div class="col-md-12 mr-auto ml-auto text-center" [hidden]="!isreview">
+                                <health-review-pay (onEdit)="onClickEdit($event)" [data]="reviewData">
+                                </health-review-pay>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Side Details -->
+
+                    <div class="col-md-3">
+                        <div class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end">
+                            <div class="insurance_details">
+                                <div class="col-md-12 col-12">
+                                    <div class="insurance-company-image plan-info text-center">
+                                        <!-- <img [src]="companyData.CompanyLogo" class="img-responsive" /> -->
+                                        <img src='{{ "assets/img/company-logos/health/" + companyData.CompanyLogo }}'
+                                            alt="{{companyData.CompanyLogo}}" />
+                                        <h5 class="prdct_name">{{companyData.ProductName}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="plan-info">
+
+                                        <li>
+                                            Tenure : <b>
+                                                &nbsp;{{companyData.Tanure}}&nbsp;Year</b>
+                                        </li>
+                                        <li>Sum Insured : <b><i class="fa fa-inr"
+                                                    aria-hidden="true"></i>{{companyData.SumInsured}}</b></li>
+                                        <li>Premium/Year : <b>
+                                                <i class="fa fa-inr"
+                                                    aria-hidden="true"></i>{{(companyData.Premium-ExtraLoading) |
+                                                customRoundUp}}
+                                            </b></li>
+                                        <!-- <li>Discount: <b><i class="fa fa-inr" aria-hidden="true"></i>00</b></li> -->
+                                        <li>Extra Loading : <b><i class="fa fa-inr"
+                                                    aria-hidden="true"></i>{{ExtraLoading | customRoundUp}}</b></li>
+                                        <li>Total Premium <b><i class="fa fa-inr"
+                                                    aria-hidden="true"></i>{{companyData.Premium | customRoundUp}}</b>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <health-payment></health-payment> -->

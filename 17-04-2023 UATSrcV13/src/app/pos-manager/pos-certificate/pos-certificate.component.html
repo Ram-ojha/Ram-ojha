@@ -1,0 +1,608 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto" *ngIf="result != undefined">
+
+            <label class="text-center">Training→ Examination→ Certification</label>
+            <mat-card>
+                <h1 class="titile" *ngIf="certificateData?.AgreementInd == '0'">AGREEMENT FOR APPOINTMENT OF POINT OF
+                    SALE PERSON</h1>
+                <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                        <mat-expansion-panel-header [hidden]=onthirdtab>
+                            <mat-panel-title>
+                                First
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                                Type your name and age
+                                <mat-icon>account_circle</mat-icon>
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <div class="subtitle">
+                            <h4>
+                                This Agreement is made and entered into as of the last date signed below (the “Effective
+                                Date”) by and between <span>HAMARA
+                                    BIMA INSURANCE BROKERS PVT.LTD, a body corporate having its registered office at
+                                    BLOCK-A
+                                    FIRST FLOOR, 60 , ELECTRONIC
+                                    COMPLEX PARDESHIPURA, INDORE, MADHYA PRADESH.</span> (Here in after referred to as
+                                “HBIBPL”)
+                            </h4>
+                            <p>And</p>
+                            <div class="personal-details">
+                                <h4 class='dCertificate'>
+                                    <b>{{certificateData?.Title}}&nbsp;{{certificateData?.NameEnglish}}</b>&nbsp;<span>Whose
+                                        principal
+                                        mailing
+                                        address
+                                        is&nbsp;{{certificateData?.LAddress}}</span>
+                                    .<small>POS Certificate Number : {{certificateData?.UserCode}} </small>
+                                </h4>
+                                <p>(Here
+                                    in after referred to as "THE SECOND PARTY")</p>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="main-content">
+                            <h3>BY CHECKING THE BOX INDICATING THAT YOU (THE "SECOND PARTY") AGREE TO THE TERMS AND
+                                CONDITIONS OF THIS AGREEMENT FOR
+                                APPOINTMENT OF POINT OF SALE PERSON & ANNEXURES (THIS "AGREEMENT"): (A) THE SECOND PARTY
+                                AGREE TO BE BOUND BY THIS
+                                AGREEMENT; (B) THE SECOND PARTY HEREBY REPRESENT AND WARRANT THAT THE SECOND PARTY IS
+                                LAWFULLY ABLE TO ENTER INTO
+                                CONTRACTS AND THAT THE SECOND PARTY WILL REMAIN IN COMPLIANCE WITH THIS AGREEMENT.</h3>
+                            <b>NOW THIS AGREEMENT WITNESSETH AND IT IS HEREBY AGREED BY AND BETWEEN THE PARTIES HERETO
+                                AS FOLLOWS:</b>
+                            <ul class="terms">
+                                <p>The Second Party has read following terms and conditions and agreed the same:</p>
+                                <li>1.That Second party’s appointment as a Point of Sale Person ( hereinafter referred
+                                    to as “POSP”) shall be subject to
+                                    his/her successfully completing the training, examination and certification
+                                    conducted/to be conducted by HBIBPL. I have
+                                    been apprised of the fact that I will have to successfully undergo 15 hours of
+                                    training [separate 15 hours of training
+                                    (i) for Non-Life & Health; (ii) for Life (as the case may be)].</li>
+                                <li>2.That Second party has been supplied with a copy of the IRDAI POSP Guidelines
+                                    [General] and have read and understood
+                                    the said Guidelines and agree to abide by the same. Further, Second party shall
+                                    solicit only the pre-underwritten
+                                    products (as may be in force and approved by IRDAI, from time).</li>
+                                <li>3.That Second party undertake that after being appointed as a POSP for HBIBPL,
+                                    Second party shall not represent as an
+                                    agent and/or canvasser of HBIBPL or act as an agent, POSP of any insurance company
+                                    or insurance intermediary. Second
+                                    party understand that as per the applicable Guidelines, he is only acting as a POSP
+                                    for HBIBPL and has been appointed by
+                                    HBIBPL in pursuance of the said IRDAI POSP Guidelines (as may be amended from time
+                                    to time) to solicit and market only
+                                    certain pre-underwritten products. Second party further understand that Second party
+                                    is not entitled to receive any
+                                    salary and/or other employment benefits as extended by HBIBPL to its employees.
+                                    That, till the time Second party is
+                                    enrolled as a POSP with HBIBPL, Second Party shall not directly or indirectly work
+                                    for any other insurance company or
+                                    insurance intermediary. Before doing so Second party will take written NOC from
+                                    HBIBPL.</li>
+                                <li>4.That, Second party agrees that all business will be transacted under the terms
+                                    of the said IRDAI POSP Guidelines and
+                                    the internal policies of HBIBPL, as applicable from time to time. Second party
+                                    understand that as per the applicable
+                                    operational requirements of the said Guidelines, his Aadhar/PAN number shall be
+                                    submitted /forwarded by HBIBPL to the
+                                    respective insurance companies.</li>
+                                <li>5.That, the details of the fee/compensation/remuneration payable to Second party
+                                    have been clearly explained and the
+                                    details of the said fee/compensation/remuneration are as per Annexure-1 (enclosed
+                                    this letter forming part and parcel of
+                                    this letter, out of which TDS as applicable will be deducted. Both parties shall
+                                    mutually agree, from time to time to
+                                    revise the said fee/compensation/remuneration, which revision shall be through a
+                                    separate letter or email.</li>
+                                <li>6.That, the monthly chart of commission/payouts/rewards will be sent to registered
+                                    email address of POSP and commission
+                                    rate will be paid according to that commission chart which may vary time to time or
+                                    every month and will be subject to
+                                    volume of Insurance premium held by POSP. The commission shall be paid in their bank
+                                    account as provided by Second
+                                    party.</li>
+                                <li>7.That, any dispute or difference of opinion related with amount of
+                                    commission/remuneration/emoluments or any monetary
+                                    benefit shall be appealed within 30 days of that transition/information intimated to
+                                    the Second party. Second party
+                                    hereby also agree that in case of any dispute the decision taken by HBIBPL shall be
+                                    final and binding.</li>
+                                <li>8.That, Second party shall not offer or extend any kick-backs, pass-backs, rewards
+                                    etc., to the clients/prospects and
+                                    shall at all times comply with the provisions of section 41 of the Insurance Act,
+                                    1938 (as amended from time to time)
+                                    and comply with all applicable laws concerning this arrangement</li>
+                                <li>9.That, Second party agrees and undertake to keep the information (including the
+                                    terms of my appointment) of the
+                                    clients/customers, business information, processes, software, software applications
+                                    (whether in physical format or
+                                    electronic format as provided to me) etc., strictly confidential and shall not
+                                    disclose the same to any third
+                                    party/person or use/exploit the same to gain a commercial advantage. The above are
+                                    the property of HBIBPL (and/or any
+                                    third party, which HBIBPL may use for facilitating the transactions) and that Second
+                                    party shall not claim any right,
+                                    title, interest, license etc., in the above. Second party has covenanted to a
+                                    Non-disclosure agreement which is annexed
+                                    along with this instrument as ANNEXURE II.</li>
+                                <li>10.That, Second party agrees to indemnify HBIBPL, its directors, employees etc., for
+                                    breach of any of the terms and
+                                    conditions as contained herein or breach of the IRDAI POSP guidelines. Second party
+                                    shall indemnify to HBIBPL and/or to
+                                    third party if any intentional or unintentional misrepresentation or misspelling
+                                    made or through Second party’s id/user
+                                    id or which is directly or indirectly related with me.</li>
+                                <li>That, HBIBPL may for its business quality and internal audit purposes, have the
+                                    option to contact any of the clients
+                                    solicited by Second party, to check and verify the details of the solicitation done
+                                    by Second party</li>
+                                <li>12.That, Second party undertake to repay to HBIBPL, any recovery of
+                                    fee/compensation/remuneration/commission/sub-brokerage outstanding due from Second
+                                    party within Seven working days of
+                                    receipt of intimation from HBIBPL or hereby authorize HBIBPL to set-off the
+                                    outstanding dues from the future
+                                    fee/compensation/remuneration/commission/sub-brokerage payable to Second party.</li>
+                                <li>13.That, subject to the applicable provisions contained in the said Guidelines, both
+                                    the parties shall have the option
+                                    to terminate this arrangement by giving thirty days prior written notice to the
+                                    other.</li>
+                                <li>14.That, HBIBPL may at its sole discretion terminate this arrangement forthwith (i)
+                                    for any breach of the terms and
+                                    conditions provided herein or any failure to perform obligations as a POSP; or (ii)
+                                    for any misconduct or gross
+                                    negligence; or (iii) for any misrepresentation, fraud, or concealment of any
+                                    material facts either in relation to
+                                    appointment or post appointment as a POSP of HBIBPL; or (iv) if so advised by IRDAI;
+                                    or (v) for not clearing the
+                                    training and examination. In the event second party does not successfully clear the
+                                    training and/or examination, within
+                                    the time lines provided by HBIBPL, this agreement shall automatically stands
+                                    terminated, without any legal obligation on
+                                    the part of HBIBPL.</li>
+                                <li>15.That, Second party shall not issue, circulate any insurance advertisement,
+                                    marketing materials, without the prior
+                                    written approval of HBIBPL.</li>
+                                <li>16.That, Second party undertake to inform HBIBPL of any material change/s in the
+                                    information provided by me including
+                                    change of address of office or shop or residence.</li>
+                                <li>17.That, Any and all dispute or controversy among the Parties arising out of this
+                                    Agreement, which cannot be settled by
+                                    amicable means, shall be resolve any such dispute, the matter shall be referred to
+                                    the arbitration of a sole Arbitrator
+                                    to be appointed mutual consent of both the parties in accordance with the
+                                    Arbitration and Conciliation Act 1996 and
+                                    Amendment Act 2015 for the time being in force, which rules are deemed to be
+                                    incorporated by reference in this clause.
+                                    The Language for the arbitration shall 17.be English. The award of the arbitration
+                                    shall be final and binding upon the Parties, and may be entered in Indore
+                                    court having jurisdiction.</li>
+                                <li>18.That Second party certify that the information submitted/contained in the
+                                    application/enrolment form is, to the best of
+                                    his knowledge and belief, true and complete and nothing material has been concealed
+                                    there from</li>
+
+                                <li>19.That Second Party should take utmost care while performing his duty and should
+                                    not indulge any thing which are against any guidelines issued by IRDAI and The
+                                    Insurance Act, 1938. </li>
+
+                                <li>20.That Second Party shall not indulge in malpractices. He should furnish the
+                                    information to the insurance company in totality and should not hide the
+                                    information.</li>
+
+                                <li>21.That Second Party shall be liable if he/she Omit any information in the proposal
+                                    form.</li>
+
+                                <li>22.That Second Party will held liable if he/she submits wrong information in the
+                                    proposal form OR an documents submitted to the insurer OR Broker for acceptance of
+                                    the proposal.</li>
+                            </ul>
+                            <br />
+                            <section class="example-section">
+                                <mat-checkbox class="example-margin" (change)="onNativeChangeFirst($event)">I have
+                                    read the
+                                    agreement and accept its terms and
+                                    conditions.</mat-checkbox><br>
+                                <div class="row">
+                                    <div class="col-md-6 float-left">
+                                        <p>M/S HAMARA BIMA INSURANCE BROKERS PVT LTD</p>
+                                    </div>
+                                    <div class="col-md-6 float-right text-right">
+                                        <p>POSP NAME: {{certificateData?.NameEnglish}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="bottom_line">
+                                        This is a computer generated document and no signature is required.
+                                    </p>
+                                </div>
+                            </section>
+                        </div>
+
+                        <mat-action-row>
+                            <button mat-button color="primary" [disabled]="onResponseFirst"
+                                (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="onResponseFirst">
+                        <mat-expansion-panel-header [hidden]=onthirdtab>
+                            <mat-panel-title>
+                                Second
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="main-content">
+                            <h5 class="text-center">Annexure-1 <br>
+                                [Fee/Compensation/Remuneration Structure]</h5>
+                            <ul class="terms">
+                                <li>1.Subject to the terms and conditions of the Agreement (as above), the maximum
+                                    fee/compensation/remuneration, payable to
+                                    the POSP by HBIBPL, for the approved POSP insurance products (approved by IRDAI)
+                                    solicited/facilitated through the POSP
+                                    shall be as under:</li>
+                                <table class="table table-bordered table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr. No.</th>
+                                            <th>Product</th>
+                                            <th>maximum%
+                                                fee/compensation/remuneration to be paid to POSP by HBIBPL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Motor Package (2-wheeler, private
+                                                car and commercial vehicles)</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Motor Third Party (2-wheeler, private
+                                                car and commercial vehicles)</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Personal Accident </td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Travel</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Home</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Fire & Allied Peril (Dwelling)</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Hospital Cash</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Critical illness</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Health indemnity</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>Cattle/ Livestock</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>Agricultural Pump-set</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td>PMFBY/ WBCIS/ CPIS/ PMSBY/ Govt
+                                                Schemes</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                        <tr>
+                                            <td>13</td>
+                                            <td>Crop insurance other than Govt
+                                                Schemes</td>
+                                            <td>As per IRDA structure</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <li>2.Apart from the above said fee/compensation/remuneration, the POSP shall not be
+                                    entitled to receive (unless otherwise
+                                    mutually agreed) any other remuneration, reward and/or other fee(s), amount(s) (by
+                                    whatever name called) from HBIBPL</li>
+                            </ul><br />
+                            <section class="example-section">
+                                <mat-checkbox class="example-margin" (change)="onNativeChangeSecond($event)">I have
+                                    read the
+                                    agreement and accept its terms and
+                                    conditions.</mat-checkbox><br>
+                                <div class="row">
+                                    <div class="col-md-6 float-left">
+                                        <p>M/S HAMARA BIMA INSURANCE BROKERS PVT LTD</p>
+                                    </div>
+                                    <div class="col-md-6 float-right text-right">
+                                        <p>POSP NAME: {{certificateData?.NameEnglish}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="bottom_line">
+                                        This is a computer generated document and no signature is required.
+                                    </p>
+                                </div>
+                            </section>
+
+                        </div>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" [disabled]="onResponseSecond"
+                                (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <!-- <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="onResponseFirst"> -->
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="onResponseSecond">
+                        <!-- <mat-expansion-panel-header [hidden]=onthirdtab> -->
+                        <mat-expansion-panel-header [hidden]=onthirdtab>
+                            <mat-panel-title>
+                                Third
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <div class="main-content">
+                            <h5 class="text-center">CONFIDENTIALITY, PROPREITARY <br />INFORMATION AND NONDISCLOSURE
+                                <br /> AGREEMENT
+                            </h5>
+                            <div class="subtitle">
+                                <h4>
+                                    This Agreement governs the establishment of the relationship of Point of sale person
+                                    and
+                                    Insurance Broker under the
+                                    prescribed guidelines of IRDAI, between <span>HAMARA BIMA INSURANCE BROKERS
+                                        PVT.LTD</span>(HBIBPL") and {{certificateData?.NameEnglish}}(and)the disclosure
+                                    of
+                                    certain information by <span>HBIBPL</span> to Confidant (sometimes referred to as
+                                    the
+                                    "Parties")
+                                </h4>
+                                <h4>
+                                    THE CONFIDANT agrees to the agreement of Non Disclosure of the confidential
+                                    information
+                                    by checking box, which denotes
+                                    as his/her signature.
+
+                                </h4>
+                                <h4>In consideration of the establishment of the Relationship between the Parties and
+                                    the
+                                    disclosure of the Confidential
+                                    Information (as defined below), the Parties agree as follows:</h4>
+                            </div>
+                            <ul class="terms">
+                                <li><span>I.NON-DISCLOSURE AND LIMITED USE.</span> Confidant agrees to hold all
+                                    Confidential Information in strict confidence and agrees
+                                    not to disclose any Confidential Information to any third party. [Confidant agrees
+                                    not to disclose any Confidential
+                                    Information received from HBIBPL to any other party (including other colleagues,
+                                    associates or clients of Confidant)
+                                    without the prior written consent of HBIBPL.] [Confidant agrees that it I.shall
+                                    disclose Confidential Information received from HBIBPL only to employees or
+                                    consultants, agents, attorneys or
+                                    accountants of Confidant as necessary to perform or facilitate discussions and
+                                    negotiations regarding the Relationship
+                                    and who (i ) need to know such Confidential Information to effect the Relationship
+                                    and (ii ) have agreed in writing to
+                                    be bound by this Agreement and not to disclose such Confidential Information to any
+                                    other party.] Confidant shall not
+                                    use any Confidential Information received from HBIBPL for its own benefit or for any
+                                    purpose except in connection with
+                                    and to affect the Relationship. Confidant shall take all reasonable measures to
+                                    prevent the unauthorized disclosure or
+                                    use of Confidential Information received from HBIBPL and shall not make any copies
+                                    of such Confidential Information
+                                    without the prior written consent of HBIBPL.</li>
+                                <li><span>II.DESCRIPTION OF CONFIDENTIAL INFORMATION.</span> "Confidential Information"
+                                    means all information disclosed by HBIBPL to
+                                    Confidant (in writing, orally or in any other form), including, without limitation,
+                                    Insurance plan information, client
+                                    details, business plans, financial information, customer lists.<br>
+                                    Confidant agrees to hold all such confidential or proprietary information in the
+                                    strictest confidence and not to
+                                    disclose it to any person, firm or corporation or to use it except as necessary in
+                                    carrying out my work for the Company
+                                    in a manner consistent with the Company’s agreement with such third-party.
+                                </li>
+                                <li><span>III.STANDARD OF CARE.</span> Confidant agrees to (a ) treat the Confidential
+                                    Information as confidential and proprietary, (b )
+                                    use its best efforts to protect it from disclosure to any third party, which in no
+                                    event shall be less than the measures
+                                    it uses to maintain the confidentiality of Confidant's own most highly confidential
+                                    information, and (c) cooperate in
+                                    HBIBPL's efforts to protect the Confidential Information. Confidant agrees further
+                                    to promptly notify HBIBPL of any
+                                    known or suspected breach of HBIBPL's proprietary rights to the Confidential
+                                    Information that may come to Confidant’s
+                                    attention.</li>
+                                <li><span>IV.REMEDIES.</span>Confidant agrees to indemnify and hold harmless HBIBPL from
+                                    any damage, loss, cost or liability (including
+                                    legal fees and the cost of enforcing this indemnity) arising out of or resulting
+                                    from any breach by it (or any of its
+                                    employees, consultants, agents, attorneys and accountants, if applicable) of any
+                                    term of this Agreement, including
+                                    without limitation, the unauthorized use or disclosure by it (or any of its
+                                    employees, if applicable) of the
+                                    Confidential Information or any portion thereof or the breach of any other
+                                    provisions hereof. Confidant further agrees
+                                    that the unauthorized disclosure or use by it of Confidential Information or the
+                                    breach of any other provision hereof
+                                    will cause irreparable harm and significant injury to HBIBPL which may be difficult
+                                    to ascertain. Accordingly, Confidant agrees that HBIBPL shall be
+                                    entitled to equitable relief, including, without limitation, an immediate injunction
+                                    enjoining any breach by it of this
+                                    Agreement, in addition to all other remedies available to HBIBPL at law or inequity.
+                                </li>
+                                <li><span>V.RETURN OF CONFIDENTIAL INFORMATION.</span> Upon conclusion or termination of
+                                    the Relationship, or at any time at the request
+                                    of HBIBPL, Confidant shall return to HBIBPL all material containing or reflecting
+                                    any Confidential Information,
+                                    including, without limitation, any notes, extracts, compilations, memoranda,
+                                    analyses or reproductions, in whole or in
+                                    part, and in any form whatsoever (including, without limitation, any such
+                                    information retained on any form of computer
+                                    media)</li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" (change)="onNativeChangethird($event)">I have read the
+                                agreement and accept its terms and
+                                conditions.</mat-checkbox><br>
+                            <div class="row">
+                                <div class="col-md-6 float-left">
+                                    <p>M/S HAMARA BIMA INSURANCE BROKERS PVT LTD</p>
+                                </div>
+                                <div class="col-md-6 float-right text-right">
+                                    <p>POSP NAME: {{certificateData?.NameEnglish}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="bottom_line">
+                                    This is a computer generated document and no signature is required.
+                                </p>
+                            </div>
+
+                        </section>
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" [disabled]="onResponsethird" (click)="onClick()"
+                                (click)="nextStep()">Finish</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+                        <mat-expansion-panel-header [hidden]=true>
+                            <mat-panel-title>
+                                Certificate
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="col-md-12 text-center">
+                            <button (click)="onEnd()" class="w--button w--button--orange w--button--large"
+                                title="View Quotes">Download
+                                Certificate</button>
+                        </div>
+                        <div id="DivPDF">
+                            <div class="space"></div>
+                            <div class="main-form DivPDF">
+                                <div class="page-header">
+                                    <div class="logo">
+                                        <img src="/assets/img/certificate/hamarabima.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="page-container">
+                                    <div class="date">
+
+                                        <h4>POS Certificate</h4><br>
+                                        <ul>Certificate Number :{{certificateData?.UserCode}}</ul>
+
+                                        <p>Date:{{certificateData?.CertificateDate}}</p>
+                                    </div>
+
+                                    <div class="photo-frame">
+                                        <div class="photo-frame-img">
+
+                                            <img id="img1" [src]="certificateData?.DocString" width="200"
+                                                height="200" />
+
+                                        </div>
+                                        <div class="hamarabima">
+                                            <h2 class="titile">
+                                                {{certificateData?.Title}}&nbsp;{{certificateData?.NameEnglish}}</h2>
+                                            <p>This is in reference to the application made by you for enrolling
+                                                yourself to act as Point of
+                                                Sale Person.</p>
+                                            <p>This is to confirm that you have successfully completed the prescribed
+                                                training and have also
+                                                passed the examination specified for Point of Sales examination
+                                                conducted by Hamara Bima
+                                                Insurance Brokers Pvt. Ltd. under the Guidelines on Point of Sales
+                                                Person for Non-life and Life
+                                                Insurers. Your personal details are as under:</p>
+                                            <p>
+                                                <b>Aadhaar No: {{certificateData?.AadharNumber}}</b>
+                                                <b class="certificate">Pan Card No: {{certificateData?.PANNo}}</b>
+                                            </p>
+                                            <p>This letter authorizes you to act as Point of Sales Person for Hamara
+                                                Bima Insurance Brokers Pvt.
+                                                Ltd. to market products categorized and identified under the Guidelines
+                                                only.</p>
+                                            <p>In case you wish to work for another company, you are required to obtain
+                                                a fresh letter from the
+                                                new insurer/ insurance intermediary in order to act as Point of Sales
+                                                Person for that entity.
+                                            </p>
+                                            <br />
+
+                                            <div class="signatory">
+                                                <p>Yours Truly</p><br />
+                                                <p>
+                                                    D.S.Bedi
+                                                </p>
+                                                <p>
+                                                    Principal Officer
+                                                </p>
+                                            </div>
+                                            <div class="ribbon">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <div class="left">
+                                        <p>Block A, 1st Floor, 60 Electronic Complex,</p>
+                                        <p>Pardesipura, Indore-452010 (M.P.) India</p>
+                                        <p>mail@hamarabima.com | www.hamarabima.com | Tel.: +91-731-4724444</p>
+                                    </div>
+                                    <div class="right">
+                                        <p><b>CIN No. U66000MP2019PTC049230</b></p>
+                                    </div>
+                                </div>
+                                <div class="bttm-txt">
+                                    <p>This is a computer generated document and no signature is required.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <mat-datepicker #picker></mat-datepicker> -->
+
+                        <mat-action-row [hidden]="true">
+                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                            <button mat-button color="primary" (click)="nextStep()">End</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+            </mat-card>
+
+        </div>
+    </div>
+</div>

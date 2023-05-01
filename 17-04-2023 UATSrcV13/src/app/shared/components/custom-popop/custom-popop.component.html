@@ -1,0 +1,60 @@
+<!-- <p>custom-popop works!</p> -->
+<!-- Inqury Modal Popup -->
+<div class="modal   show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" style="display: block;" *ngIf="isVisible">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fill This Contact Form
+                </h5>
+                <button type="button" (click)="onClickClose() " class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <div class="col-md-12 alert alert-danger" *ngIf="errMsg">
+                        {{errMsg}}
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Name<span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" appOnlyAlpha formControlName="fullName"
+                                placeholder="Full Name">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Email<span style="color: red;">*</span></label>
+                            <input type="email" class="form-control" formControlName="email" placeholder="Email"
+                                maxlength="100">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Subject<span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" formControlName="subject" placeholder="Subject"
+                                maxlength="100">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Message<span style="color: red;">*</span></label>
+                            <textarea class="form-control" placeholder="Full Name" formControlName="message"
+                                maxlength="300"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                    <button type="submit" class="btn btn-primary" [disabled]="isSubmit">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        &nbsp;&nbsp;{{isSubmit ? 'Sending..' : 'Send Message'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

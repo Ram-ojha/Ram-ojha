@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+
+  }
+
+  .modal-header {
+    float: left;
+    position: relative;
+    width: 100%;
+    background: #083b66;
+    color: #fff;
+    text-align: center;
+    margin: 0px auto 0;
+    padding: 5px 15px;
+    font-size: 18px;
+    border-radius: 0px;
+  }
+  .modal-header .close {
+    color: #ffffff;
+    opacity: 1;
+}
+
+
+
+button:focus, button:visited{
+    outline: none;
+}
+
+.scroller{
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+  padding-left: 0;
+}
+
+th {
+  width: 200px !important;
+}
+td .mat-cell {
+  width: 200px !important;
+}
+table.mat-table {
+  height: 100% !important;
+}

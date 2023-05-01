@@ -1,0 +1,409 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+
+<div class="bike_pannal" *ngIf="insuranceType.InsuranceCateCode == 3">
+    <div class="bike_area health">
+        <!-- Select_Bike_not_know bike_no -->
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 card_popup_not_no_area_view pad0">
+                        <div class="container-two-wheeler-insurance">
+                            <mat-horizontal-stepper [selectedIndex]="selectedTab" [linear]="true" #stepper>
+                                <mat-step label="Personal Information" [editable]="isEditable"
+                                    [completed]="isCompleted">
+                                    <div class="tab-content py-3 px-3 px-sm-0 Bike_Manufacturer" id="nav-tabContent">
+                                        <div class="row tab-pane fade show active" id="nav-home" role="tabpanel"
+                                            aria-labelledby="nav-home-tab">
+                                            <div class="row">
+                                                <div class="col-md-12 mx-auto">
+                                                    <div class="bike-insu-div">
+                                                        <!-- <h4>
+                                                            Choose the right health plan for you
+                                                        </h4> -->
+                                                    </div>
+                                                    <form (keydown.enter)="$event.preventDefault()" [formGroup]="pIForm"
+                                                        (ngSubmit)="onNextClick()">
+                                                        <div class="row">
+                                                            <!--- Base Plan ----->
+                                                            <div class="col-md-6">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field appearance="outline">
+                                                                        <mat-label>Gender</mat-label>
+                                                                        <mat-select formControlName="gender" required
+                                                                            (selectionChange)="onChangeGender(pIForm.controls['gender'].value)">
+                                                                            <mat-option
+                                                                                [value]="g.GenderCode+','+g.GenderDesc"
+                                                                                *ngFor="let g of genderList">
+                                                                                {{g.GenderDesc}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                    <!-- <span class="text-danger"
+                                                                                    *ngIf="pIForm.controls['gender'].hasError('required')">
+                                                                                    Gender is <strong>required</strong>
+                                                                                </span> -->
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field class="example-full-width"
+                                                                        (click)="onClickOpenPopup()"
+                                                                        appearance="outline">
+                                                                        <mat-label>Member to be insured
+                                                                        </mat-label>
+                                                                        <input matInput [readonly]="'true'"
+                                                                            formControlName="members" required
+                                                                            placeholder="Member to be insured"
+                                                                            title="Member to be insured" required>
+                                                                        <!-- <mat-error>
+                                                                                        Family members is
+                                                                                        <strong>required</strong>
+                                                                                    </mat-error> -->
+                                                                    </mat-form-field>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field class="example-full-width"
+                                                                        appearance="outline">
+                                                                        <mat-label>Pincode</mat-label>
+                                                                        <input matInput title="Pin Code" appOnlyNumbers
+                                                                            formControlName="pincode" maxlength="6"
+                                                                            placeholder="Pin Code" required>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field class="example-full-width"
+                                                                        appearance="outline">
+                                                                        <mat-label>Mobile No.</mat-label>
+                                                                        <input matInput maxlength="10" appOnlyNumbers
+                                                                            title="Mobile Number"
+                                                                            formControlName="mobileNo" required
+                                                                            placeholder="Mobile Number">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="field-wrapper">
+                                                                    <mat-form-field class="example-full-width"
+                                                                        appearance="outline">
+                                                                        <mat-label>Email ID</mat-label>
+                                                                        <input matInput maxlength="100" title="Email Id"
+                                                                            formControlName="emailId" required
+                                                                            placeholder="Email ID">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center text-error"
+                                                                *ngIf="(errMsg && pIForm.invalid) || errMsg">
+                                                                {{errMsg}}
+                                                            </div>
+                                                            <div class="col-md-8 mx-auto">
+                                                                <button title="Next"
+                                                                    class="w--button w--button--orange w--button--large">
+                                                                    Next</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </mat-step>
+
+                                <mat-step label="Age of Members" [completed]="isCompleted">
+                                    <div class="col-md-12">
+                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                            aria-labelledby="nav-home-tab">
+                                            <div class="">
+                                                <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                    id="nav-tabContent">
+                                                    <div class="row tab-pane fade show active" id="nav-insurance"
+                                                        role="tabpanel" aria-labelledby="nav-home-tab">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="bike-insu-div">
+                                                                        <h4>
+                                                                            Select age of members
+                                                                        </h4>
+                                                                    </div>
+                                                                    <form (keydown.enter)="$event.preventDefault()"
+                                                                        #ageForm="ngForm" (ngSubmit)="onSubmit()">
+                                                                        <div class="row">
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(1)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>Self</mat-label>
+                                                                                    <mat-select required name="selfAge"
+                                                                                        [(ngModel)]="ages.selfAge"
+                                                                                        id="ddlselfAge">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(2)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        {{pIForm.get('gender')?.value ?
+                                                                                        pIForm.get('gender')?.value.split(',')[0]==1
+                                                                                        ? 'Wife' :
+                                                                                        pIForm.get('gender')?.value.split(',')[0]==2
+                                                                                        ? 'Husband' : 'Spouse' :
+                                                                                        'Spouse'}}
+                                                                                    </mat-label>
+                                                                                    <mat-select required
+                                                                                        name="spouseAge"
+                                                                                        [(ngModel)]="ages.spouseAge">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <!-- <div *ngIf="isChecked(5) && noOfSon > 0"> -->
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngFor="let item of ages.sAgeList;let i= index;">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Son {{i+1}}
+                                                                                    </mat-label>
+                                                                                    <mat-select required
+                                                                                        name="sonAge+{{i}}"
+                                                                                        [(ngModel)]="ages.sAgeList[i].sonAge">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of juniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <!-- </div> -->
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngFor="let item of ages.dAgeList;let i = index;">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Daughter {{i+1}}
+                                                                                    </mat-label>
+                                                                                    <mat-select required
+                                                                                        name="daughterAge+{{i}}"
+                                                                                        [(ngModel)]="ages.dAgeList[i].daughterAge">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of juniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(3)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Father
+                                                                                    </mat-label>
+                                                                                    <mat-select required
+                                                                                        name="fatherAge"
+                                                                                        [(ngModel)]="ages.fatherAge">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(4)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Mother
+                                                                                    </mat-label>
+                                                                                    <mat-select required
+                                                                                        name="motherAge"
+                                                                                        [(ngModel)]="ages.motherAge">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(8)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Grand Father
+                                                                                    </mat-label>
+                                                                                    <mat-select required name="gFather"
+                                                                                        [(ngModel)]="ages.gFather">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(7)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label> Grand Mother
+                                                                                    </mat-label>
+                                                                                    <mat-select required name="gMother"
+                                                                                        [(ngModel)]="ages.gMother">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(10)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Father-In-Law
+                                                                                    </mat-label>
+                                                                                    <mat-select required name="fatherIL"
+                                                                                        [(ngModel)]="ages.fatherIL">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+                                                                            <div class="search-bike col-md-4"
+                                                                                *ngIf="isChecked(9)">
+                                                                                <mat-form-field appearance="outline">
+                                                                                    <mat-label>
+                                                                                        Mother-In-Law
+                                                                                    </mat-label>
+                                                                                    <mat-select required name="motherIL"
+                                                                                        [(ngModel)]="ages.motherIL">
+                                                                                        <mat-option [value]="age"
+                                                                                            *ngFor="let age of seniorAgeList">
+                                                                                            {{age.AgeDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 text-center text-error"
+                                                                                *ngIf="(ageErrMsg && ageForm.invalid) || ageErrMsg">
+                                                                                {{ageErrMsg}}
+                                                                            </div>
+                                                                            <div class="col-md-8 mx-auto">
+                                                                                <input type="button"
+                                                                                    class="w--button w--button--orange w--button--large"
+                                                                                    (click)="onClickBackToTab(0)"
+                                                                                    value="Back">
+                                                                                &nbsp;
+                                                                                &nbsp;
+                                                                                <button title="View Quotes"
+                                                                                    type="submit"
+                                                                                    class="w--button w--button--orange w--button--large">
+                                                                                    View Quotes</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-step>
+                            </mat-horizontal-stepper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12 bike_pannal" *ngIf="insuranceType.InsuranceCateCode != 3">
+        <div class="text-center alert alert-primary">
+            <strong>No Record Found!</strong><br>
+            Please contact to admin. Thanks for patience.
+        </div>
+    </div>
+    <!-- popup code goes here  -->
+
+    <div class="Previous_policy" *ngIf="showFamilyMembers">
+        <div class="col-md-3 mx-auto">
+            <mat-card class="policy_card">
+                <div class="policy_card_header">
+                    Select family members to cover
+                    <button type="button" class="close" data-dismiss="modal" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="policy_card_body">
+                    <div class="row " *ngIf="familyMemberList.length">
+                        <div class=" col-md-6 " *ngFor="let m of familyMemberList">
+                            <mat-checkbox [checked]="isChecked(m.FamilyMemberCode)"
+                                [disabled]="(m.FamilyMemberCode==5 && noOfDaughter==4) || (m.FamilyMemberCode==6 && noOfSon==4)"
+                                [value]="m.FamilyMemberCode" id={{m.FamilyMemberDesc}} (change)="onChekedChange(m)">
+
+                                <mat-label [ngSwitch]="m.FamilyMemberCode">
+                                    <span *ngSwitchCase="2">{{pIForm.get('gender')?.value ?
+                                        pIForm.get('gender')?.value.split(',')[0] == 1 ? 'Wife'
+                                        :pIForm.get('gender')?.value.split(',')[0] == 2 ?'Husband' :m.FamilyMemberDesc :
+                                        m.FamilyMemberDesc}}</span>
+                                    <span *ngSwitchDefault>{{m.FamilyMemberDesc}}</span>
+                                </mat-label>
+                                <!-- {{ m.FamilyMemberCode !=2 ? m.FamilyMemberDesc : pIForm.get('gender').value ?
+                            pIForm.get('gender').value.split(',')[0] == 1?'Wife': 'Husband' : m.FamilyMemberDesc}} -->
+                            </mat-checkbox>
+                            <div class="inc" *ngIf="m.FamilyMemberCode == 5 && noOfSon">
+                                <button (click)="inc(1,'s')" [disabled]="noOfSon >= (4-noOfDaughter)">+</button>
+                                &nbsp;&nbsp;{{noOfSon}}&nbsp;&nbsp;
+                                <button (click)="inc(-1,'s')" [disabled]="noOfSon == 1">-</button>
+                            </div>
+                            <div class="inc " *ngIf="m.FamilyMemberCode == 6 && noOfDaughter ">
+                                <button (click)="inc(1,'d')" [disabled]="noOfDaughter >= (4-noOfSon)">+</button>
+                                &nbsp;&nbsp;{{noOfDaughter}}&nbsp;&nbsp;
+                                <button (click)="inc(-1,'d')" [disabled]="noOfDaughter == 1">-</button>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="col-md-12 text-center text-error" *ngIf="popupErrMsg">
+                            {{popupErrMsg}}
+                        </div>
+                        <div class="col-md-12 text-center ">
+                            <button class="w--button w--button--orange marR10" (click)="memberclear()"
+                                mat-button>Clear</button>
+                            <button class="w--button w--button--orange one" (click)="onOkClick('ok')"
+                                mat-button>Ok</button>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 alert alert-primary" *ngIf="familyMemberList.length == 0">
+                        Please contact to admin. Thanks for patience.
+                    </div>
+
+                </div>
+            </mat-card>
+        </div>
+    </div>

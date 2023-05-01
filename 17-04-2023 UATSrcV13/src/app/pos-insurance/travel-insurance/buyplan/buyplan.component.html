@@ -1,0 +1,326 @@
+<div class="bikeinsurance">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-md-12 text-center">
+				<p class="Review_details_header">Just 2 minutes to get insured. Provide your contact and Car
+					details, then proceed to pay.</p>
+			</div> -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row Traveller">
+                            <!--- Left Side Bar -->
+                            <div class="col-md-4">
+                                <div
+                                    class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end padT10">
+                                    <div class="insurance-company-image plan-info text-center">
+                                        <img src="./assets/img/insurance/new-india.png" class="img-responsive" />
+                                    </div>
+                                    <div class="plan-info text-center">
+                                        <div class="plan-description">
+                                            <p class="font-14"><label class="orange">Travelling To</label></p>
+                                            <p class="font-14"> <label class="orange">United States of America
+                                                    (USA)</label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="plan-info text-center premium-plans">
+                                        <div class="plan-description">
+                                            <p class="font-14"><label class="orange">Trip Start Date:</label> <i
+                                                    class="fa fa-inr" aria-hidden="true"></i>Oct 12th 2019</p>
+                                            <p class="font-14"><label class="orange">Trip End Date:</label> <i
+                                                    class="fa fa-inr" aria-hidden="true"></i>Oct 18th 2019</p>
+                                        </div>
+                                    </div>
+                                    <div class="plan-info text-center premium-plans">
+                                        <div class="plan-description">
+                                            <p class="font-14"> <label class="orange">Rs. 1,332</label></p>
+                                            <p class="font-14 marB20"> <b class="orange">Medical
+                                                    Cover: $ 100000</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Side Start-->
+                            <div class="col-md-8">
+                                <mat-vertical-stepper linear #stepper class="materila-card">
+                                    <!--- Proposer details Start-->
+                                    <mat-step [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>Traveller's Contact Details</ng-template>
+                                            <div class="row padT10">
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="First Name"
+                                                            formControlName="firstCtrl">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Last Name">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Email Id">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Mobile No.">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-right">
+                                                <button mat-button matStepperNext
+                                                    class="w--button w--button--orange w--button--large">Next Traveller
+                                                    Details</button>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                    <!--- Insured Members Start -->
+                                    <mat-step [stepControl]="secondFormGroup">
+                                        <form [formGroup]="secondFormGroup">
+                                            <ng-template matStepLabel>Traveller Details</ng-template>
+                                            <div class="row padT10">
+                                                <div class="col-md-12">
+                                                    <table class="TravellerDetails">
+                                                        <tr>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Gender</th>
+                                                            <th>D.O.B</th>
+                                                            <th>Password No.</th>
+                                                            <th>Merried</th>
+                                                            <th>Relationship</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" name="firstname"
+                                                                    class="form-control"></td>
+                                                            <td><input type="text" name="firstname"
+                                                                    class="form-control"></td>
+                                                            <td><input type="text" name="firstname"
+                                                                    class="form-control"></td>
+                                                            <td><input type="text" name="firstname"
+                                                                    class="form-control"></td>
+                                                            <td><input type="text" name="firstname"
+                                                                    class="form-control"></td>
+                                                            <td>
+                                                                <select name="merried" class="form-control">
+                                                                    <option>--</option>
+                                                                    <option>Yes</option>
+                                                                    <option>No</option>
+                                                                </select>
+                                                            </td>
+                                                            <td><input type="text" name="firstname"
+                                                                    class="form-control"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button mat-button matStepperPrevious
+                                                    class="w--button w--button--orange w--button--large marR10">Back</button>
+                                                <button mat-button matStepperNext
+                                                    class="w--button w--button--orange w--button--large">Next Nominees
+                                                    Details</button>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                    <!-- Nominee Details Start -->
+                                    <mat-step [stepControl]="secondFormGroup">
+                                        <form [formGroup]="secondFormGroup">
+                                            <ng-template matStepLabel>Nominee Details</ng-template>
+                                            <div class="row padT10">
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Nominee Full Name">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <mat-label>Relationship with proposer </mat-label>
+                                                        <mat-select>
+                                                            <mat-option [value]="1">
+                                                                Father
+                                                            </mat-option>
+                                                            <mat-option [value]="1">
+                                                                Mother
+                                                            </mat-option>
+                                                            <mat-option [value]="1">
+                                                                Sister
+                                                            </mat-option>
+                                                            <mat-option [value]="1">
+                                                                Brother
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row padT10">
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Nominee Full Name">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <mat-label>Relationship with proposer </mat-label>
+                                                        <mat-select>
+                                                            <mat-option [value]="1">
+                                                                Father
+                                                            </mat-option>
+                                                            <mat-option [value]="1">
+                                                                Mother
+                                                            </mat-option>
+                                                            <mat-option [value]="1">
+                                                                Sister
+                                                            </mat-option>
+                                                            <mat-option [value]="1">
+                                                                Brother
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button mat-button matStepperPrevious
+                                                    class="w--button w--button--orange w--button--large marR10">Back</button>
+                                                <button mat-button matStepperNext
+                                                    class="w--button w--button--orange w--button--large">Next Medical
+                                                    Details</button>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                    <!---- Medical History Details Start -->
+                                    <mat-step>
+                                        <ng-template matStepLabel>Medical Details</ng-template>
+                                        <div class="row padT10 marB10">
+                                            <div class="col-md-7">
+                                                Does any traveller suffer from any pre-existing diseases?
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-radio-group aria-label="Select an option">
+                                                    <mat-radio-button value="1">Yes</mat-radio-button>
+                                                    <mat-radio-button value="2">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        <div class="row marB10">
+                                            <div class="col-md-7">
+                                                Medical Insurance declined by any insurer for any traveller?
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-radio-group aria-label="Select an option">
+                                                    <mat-radio-button value="1">Yes</mat-radio-button>
+                                                    <mat-radio-button value="2">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        <div class="row marB10">
+                                            <div class="col-md-7">
+                                                Have any Restrictions/Special Conditions been imposed in any medical
+                                                insurance taken by any traveller?
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-radio-group aria-label="Select an option">
+                                                    <mat-radio-button value="1">Yes</mat-radio-button>
+                                                    <mat-radio-button value="2">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <button mat-button matStepperPrevious
+                                                class="w--button w--button--orange w--button--large marR10">Back</button>
+                                            <button mat-button matStepperNext
+                                                class="w--button w--button--orange w--button--large">Next
+                                                Address</button>
+                                        </div>
+                                    </mat-step>
+
+                                    <!-- Addresh Details -->
+                                    <mat-step [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>Address</ng-template>
+                                            <div class="row padT10">
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Pincode">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Addresh Line 1">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Addresh Line 2">
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput placeholder="Addresh Line 3">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <mat-label>State</mat-label>
+                                                        <mat-select>
+                                                            <mat-option [value]="1">UTTAR PRADESH</mat-option>
+                                                            <mat-option [value]="1">WEST BENGAL</mat-option>
+                                                            <mat-option [value]="1">GOA</mat-option>
+                                                            <mat-option [value]="1">UTTARANCHAL</mat-option>
+                                                            <mat-option [value]="1">PUNJAB</mat-option>
+                                                            <mat-option [value]="1">RAJASTHAN</mat-option>
+                                                            <mat-option [value]="1">TAMIL NADU</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <mat-label>City</mat-label>
+                                                        <mat-select>
+                                                            <mat-option [value]="1">ANUPPUR</mat-option>
+                                                            <mat-option [value]="2">ASHOK NAGAR</mat-option>
+                                                            <mat-option [value]="3">BALAGHAT</mat-option>
+                                                            <mat-option [value]="4">BARWANI</mat-option>
+                                                            <mat-option [value]="5">BETUL</mat-option>
+                                                            <mat-option [value]="6">BHIND</mat-option>
+                                                            <mat-option [value]="7">BHOPAL</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <mat-checkbox> The above information is true. I understood the terms
+                                                        and ploicy. HamaraBima insurance broking Pvt. Ltd. is authorised
+                                                        to deal/our behalf. </mat-checkbox>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-right">
+                                                <button mat-button matStepperNext
+                                                    class="w--button w--button--orange w--button--large">Rs. 1,332
+                                                    Pay</button>
+                                            </div>
+                                        </form>
+                                    </mat-step>
+
+                                </mat-vertical-stepper>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

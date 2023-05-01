@@ -1,0 +1,301 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<div class="container servicing-policy">
+    <div class="card mt-2">
+        <div class="card-heading bg-primary text-left">
+            <h4>Policy Service</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="Search" (ngSubmit)="PolicyServicing()">
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Company Name</mat-label>
+                            <mat-select name="CompanyName" formControlName='CompanyName'
+                                (selectionChange)="GetInsorenceType($event.value)" required>
+                                <mat-option *ngFor="let C of Company" [value]="C.CompanyCode">{{C.CompanyName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Insurance Type</mat-label>
+                            <mat-select name="InsuranceType" formControlName='InsuranceType' required>
+                                <mat-option *ngFor="let Type of InsuranceTypeList" [value]="Type.InsuranceCateCode">
+                                    {{Type.InsuranceCateDesc}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Policy Number</mat-label>
+                            <input matInput placeholder="Policy Number" formControlName='PolicyNumber'>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-1 text-center">
+                        <button type="submit" name="submit" mat-raised-button color="primary">Search</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row" [hidden]='!GridShow'>
+                <!-- *ngIf= GridShow -->
+                <div class="policy-grid">
+                    <div class="col-md-12">
+                        <div class="col-md-3 pull-right float-right text-right">
+                            <mat-form-field>
+                                <mat-label>Filter</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                            </mat-form-field>
+                        </div>
+
+                        <table class="table table-bordered" mat-table [dataSource]="dataSource" matSort>
+
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="Sno">
+                                <th mat-header-cell *matHeaderCellDef> Sr. No. </th>
+                                <!-- <td mat-cell *matCellDef="let row"> {{row.Sno}} </td> -->
+                                <td mat-cell *matCellDef="let row; let i = index;"> {{i +1}} </td>
+                            </ng-container>
+
+                            <!-- Progress Column -->
+                            <ng-container matColumnDef="PolicyNo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Policy Number</th>
+                                <td mat-cell *matCellDef="let row"> {{row.PolicyNo}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="TrnPolicyDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Policy Date </th>
+                                <td mat-cell *matCellDef="let row"> {{row.TrnPolicyDate}} </td>
+                            </ng-container>
+
+                            <!-- Color Column -->
+                            <ng-container matColumnDef="PropFirstName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                <td mat-cell *matCellDef="let row"> {{row.PropFirstName}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="EmailId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email-id </th>
+                                <td mat-cell *matCellDef="let row"> {{row.EmailId}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="MobileNo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No. </th>
+                                <td mat-cell *matCellDef="let row"> {{row.MobileNo}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Address">
+                                <th mat-header-cell *matHeaderCellDef>Full Address</th>
+                                <td mat-cell *matCellDef="let row"> {{row.AddFlatNo}}, {{ row.AddArea}},
+                                    {{row.AddCityDesc}}, {{row.AddStateDesc}}, {{row.AddPincode}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <button type="button" class="btn btn-primary btnstyle"
+                                        (click)="EditPopup(row)">Edit</button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                            </tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<!-- id="myModal" changes by kishori -->
+<div class="modal fadein policyexpiry" [ngStyle]="{'display':this.myModal}" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <form [formGroup]="PolicyServicingUpdate" (ngSubmit)="PolicyUpdate()">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <h4 class="card-heading bg-primary text-left mb-0">Policy Service Update</h4>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <section class="example-section">
+                                <mat-checkbox class="example-margin" formControlName=chkAddress
+                                    (change)="checkboxAddress($event)">
+                                    Change
+                                    Address
+                                </mat-checkbox>
+                            </section>
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Flat/House no, Street"
+                                                formControlName="AddFlatNo" required [maxLength]="50">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <mat-form-field>
+                                            <input matInput appUppercase placeholder="Area" formControlName="AddArea"
+                                                [maxLength]="100" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!-- <mat-form-field>
+                                            <input type="text" placeholder="Select State" matInput required
+                                                formControlName="State" [matAutocomplete]="autoState">
+                                            <mat-autocomplete autoActiveFirstOption #autoState="matAutocomplete">
+                                                <mat-option *ngFor="let s of filteredStateList | async"
+                                                    [value]="s.StateCode">
+                                                    {{s.StateDesc}}
+                                                </mat-option>
+                                                <mat-option [value]="" *ngIf="!filteredStateList">
+                                                    <p class="text-danger">Not Found</p>
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field> -->
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>State</mat-label>
+                                            <mat-select name="State" formControlName='State'
+                                                (selectionChange)="onSelectState()" required>
+                                                <mat-option *ngFor="let s of filteredStateList|async"
+                                                    [value]="s.StateCode">
+                                                    {{s.StateDesc}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>City</mat-label>
+                                            <mat-select name="city" formControlName='City' required
+                                                (selectionChange)="onSelectCity()" class="citystyle">
+                                                <mat-option *ngFor="let c of filteredCityList" [value]="c.CityCode"
+                                                    appUppercase>
+                                                    {{c.CityDesc}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Pincode</mat-label>
+                                            <mat-select name="Pincode" formControlName='AllPincode' required>
+                                                <mat-option *ngFor="let pincode of filteredPincode"
+                                                    [value]="pincode.Pincode">
+                                                    {{pincode.Pincode}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <section class="example-section">
+                                <mat-checkbox (change)="checkboxNominee($event)" formControlName="chkNominee"
+                                    class="example-margin">Add/Change
+                                    Nominee Details
+                                </mat-checkbox>
+                            </section>
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Nominee Full Name</mat-label>
+                                            <input matInput placeholder="Placeholder" formControlName="NomineeName"
+                                                required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <!-- <mat-form-field appearance="legacy">
+                                            <mat-label>Nominee Age</mat-label>
+                                            <input matInput placeholder="Placeholder" formControlName="Age"
+                                                appOnlyNumbers required>
+                                        </mat-form-field> -->
+                                        <mat-form-field>
+                                            <input matInput [matDatepicker]="dp4" formControlName="Age"
+                                                placeholder="Date of Birth" [max]="minDate(18)" [min]="minDate(99)"
+                                                [maxlength]="10">
+                                            <mat-datepicker-toggle matSuffix [for]="dp4">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Nominee Relation</mat-label>
+                                            <mat-select name="NomineeRelation" formControlName="NomineeRelation"
+                                                (selectionChange)="FamilyMemberDesc($event.value)" required>
+                                                <mat-option *ngFor="let r of relationList" [value]="r.FamilyMemberCode">
+                                                    {{r.FamilyMemberDesc}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <section class="example-section" *ngIf="Search.get('InsuranceType')?.value == 3">
+                                <mat-checkbox (change)="checkboxIdentity($event)" formControlName="chkIdentity"
+                                    class="example-margin">Update
+                                    Identity
+                                </mat-checkbox>
+                            </section>
+                            <div class="row" *ngIf="Search.get('InsuranceType')?.value == 3">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Aadhaar" formControlName="aadhaarIdentity" required
+                                            readonly>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="PAN" formControlName="panIdentity" required
+                                            readonly>
+                                    </mat-form-field>
+                                    <!-- <mat-form-field appearance="legacy">
+                                        <mat-label>Identity</mat-label>
+                                        <mat-select name="Identity" formControlName="Identity" required
+                                            (selectionChange)="GetIdentityValue()">
+                                            <mat-option *ngFor="let identity of Useridentity"
+                                                [value]="identity.viewValue">
+                                                {{identity.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field> -->
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <mat-form-field appearance="legacy">
+                                        <mat-label>{{PolicyServicingUpdate.get('Identity').value.viewValue}}
+                                        </mat-label>
+                                        <input matInput appUppercase
+                                            placeholder="{{PolicyServicingUpdate.get('Identity').value.viewValue}}"
+                                            formControlName="identityValue">
+                                    </mat-form-field> -->
+                                    <!-- [textMask]="identityMask" -->
+                                    <mat-form-field>
+                                        <input matInput placeholder="Aadhaar Number"
+                                            formControlName="aadhaarIdentityValue" required [maxLength]="50">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="PAN Number" formControlName="panIdentityValue"
+                                            required [maxLength]="50">
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <button type="submit" mat-raised-button
+                        [disabled]="(PolicyServicingUpdate.get('chkAddress')?.value == true) || (PolicyServicingUpdate.get('chkNominee')?.value == true) || (PolicyServicingUpdate.get('chkIdentity')?.value == true)? false : true"
+                        color="primary">Update</button>
+                    <button type="reset" mat-raised-button color="warn" (click)="closemodel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

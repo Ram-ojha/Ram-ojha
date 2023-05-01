@@ -1,0 +1,175 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <mat-card>
+                <label>Payout Dashboard</label>
+                <hr>
+                <div class="col-md-12">
+                    <div class="bike_area">
+                        <div class="row datepickerpannel">
+                            <div class="col-md-5">
+                                <div class="field-wrapper">
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="From_Date" placeholder="From Date"
+                                            (click)="From_Date.open()">
+                                        <mat-datepicker-toggle matSuffix [for]="From_Date">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #From_Date></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="field-wrapper">
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="To_Date" placeholder="To Date"
+                                            (click)="To_Date.open()">
+                                        <mat-datepicker-toggle matSuffix [for]="To_Date">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #To_Date></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <button class="w--button w--button--orange w--button--large" title="View Quotes">Get
+                                    Data</button>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="policy_block">TOTAL
+                                    <br>
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    5412451441
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="policy_block">RECEIVED
+                                    <br>
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    5412451441
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="policy_block">PENDING
+                                    <br>
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    5412451441
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="policy_block">INREVIEW
+                                    <br>
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    5412451441
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-tab-group mat-align-tabs="start">
+                                    <mat-tab label="Payment Pending">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Mobile</th>
+                                                        <th scope="col">Vehicle Type</th>
+                                                        <th scope="col">Vehicle</th>
+                                                        <th scope="col">Reg. No</th>
+                                                        <th scope="col">Insurer</th>
+                                                        <th scope="col">Premium</th>
+                                                        <th scope="col">Payment Date</th>
+                                                        <th scope="col">Policy No.</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>SIGNET INDUSTRIES LTD</th>
+                                                        <td>9993090435</td>
+                                                        <td>fourwheeler</td>
+                                                        <td>Ford Ecosport 1.5 Trend Plus</td>
+                                                        <td>RJ14NC2845</td>
+                                                        <td>Iffco Tokio General Insurance</td>
+                                                        <td>16585</td>
+                                                        <td>01-06-2019</td>
+                                                        <td>M8153517</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                    <mat-tab label="Payment Received">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Mobile</th>
+                                                        <th scope="col">Vehicle Type</th>
+                                                        <th scope="col">Vehicle</th>
+                                                        <th scope="col">Reg. No</th>
+                                                        <th scope="col">Insurer</th>
+                                                        <th scope="col">Premium</th>
+                                                        <th scope="col">Payment Date</th>
+                                                        <th scope="col">Policy No.</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>SIGNET INDUSTRIES LTD</th>
+                                                        <td>9993090435</td>
+                                                        <td>fourwheeler</td>
+                                                        <td>Ford Ecosport 1.5 Trend Plus</td>
+                                                        <td>RJ14NC2845</td>
+                                                        <td>Iffco Tokio General Insurance</td>
+                                                        <td>16585</td>
+                                                        <td>01-06-2019</td>
+                                                        <td>M8153517</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                    <mat-tab label="Payment In-Review">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Mobile</th>
+                                                        <th scope="col">Vehicle Type</th>
+                                                        <th scope="col">Vehicle</th>
+                                                        <th scope="col">Reg. No</th>
+                                                        <th scope="col">Insurer</th>
+                                                        <th scope="col">Premium</th>
+                                                        <th scope="col">Payment Date</th>
+                                                        <th scope="col">Policy No.</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>SIGNET INDUSTRIES LTD</th>
+                                                        <td>9993090435</td>
+                                                        <td>fourwheeler</td>
+                                                        <td>Ford Ecosport 1.5 Trend Plus</td>
+                                                        <td>RJ14NC2845</td>
+                                                        <td>Iffco Tokio General Insurance</td>
+                                                        <td>16585</td>
+                                                        <td>01-06-2019</td>
+                                                        <td>M8153517</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

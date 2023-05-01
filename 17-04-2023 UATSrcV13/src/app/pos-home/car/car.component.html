@@ -1,0 +1,367 @@
+<!-- loader above -->
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+
+<!-- Pratik Code For car-->
+<div class="col-md-12 bike_pannal" *ngIf="policySubType.length">
+  <div class="row" id="Bike_Number">
+    <div class="col-md-12 text-center">
+      <mat-radio-group aria-label="Select an option" (change)="onTypeChange(policyType)" [(ngModel)]="policyType">
+        <mat-radio-button *ngFor="let item of policySubType" [checked]="policyType == item.SubCateCode"
+          [value]="item.SubCateCode">
+          {{ item.SubCateDesc }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <hr />
+  <div class="row" id="Bike_Number" *ngIf="policyType == 3">
+    <span style="margin: auto;">Do you remember previous policy details?</span>
+
+    <div class="col-md-12 text-center">
+
+      <mat-radio-group aria-label="Select an option" (change)="havePrevPolicyDetailsChange(prvPolicyRememberCode)"
+        [(ngModel)]="prvPolicyRememberCode">
+
+        <mat-radio-button *ngFor="let item of PrvPolRemyesNoList" [disabled]="+item.value===0"
+          [checked]="prvPolicyRememberCode== +item.value" [value]="+item.value">
+          {{ item.viewValue }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <!-- Renew Car -->
+  <form [formGroup]="renewCarForm" (ngSubmit)="onSubmitRenewCar()" *ngIf="policyType == 3 && !knowCarNumber">
+    <div class="bike_area">
+      <div id="Renew_Insorance">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="field-wrapper">
+              <mat-form-field class="example-full-width" appearance="outline" (click)="onClickCar('renewCarForm')">
+                <mat-label>Which Car do you drive?</mat-label>
+                <input matInput formControlName="CarDisplayValue" placeholder="Which Car do you drive?" readonly
+                  required />
+              </mat-form-field>
+              <!-- <label class=" deshboard"> <a >
+                                    Wait. I know my Car number.
+                                </a></label> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="field-wrapper">
+              <!-- <mat-form-field class="example-full-width" appearance="outline" (click)="
+                  displayRtoPopup =
+                    !displayRtoPopup && (openBy = 'renewCarForm')
+                ">
+                <mat-label>Car Registration RTO</mat-label>
+                <input matInput placeholder="Car registration RTO" readonly required formControlName="RTODisplayName"
+                  required />
+              </mat-form-field> -->
+
+              <mat-form-field appearance="outline">
+                <mat-label>
+                  Select Registration RTO
+                </mat-label>
+                <input type="text" formControlName="RTODisplayName" matInput [matAutocomplete]="autoRtoReNewCar" />
+
+                <mat-autocomplete (optionSelected)="onSelectRtos($event.option.value)"
+                  #autoRtoReNewCar="matAutocomplete">
+                  <mat-option value="{{ rto.RTODisplayName }}" *ngFor=" let rto of filteredRtoList | async">
+                    {{ rto.RTODisplayNameNew }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="field-wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Any Claims in previous year</mat-label>
+                <mat-select formControlName="claimInPreviousYear" required>
+                  <mat-option [value]="item.value" *ngFor="let item of yesNoList">{{ item.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="field-wrapper" *ngIf="this.prvPolicyRememberCode==1">
+              <mat-form-field appearance="outline">
+                <mat-label>Previous policy expired?</mat-label>
+                <mat-select formControlName="isPreviousPolicyExp" required (selectionChange)="
+                    onPolicyExpiredChange(
+                      renewCarForm.get('isPreviousPolicyExp')?.value,
+                      'renewCarForm'
+                    )
+                  ">
+                  <mat-option [value]="item.value" *ngFor="let item of yesNoList">{{ item.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <label *ngIf="policyExpireDisplayValue" class="row col-md-12 deshboard">{{ policyExpireDisplayValue
+              }}<a (click)="onPolicyExpiredChange(1, 'renewCarForm')">Edit
+              </a></label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="col-md-12 text-error" *ngIf="errMsg && renewCarForm.invalid ">
+            {{ errMsg }}
+          </div>
+
+          <!-- [disabled]="btnDisable" -->
+          <button title="View Quotes" type="submit" class="w--button w--button--orange w--button--large">
+            View Quotes
+          </button>
+          <!-- <div class="col-md-12">
+            <div class="extra">
+              <p>OR</p>
+            </div>
+            <a
+              style="color: #ffffff"
+              class="w--button w--button--orange w--button--large"
+              (click)="onClickKnowCarNo()"
+            >
+              Proceed with Car Number
+            </a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- Renew Car -->
+
+  <!-- Know Car Number -->
+  <form [formGroup]="knowCarNoForm" (ngSubmit)="onSubmitKnowCarNo()" *ngIf="policyType == 3 && knowCarNumber">
+    <div class="bike_area">
+      <div class="row" id="New_Car_insorance">
+        <div class="col-md-4">
+          <div class="field-wrapper">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Your Car Number</mat-label>
+              <!-- pattern="[A-Za-z][A-Za-z][0-9][0-9][A-Za-z][A-Za-z][0-9][0-9][0-9][0-9]$" -->
+              <input matInput appUppercase placeholder="Your car number" [textMask]="mask" formControlName="carNo"
+                maxlength="13" required />
+            </mat-form-field>
+          </div>
+          <!-- <label class="deshboard">
+                        </a></label> -->
+        </div>
+        <div class="col-md-4">
+          <div class="field-wrapper">
+            <mat-form-field appearance="outline">
+              <mat-label>Previous policy expired?</mat-label>
+              <mat-select formControlName="isPreviousPolicyExp" required (selectionChange)="
+                  onPolicyExpiredChange(
+                    knowCarNoForm.get('isPreviousPolicyExp')?.value,
+                    'knowCarNoForm'
+                  )
+                ">
+                <mat-option [value]="item.value" *ngFor="let item of yesNoList">{{ item.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <label *ngIf="policyExpireDisplayValue" class="row col-md-12 deshboard">{{ policyExpireDisplayValue
+            }}<a (click)="onPolicyExpiredChange(1, 'knowCarNoForm')">Edit
+            </a></label>
+        </div>
+        <div class="col-md-4">
+          <div class="field-wrapper">
+            <mat-form-field appearance="outline">
+              <mat-label>Any Claimed in previous year</mat-label>
+              <mat-select formControlName="claimInPreviousYear" required>
+                <mat-option [value]="item.value" *ngFor="let item of yesNoList">{{ item.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="col-md-12 text-error" *ngIf="errMsg && knowCarNoForm.invalid ">
+            {{ errMsg }}
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <button title="View Quotes" type="submit" class="w--button w--button--orange w--button--large">
+                  View Quotes
+                </button>
+              </div>
+              <div class="col-md-12">
+                <div class="extra">
+                  <p>OR</p>
+                </div>
+                <a class="w--button w--button--orange w--button--large" (click)="onClickKnowCarNo()">
+                  Don't Know Car Number
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- Car Number -->
+
+  <!-- New Car -->
+  <form [formGroup]="newCarForm" (ngSubmit)="onSubmitNewCar()" *ngIf="policyType == 4">
+    <div class="bike_area">
+      <div class="row" id="New_Car_insorance">
+        <div class="col-md-6">
+          <div class="field-wrapper">
+            <mat-form-field class="example-full-width" appearance="outline" (click)="onClickCar('newCarForm')">
+              <mat-label>Which Car do you drive?</mat-label>
+              <input matInput formControlName="CarDisplayValue" placeholder="Which Car do you drive?" readonly
+                required />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="field-wrapper">
+            <!-- <mat-form-field class="example-full-width" appearance="outline" (click)="
+                displayRtoPopup = !displayRtoPopup && (openBy = 'newCarForm')
+              ">
+              <mat-label>Car registration RTO</mat-label>
+              <input matInput placeholder="Car registration RTO" formControlName="RTODisplayName" required readonly />
+            </mat-form-field> -->
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Select Registration RTO
+              </mat-label>
+              <input type="text" formControlName="RTODisplayName" matInput [matAutocomplete]="autoRtoNewCar" />
+
+              <mat-autocomplete (optionSelected)="onSelectRtos($event.option.value)" #autoRtoNewCar="matAutocomplete">
+                <mat-option value="{{ rto.RTODisplayName }}" *ngFor=" let rto of filteredRtoList | async">
+                  {{ rto.RTODisplayNameNew }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="col-md-12 text-error" *ngIf="errMsg && newCarForm.invalid">
+            {{ errMsg }}
+          </div>
+          <button title="View Quotes" type="submit" class="w--button w--button--orange w--button--large">
+            View Quotes
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- New Car -->
+</div>
+<!-- <div class="col-md-12 bike_pannal" *ngIf="!policySubTypeList.length">
+  <div class="text-center alert alert-primary">
+    <strong>No Record Found!</strong><br />
+    Please contact to admin. Thanks for patience.
+  </div>
+</div> -->
+<div class="modal fadein policyexpiry" [ngStyle]="{'display': this.display}" data-backdrop="static" tabindex="-1"
+  role="dialog" aria-labelledby="Previous policy expiry date" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          Previous Policy Details
+
+          <button type="button" class="close" (click)="closeModalDialog()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 col-12">
+          <div class="tabbable text-center">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" (click)="onClickPreviousPolicyTab('date')"
+                [class.disabled]="this.popupActive == 'ncb'">
+                <a class="nav-link" [class.active]="popupActive == 'date'">
+                  Previous policy expiry Date
+                </a>
+              </li>
+              <li class="nav-item" (click)="onClickPreviousPolicyTab('ncb')">
+                <a class="nav-link" [class.active]="popupActive == 'ncb'" [class.disabled]="!isNcbEditable">
+                  Previous NCB
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="field-wrapper previous_policy_dailoge">
+            <div [hidden]="popupActive == 'ncb'">
+              <mat-form-field [ngClass]="'one'">
+                <mat-label>
+                  {{
+                  plan.PrvPolicyExCode == yesno.YES
+                  ? "When did your policy expire ?"
+                  : "When will your policy expire ?"
+                  }}
+                </mat-label>
+                <input matInput [formControl]="prvPolicyExDate" [max]="maxDate" [min]="minDate" (click)="dp4.open()"
+                  required [matDatepicker]="dp4" [placeholder]="date" maxlength="10" />
+                <mat-datepicker-toggle matSuffix [for]="dp4">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div [hidden]="popupActive == 'date'">
+              <mat-form-field [ngClass]="'one'">
+                <mat-label>Select your previous NCB</mat-label>
+                <mat-select title="Select NCB" [formControl]="ncbInput" [disabled]="isMoreThan90 || !isNcbEditable">
+                  <mat-option [value]="item.value" *ngFor="let item of ncbList">{{ item.value }} %
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <div class="col-md-10 text-center">
+          <div class="col-md-10 text-error">
+            {{ ncbExpDateErrMsg }}
+          </div>
+        </div>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary btn1" (click)="onClickOkPrvPolicyModal()">
+          {{ popupActive == "date" ? "Next" : "OK" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 bike_pannal" *ngIf="!policySubType.length">
+  <div class="text-center alert alert-primary">
+    <strong>No Record Found!</strong><br />
+    Please contact to admin. Thanks for patience.
+  </div>
+</div>
+<!-- car model , variant div -->
+<app-car-model-variant [insuranceCateCode]="insuranceType.InsuranceCateCode" [isVisible]="displayCarModelPopup"
+  (closePopupClick)="closeCarModelVariantPopup($event)" #carModel [openBy]="openBy">
+</app-car-model-variant>
+
+<!-- rto popup -->
+<app-vehicle-rtos #vehicleRtos [isVisible]="displayRtoPopup" [insuranceCateCode]="insuranceType.InsuranceCateCode"
+  (closePopupClick)="closeRtosPopup($event)">
+</app-vehicle-rtos>
+
+<!-- policy expired popup -->
+<app-policy-expired #policyExpire [isVisible]="showExpiredPolicy" [insuranceCateCode]="insuranceType.InsuranceCateCode"
+  (closePopupClick)="closePolicyExpiredPopup($event)">
+</app-policy-expired>
+<app-policy-type [isVisible]="displayPolicyType" [isRememberPrvPolDetails]="this.prvPolicyRememberCode"
+  [PolicyExpiryType]="previousPolicyExpiryType" (closePopupClick)="onClickPreviousPolicyType($event)">
+</app-policy-type>

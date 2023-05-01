@@ -1,0 +1,100 @@
+<!--==========================
+    Header
+  ============================-->
+<header id="header">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- <div id="logo" class="pull-left" routerLink="/pos/bike-insurance">
+            <img src="./assets/img/logo.png" class="img-responsive logo-img">
+        </div> -->
+      <div class="col-md-7 col-lg-5">
+        <!-- <div id="logo" class="pull-left" routerLink="/pos"> -->
+        <div id="logo" class="pull-left" (click)="onLogoClick()">
+          <!-- <h1><a href="#body" class="scrollto">Reve<span>al</span></a></h1> -->
+          <img src="./assets/img/logo.png" class="img-responsive logo-img">
+          <h4>Insurance Brokers Pvt. Ltd.</h4>
+          <p>IRDA Direct Broker Code: IRDA/ DB 810/ 20</p>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-5 d-lg-block d-md-none d-none sublinks">
+        <!-- <ul class="main-menu">
+                    <li [class.active]="rla.isActive" *ngFor="let link of navLinks">
+                        <a [routerLink]="'/pos/'+link.RouteUrl" routerLinkActive #rla="routerLinkActive"
+                            (click)="onMenuChange(link)">
+                            <span>{{link.InsuranceCateDesc}}</span>
+                        </a>
+                    </li>
+                </ul> -->
+      </div>
+      <div class="col-md-2 col-lg-2">
+        <nav id="nav-menu-container">
+          <ul class="nav-menu padT9">
+
+            <a *ngIf="_authService.isLoggedIn" mat-stroked-button [matMenuTriggerFor]="menu" style="cursor: pointer;"><i
+                class="fa fa-cog fa-spin"></i> Utilities <i class="fa fa-caret-down"></i></a>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item routerLink="/manage/profile">My Profile</button>
+              <button mat-menu-item routerLink="/manage/policy-board">Policy Dashboard</button>
+              <button mat-menu-item routerLink="/manage/policy-servicing">Policy Servicing</button>
+              <button mat-menu-item routerLink="/manage/leads">View Leads</button>
+              <button mat-menu-item routerLink="/manage/payout">Payout Passbook</button>
+              <button mat-menu-item routerLink="/manage/certification">POS Certification</button>
+              <button mat-menu-item routerLink="/manage/renewals">Renewals Dashboard</button>
+              <button mat-menu-item routerLink="/manage/missing-policy">Missing Policies</button>
+              <button mat-menu-item routerLink="/manage/new-products">New Products</button>
+              <button mat-menu-item (click)="onLogoutClick()">Logout</button>
+            </mat-menu>
+
+            <ul class="menu-login">
+              <li><a href="#/manage/profile">My Profile</a></li>
+              <li><a href="#/manage/policy-board">Policy Dashboard</a></li>
+              <li><a href="#/manage/policy-servicing">Policy Servicing</a></li>
+              <li><a href="#/manage/leads">View Leads</a></li>
+              <li><a href="#/manage/payout">Payout Passbook</a></li>
+              <li><a href="#/manage/certification">POS Certification</a></li>
+              <li><a href="#/manage/renewals">Renewals Dashboard</a></li>
+              <li><a href="#/manage/missing-policy">Missing Policies</a></li>
+              <li><a href="#/manage/new-products">New Products</a></li>
+              <li><a (click)="onLogoutClick()">Logout</a></li>
+            </ul>
+          </ul>
+        </nav><!-- #nav-menu-container -->
+
+        <!-- For  Mobile View Only -->
+        <nav id="nav-menu-containerTwo" style="display: none;">
+          <ul class="nav-menu" style="padding-top: 9px;">
+
+            <a *ngIf="_authService.isLoggedIn" mat-stroked-button [matMenuTriggerFor]="menu" style="cursor: pointer;"><i
+                class="fa fa-cog fa-spin"></i>
+              Utilities <i class="fa fa-caret-down"></i></a>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item routerLink="/manage/profile">My Profile</button>
+              <button mat-menu-item routerLink="/manage/policy-board">Policy Dashboard</button>
+              <button mat-menu-item routerLink="/manage/renewals">Renewals Dashboard</button>
+              <button mat-menu-item routerLink="/manage/policy-servicing">Policy Servicing</button>
+              <button mat-menu-item routerLink="/manage/leads" disabled>View Leads</button>
+              <button mat-menu-item routerLink="/manage/payout" disabled>Payout Passbook</button>
+              <button mat-menu-item routerLink="/manage/certification">POS Certification</button>
+              <button mat-menu-item routerLink="/manage/missing-policy" disabled>Missing Policies</button>
+              <button mat-menu-item routerLink="/manage/new-products" disabled>New Products</button>
+              <button mat-menu-item (click)="onLogoutClick()">Logout</button>
+            </mat-menu>
+          </ul>
+        </nav><!-- #nav-menu-container -->
+      </div>
+    </div>
+  </div>
+</header><!-- #header -->
+<div class="subheader">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <a class="sideBaropen" (click)="openSideBar()"><i [ngClass]="sideBar ? 'fa fa-times' : 'fa fa-indent'"
+            aria-hidden="true"></i></a>
+        <h4 style="float: left;">POS Name: {{UserName}}</h4>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<!-- <div class="container modal fadein  policyexpiry Plan_Details" [ngStyle]="{'display':'showModal'}" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <form [formGroup]="shareUrlForm" (ngSubmit)="onSubmit()" class="form">
+
+        <mat-form-field class="form-element">
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="!shareUrlForm.controls['name'].valid && shareUrlForm.controls['name'].touched">
+                Please enter Name!
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input matInput placeholder="Mobile No." formControlName="mobileNo">
+            <mat-error
+                *ngIf="!shareUrlForm.controls['mobileNo'].valid && shareUrlForm.controls['mobileNo'].touched">
+                Please enter Mobile No.!
+            </mat-error>
+        </mat-form-field>
+
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button"
+                [disabled]="!shareUrlForm.valid">Send
+
+            </button>
+        </div>
+
+    </form>
+</div> -->
+
+
+<div class="modal fadein  policyexpiry Plan_Details" [ngStyle]="{'display': showModal == true ?  'block' : 'none'}"
+    tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-md">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enter Receiver's details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+
+                <form [formGroup]="shareUrlForm" (ngSubmit)="onSubmit()" class="form">
+
+                    <mat-form-field class="form-element">
+                        <input appTrim matInput placeholder="Name" formControlName="name" appOnlyAlpha required>
+                        <mat-error
+                            *ngIf="!shareUrlForm.controls['name'].valid && shareUrlForm.controls['name'].touched">
+                            Please enter Name!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="form-element">
+                        <input matInput placeholder="Mobile No." formControlName="mobileNo" appOnlyNumbers
+                            [maxlength]="10">
+                        <mat-error
+                            *ngIf="!shareUrlForm.controls['mobileNo'].valid && shareUrlForm.controls['mobileNo'].touched">
+                            Invalid Mobile No.!
+                        </mat-error>
+
+                    </mat-form-field>
+                    <!-- <mat-checkbox style="margin-right: 260px;" [checked]="isChecked" (change)="onCheckedChange($event)">
+                        <mat-label>
+                            Also share payment link through Email Id.
+                        </mat-label>
+                    </mat-checkbox> -->
+                    <mat-form-field class="form-element">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput placeholder="Yourname@domain.com" type="email" appTrim formControlName="emailId"
+                            required [maxlength]="70" autocomplete="off" />
+                    </mat-form-field>
+
+                    <div class="form-element">
+                        <button mat-raised-button color="primary" type="submit" class="button"
+                            [disabled]="!shareUrlForm.valid || checkValid || this.btnDisable">Send
+
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

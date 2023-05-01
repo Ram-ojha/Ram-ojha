@@ -1,0 +1,371 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+
+<div class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end bike_last_details">
+    <div class="row" *ngIf="data">
+        <div class="col-md-6">
+            <div class="bike_owner_header">
+                <label>PROPOSER DETAILS</label>
+                <label class="edit">
+                    <a (click)="onClickEdit(0)" class="edit"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        EDIT </a>
+                </label>
+            </div>
+            <div class="bike_owner_details" *ngIf="data">
+                <div>
+                    <span>Name: {{data.propsr.PropFirstName}} {{data.propsr.PropLastName}}</span>
+                </div>
+                <div>
+                    <span>Gender: {{data.propsr.gender.GenderDesc}}</span>
+                </div>
+                <div>
+                    <span>DOB: {{data.propsr.PropDOB | date}}</span>
+                </div>
+                <!-- <div>
+                    <span>Married: {{data.propsr.married.viewValue}}</span>
+                </div>
+                <div>
+                    <span>Height: {{data.propsr.HeightInFeet}} {{data.propsr.HeightInInch}}</span>
+                </div>
+                <div>
+                    <span>Weight: {{data.propsr.Weight}} KG</span>
+                </div>
+                <div>
+                    <span>{{data.propsr.identity.viewValue}}: {{data.propsr.IdentityNo}}</span>
+                </div> -->
+                <div>
+                    <span>Mobile: (+91)-{{data.propsr.MobileNo}}</span>
+                </div>
+                <div>
+                    <span>Email: {{data.propsr.EmailId}}</span>
+                </div>
+                <div>
+                    <span>Relationship: {{data.propsr.proposerRelationCode.FamilyMemberDesc}}</span>
+                </div>
+                <div>
+                    <span>Address: {{data.propsr.AddFlatNo}}, {{area}}, {{city}},
+                        {{data.propsr.state}}, {{data.propsr.AddPincode}}</span>
+                    <!-- <span>Address: {{data.propsr.AddFlatNo}}, {{data.companyCode && data.companyCode == "3" ?
+                        data.address.AddArea.areaName :
+                        data.address.AddArea}}, {{data.companyCode && data.companyCode == "3" ?
+                        data.address.city.city_name :
+                        data.address.city}},
+                        {{data.propsr.state}}, {{data.propsr.AddPincode}}</span> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bike_owner_header">
+                        <label>COMMUNICATION ADDRESS</label>
+                        <label class="edit">
+                            <a (click)="onClickEdit(data.addressindex)" class="edit"> <i class="fa fa-pencil-square-o"
+                                    aria-hidden="true"></i>
+                                EDIT
+                            </a>
+                        </label>
+                    </div>
+                    <div class="bike_owner_details" *ngIf="data">
+                        <div>
+                            <span>Flat/House no, Street: {{data.address.AddFlatNo}}</span>
+                        </div>
+                        <div>
+                            <span>Area: {{area}}</span>
+                        </div>
+                        <div>
+                            <span>State: {{data.address.state}}</span>
+                        </div>
+                        <div>
+                            <span>City:{{city}}</span>
+                        </div>
+                        <div>
+                            <span>Pincode: {{data.address.AddPincode}}</span>
+                        </div>
+                        <div>
+                            <span>{{data.address.identity.viewValue}}: {{data.address.IdentityNo}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="bike_owner_header">
+                        <label>NOMINEE DETAILS</label>
+                        <label class="edit">
+                            <a (click)="onClickEdit(data.nomineeForm)" class="edit"> <i class="fa fa-pencil-square-o"
+                                    aria-hidden="true"></i>
+                                EDIT
+                            </a>
+                        </label>
+                    </div>
+                    <div class="bike_owner_details" *ngIf="data">
+                        <div>
+                            <span>Nominee Full Name: {{data.nominee.NomineeName}}</span>
+                        </div>
+                        <div>
+                            <span>Nominee DOB: {{data.nominee.age | date}}</span>
+                        </div>
+                        <div>
+                            <span>Relationship with proposer: {{data.nominee.nominee.FamilyMemberDesc}}</span>
+                        </div>
+                        <div *ngIf="data.nominee.AppointeeName">
+                            <div>
+                                <span>Appointee Name: {{data.nominee.AppointeeName}}</span>
+                            </div>
+                            <div>
+                                <span>Appointee DOB: {{data.nominee.AppointeeDOB | date}}</span>
+                            </div>
+                            <div>
+                                <span>Relationship with appointee:
+                                    {{data.nominee.AppointeeRelationCode.FamilyMemberDesc}}</span>
+                            </div>
+                            <div>
+                                <span>Appointee Address:
+                                    {{data.nominee.AppointeeAddress}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="bike_owner_header">
+                <label>INSURED MEMBERS</label>
+                <label class="edit">
+                    <a (click)="onClickEdit(data.insuredMembers)" class="edit"> <i class="fa fa-pencil-square-o"
+                            aria-hidden="true"></i> EDIT
+                    </a>
+                </label>
+            </div>
+            <div class="row bike_owner_details" *ngIf="data && data.members">
+                <div class="col-md-6" *ngFor="let m of data.members">
+                    <div>
+                        <span class="familymemberdesc">{{m.FamilyMemberDesc}}</span>
+                    </div>
+                    <div>
+                        <span>Name: {{m.FirstName}} {{m.LastName}}</span>
+                    </div>
+
+                    <div>
+                        <span>Gender: {{m.GenderDesc}}</span>
+                    </div>
+                    <div>
+                        <span>DOB: {{m.DOB}}</span>
+                    </div>
+                    <div>
+                        <span>Married: {{m.MarriedStatusDesc}}</span>
+                    </div>
+                    <div>
+                        <span>Height: {{m.HeightInFeet}}feet {{m.HeightInInch}}inch</span>
+                    </div>
+                    <div>
+                        <span>Weight: {{m.Weight}} KG</span>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEDICAL HISTORY  -->
+        <div class="col-md-12" *ngIf='data.questionData'>
+            <div class="bike_owner_header">
+                <label>MEDICAL HISTORY</label>
+                <label class="edit">
+                    <a (click)="onClickEdit(data.medicalHis)" class="edit"> <i class="fa fa-pencil-square-o"
+                            aria-hidden="true"></i> EDIT
+                    </a>
+                </label>
+            </div>
+            <div class="row medical-title">
+                <div class="col-md-6">
+                    <span>Medical Condition</span>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-3" *ngFor='let member of data.members'>
+                            <span>{{member.FamilyMemberDesc}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row bike_owner_details" *ngFor="let question of medicalHistoryClone">
+                <div class="col-md-6">
+
+                    <div class="row">
+
+                        <div class="col-md-11">
+                            <span style="font-weight: bold;"><i class="colorblu fa fa-check-square-o" aria-hidden="true"
+                                    *ngIf='question.IsParent'></i>
+                                <i class="fa fa-circle mr15 orng " aria-hidden="true" *ngIf='!question.IsParent'></i>
+                                &nbsp;{{question.QuestionDesc}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-3" *ngFor='let member of question.members'>
+                            <span style="font-weight: bold;" *ngIf='!member.QuestionValue'>No</span>
+                            <span style="font-weight: bold;">{{member.QuestionValue}}</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row bike_owner_details" *ngFor="let question of medicalHistoryClone">
+                <div class="col-md-6">
+                    <!-- leaving a space of 1 col for sub/child question -->
+                    <div class="row">
+
+                        <div class="col-md-11">
+                            <span class="familymemberdesc">
+                                <i class="colorblu fa fa-check-square-o" aria-hidden="true"
+                                    *ngIf='question.IsParent'></i>
+                                <i class="fa fa-circle mr15 orng " aria-hidden="true" *ngIf='!question.IsParent'></i>
+                                &nbsp;{{question.QuestionDesc}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-3" *ngFor='let member of question.members'>
+                            <span class="familymemberdesc" *ngIf='!member.QuestionValue'>No</span>
+                            <span class="familymemberdesc">{{member.QuestionValue}}</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- children  -->
+                <!-- leaving a space of 1 col for sub/child question -->
+                <div class="col-md-12" *ngFor='let question of question.children'>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <span class="familymemberdesc">
+                                <!-- <i class="colorblu fa fa-check-square-o" aria-hidden="true"
+                                    *ngIf='question.IsParent'></i> -->
+                                <i class="fa fa-circle mr15 orng " aria-hidden="true"></i>
+                                &nbsp;{{question.QuestionDesc}}
+                            </span>
+                        </div>
+                        <!-- </div> -->
+                        <div class="col-md-5 row">
+                            <div class="col-md-3" *ngFor='let member of question.members'>
+                                <span class="familymemberdesc" *ngIf='!member.QuestionValue'>No</span>
+                                <span class="familymemberdesc">{{member.QuestionValue}}</span>
+                            </div>
+                        </div>
+
+                        <!-- Grandchildren level -->
+                        <div class="col-md-12" *ngFor='let grandChildQuestion of question.children'>
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <span class="familymemberdesc">
+                                        <!-- <i class="colorblu" aria-hidden="true"
+                                            *ngIf='question.IsParent'></i> -->
+                                        <i class="far fa-arrow-alt-circle-right mr15 " aria-hidden="true"></i>
+                                        &nbsp;{{grandChildQuestion.QuestionDesc}}
+                                    </span>
+                                </div>
+                                <!-- </div> -->
+                                <div class="col-md-5 row">
+                                    <div class="col-md-3" *ngFor='let member of grandChildQuestion.members'>
+                                        <span class="memberques" *ngIf='!member.QuestionValue'>No</span>
+                                        <span class="memberques">{{member.QuestionValue}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="custom-control tnc custom-checkbox mb-3 text-left padL0">
+                <mat-checkbox [(ngModel)]="termAndCon">The information provided by me is correct. I have understood all
+                    terms
+                    & conditions related to the policy. <br />
+                    I authorise Hamara Bima Insurance Brokers Pvt. Ltd. to coordinate with
+                    the insurance company on my behalf.<br />
+                    I authorise Hamara Bima Insurance Brokers Pvt. Ltd. or it's authorised
+                    representative to contact me in relation to my policy via SMS, call,
+                    e-Mail or Whatsapp. </mat-checkbox>
+            </div>
+        </div>
+        <div class="col-md-12 text-center text-error" *ngIf="(errMsg && !termAndCon)">
+            {{errMsg}}
+        </div>
+        <ng-container *ngIf="sessData.CompanyCode == '17' ">
+
+            <div class="col-md-12" *ngIf="this.successcode==''">
+                <button type="button" [disabled]="!termAndCon" class="btn communication-address" type="submit"
+                    (click)="ValidateCkyc()">
+                    <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                    Validate Ckyc Form
+                </button>
+            </div>
+            <div class="col-md-12" *ngIf="successcode=='2'">
+                <button (click)="CkycStatusCheck()" [disabled]="!termAndCon" type="button"
+                    class="btn communication-address ml-2">
+                    Check Status
+                </button>
+            </div>
+            <div class="col-md-12" *ngIf="successcode=='3'">
+                <button type="button" [disabled]="!termAndCon" class="btn communication-address" type="submit"
+                    (click)="ValidateCkyc()">
+                    <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                    Validate Ckyc Form
+                </button>
+                <button (click)="CkycStatusCheck()" [disabled]="!termAndCon" type="button"
+                    class="btn communication-address ml-2">
+                    Check Status
+                </button>
+            </div>
+            <div class="col-md-12" *ngIf="this.successcode=='1'">
+                <button [disabled]="!termAndCon" class="btn communication-address" type="button"
+                    (click)="onClickPay()"><i class="fa fa-inr" aria-hidden="true"></i> {{data ? data.Premium : 000}}
+                    Pay Now</button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="sessData.CompanyCode !== '17' ">
+            <div class="col-md-12">
+                <button [disabled]="!termAndCon" class="btn communication-address" type="button"
+                    (click)="onClickPay()"><i class="fa fa-inr" aria-hidden="true"></i> {{data ? data.Premium : 000}}
+                    Pay Now</button>
+            </div>
+        </ng-container>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal last-insurer fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+            <img src="">
+            <div class="modal-body text-center">
+                <img class="img-responsive" src="{{ 'assets/img/company-logos/health/' + sessData.CompanyLogo}}">
+                <p class="productstyle">{{sessData.ProductName}} Policy cannot be issued online.
+                    Please contact our nearest branch.</p>
+            </div>
+            <div class="modal-footer p-0">
+                <button class="btn btn-block my-btn" (click)="AllPlan()">Continue looking for other Plans></button>
+            </div>
+        </div>
+    </div>
+</div>

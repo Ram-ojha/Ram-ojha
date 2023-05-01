@@ -1,0 +1,662 @@
+<!--==========================    Top Bar  ============================-->
+<!-- <div class="loading">
+  <div class="lds-roller mx-auto">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div> -->
+
+
+<section id="topbar" class="d-none d-lg-block">
+  <div class="container clearfix">
+    <div class="social-links float-left">
+      <a class="twitter"><i class="fa fa-twitter"></i></a>
+      <a class="facebook"><i class="fa fa-facebook"></i></a>
+      <a class="instagram"><i class="fa fa-instagram"></i></a>
+      <a class="google-plus"><i class="fa fa-google-plus"></i></a>
+      <a class="linkedin"><i class="fa fa-linkedin"></i></a>
+    </div>
+    <div class="contact-info float-left">
+      <i class="fa fa-envelope-o"></i> <a href="mailto:contact@example.com">contact@example.com</a>
+      <i class="fa fa-phone"></i> +1 5589 55488 55
+    </div>
+  </div>
+</section>
+
+<!--==========================
+    Header
+  ============================-->
+<header id="header">
+  <div class="container">
+
+    <div id="logo" class="pull-left">
+      <!-- <h1><a href="#body" class="scrollto">Reve<span>al</span></a></h1> -->
+      <img src="./assets/img/logo.png" class="img-responsive logo-img">
+      <h4>Insurance Brokers Pvt. Ltd.</h4>
+      <p>IRDA Direct Broker Code: IRDA/ DB 810/ 20</p>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+    </div>
+    <nav id="nav-menu-container">
+      <ul class="nav-menu">
+        <li class="menu-active"><a href="#headr-btm" i18n="nav|header bar@@home">Home</a></li>
+        <li><a href="#about" i18n="nav|header bar@@aboutus">About Us</a></li>
+        <li><a href="#services">Products</a></li>
+        <li><a href="#testimonials" i18n="nav|header bar@@service">Services</a></li>
+        <!-- <li><a  i18n="nav|header bar@@aboutus" [routerLink]='["/"]'  fragment='about' (click)="onAnchorClick()">About Us</a></li> -->
+        <!-- <li><a  i18n="nav|header bar@@service" [routerLink]='["/"]'  fragment='testimonials' (click)="onAnchorClick()">Services</a></li> -->
+        <!-- <li class="menu-active"><a  [routerLink]='["/"]'  fragment='headr-btm' (click)="onAnchorClick()" i18n="nav|header bar@@home">Home</a></li> -->
+        <!-- <li><a  [routerLink]='["/"]'  fragment='services' (click)="onAnchorClick()">Products</a></li> -->
+        <!-- <li><a  i18n="nav|header bar@@service" (click)='onLinkClick("testimonials")'>Services</a></li> -->
+        <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+        <!-- <li><a routerLink=""  i18n="nav|header bar@@team">Team</a></li> -->
+        <!-- <li class="menu-has-children"><a href="">Drop Down</a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="#">Drop Down 5</a></li>
+            </ul>
+          </li> -->
+        <li><a href="#contactus" i18n="nav|header bar@@contactus">Contact Us</a></li>
+        <!-- <li><a i18n="nav|header bar@@contactus" [routerLink]='["/"]'  fragment='contactus' (click)="onAnchorClick()">Contact Us</a></li> -->
+        <li><a routerLink='/login' i18n="nav|header bar@@login">Login</a></li>
+        <!-- <li><a href="login" i18n="nav|header bar@@login">Login</a></li> -->
+        <!-- <li><a class="highlight" target="_blank" href="https://pos.hamarabima.com/">POS
+            Registration</a>
+        </li> -->
+
+        <!-- <div class="smltxt">Policies on this site can be issued by registered POSP (Point of Sale Persons)
+          only.</div> -->
+        <!-- <li>
+    <select #langSelect (change)="changeLang(langSelect.value)">
+      <option [value]="0" >Language</option>
+      <option *ngFor="let lang of langList" [value]="lang.value" [selected]="lang.value == currentLang">
+        {{ lang.desc }}</option>
+    </select>
+
+        </li> -->
+        <!-- <li>
+          <div id="google_translate_element" style="position: absolute; z-index: 10000; right: 0 ;background-color: red;"></div>
+        </li> -->
+      </ul>
+    </nav><!-- #nav-menu-container -->
+  </div>
+</header><!-- #header -->
+
+<!--==========================
+    Intro Section
+  ============================-->
+<!-- <section id="intro">
+    <div id="intro-carousel" class="owl-carousel">
+      <div class="item" style="background-image: url('img/intro-carousel/Images_for_web/1.jpg');">
+        <div class="col-md-12">
+          <div class="col-md-5">
+            <div class="first-slider">
+              <h2>Business, insurance and financial theme. </h2>
+              <p>Make yourself visible to potential solid <br> customers in future. </p>
+              <button class="btn btn-primery btn-request">REQUEST A QUOTE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+<div id="headr-btm"></div>
+<div class="carousel slide" data-ride="carousel" id="carouselExampleIndicators">
+  <ol class="carousel-indicators">
+    <li class="active" data-slide-to="0" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="1" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="2" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="3" data-target="#carouselExampleIndicators"></li>
+    <!-- <li data-slide-to="4" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="5" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="6" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="7" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="8" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="9" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="10" data-target="#carouselExampleIndicators"></li>
+    <li data-slide-to="11" data-target="#carouselExampleIndicators"></li> -->
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active"><img alt="First slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/slideone.jpg"></div>
+    <div class="carousel-item"><img alt="Second slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/slidetwo.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/slidethree.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/slidefour.jpg"></div>
+    <!----
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/5.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/6.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/7.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/8.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/9.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/10.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/11.jpg"></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block w-100"
+        src="./assets/themes/img/intro-carousel/Images_for_web/12.jpg"></div> -->
+  </div>
+  <!-- <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button"><span
+        aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a>
+    <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button"><span
+        aria-hidden="true" class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a> -->
+</div>
+
+<!-- #intro <i class="fa fa-home" aria-hidden="true"></i>
+    <p> Home Insurance </p> -->
+<div class="container-fluid insorence-full">
+  <div class="row">
+    <div class="insorence">
+      <label i18n>AAPKI SURAKSHA HAMARA BIMA</label>
+    </div>
+    <div class="col-md-12 listitem">
+      <div class="item"><i class="fa fa-car" aria-hidden="true"></i>
+        <p>Car</p>
+      </div>
+      <div class="item"><i class="fa fa-motorcycle" aria-hidden="true"></i>
+        <p>Bike</p>
+      </div>
+      <div class="item"><i class="fa fa-plane" aria-hidden="true"></i>
+        <p>Travel</p>
+      </div>
+      <!-- <div class="item"><i class="fa fa-home" aria-hidden="true"></i>
+          <p>Home</p>
+        </div>
+        <div class="item"><i class="fa fa-mobile" aria-hidden="true"></i>
+          <p>Mobile</p>
+        </div>-->
+      <div class="item"><i class="fa fa-taxi" aria-hidden="true"></i>
+        <p>Taxi</p>
+      </div>
+      <div class="item"><i class="fa fa-bus" aria-hidden="true"></i>
+        <p>Bus</p>
+      </div>
+      <div class="item"><i class="fa fa-heartbeat" aria-hidden="true"></i>
+        <p>Health</p>
+      </div>
+      <div class="item"><i class="fa fa-building-o" aria-hidden="true"></i>
+        <p>Property</p>
+      </div>
+    </div>
+  </div>
+</div>
+<main id="main">
+
+  <!--==========================
+      About Section
+    ============================-->
+  <section id="about" class="wow fadeInUp">
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-lg-6 about-img">
+          <img src="./assets/themes/img/about-img.jpg" alt="">
+        </div> -->
+        <div class="col-lg-6 content">
+          <h2 i18n="heading|body">About Us</h2>
+          <h3 class="text-justify font-normal">"Insurance is all about providing a financial safety net that
+            helps you
+            to take care
+            of yourself and your
+            dependents when
+            you need it the most. Insurance is the best tool for Financial Risk Mitigation. As we move
+            through life
+            (personal &
+            professional), the importance of insurance increases.
+
+            Hamara Bima Insurance Brokers Pvt. Ltd. (HBIB) is a leading Insurance Broker operating thoughout
+            India. We
+            are an IRDAI
+            licensed Direct Insurance Borker - General. We cater to Corporates, Industries, MSMEs &
+            Individuals across
+            all domains.
+
+            We with our team of highly experienced professionals & robust IT system provide high quality
+            service to all
+            our clients."</h3>
+        </div>
+
+        <div class="col-lg-6 content">
+          <h2 i18n="heading|body">Why Insurance Broker?</h2>
+          <h3>"An insurance broker is a professional adviser who is an expert in insurance
+            and risk management. They represent the client to the insurance companies."</h3>
+
+          <ul>
+            <li><i class="ion-android-checkmark-circle"></i> Helps you to assess and manage your risks, and
+              provide
+              advice on insurance solutions appropriate for your needs.
+            </li>
+            <li><i class="ion-android-checkmark-circle"></i> Helps you to arrange, acquire and maintain
+              insurance.</li>
+            <li><i class="ion-android-checkmark-circle"></i> Acts as your representative in settlement of
+              any claim that
+              may be made by you under your insurance.</li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #about -->
+
+  <!--==========================
+      Products Section
+    ============================-->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2 i18n="heading|body">Our Products</h2>
+        <!-- <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam
+          enim
+          export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit
+          export
+          irure minim illum fore</p> -->
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="box wow fadeInLeft">
+            <div class="icon"><i class="fa fa-bar-chart"></i></div>
+            <h4 class="title"><a href="">For Businesses</a></h4>
+            <div class="products content">
+              <ul>
+                <li><i class="ion-android-checkmark-circle"></i> Engineering Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Employee Benefit Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Event Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Fidelity Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Fire & Burglary</li>
+                <li><i class="ion-android-checkmark-circle"></i> Liability Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Marine Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Motor Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Property Insurance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="box wow fadeInRight">
+            <div class="icon"><i class="fa fa-user" aria-hidden="true"></i></div>
+            <h4 class="title"><a href="">For Individuals</a></h4>
+            <div class="products content">
+              <ul>
+                <li><i class="ion-android-checkmark-circle"></i> Health Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Personal Accident</li>
+                <li><i class="ion-android-checkmark-circle"></i> Home Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Motor Insurance</li>
+                <li><i class="ion-android-checkmark-circle"></i> Travel Insurance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-lg-6">
+          <div class="box wow fadeInLeft" data-wow-delay="0.2s">
+            <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+              dolore eu
+              fugiat nulla pariatur trinige zareta lobur trade.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="box wow fadeInRight" data-wow-delay="0.2s">
+            <div class="icon"><i class="fa fa-map"></i></div>
+            <h4 class="title"><a href="">Magni Dolores</a></h4>
+            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+              deserunt
+              mollit anim id est laborum rideta zanox satirente madera</p>
+          </div>
+        </div> -->
+
+      </div>
+
+    </div>
+  </section><!-- #Products -->
+
+  <!--==========================
+          Service Section
+        ============================-->
+  <section id="testimonials" class="wow fadeInUp">
+    <div class="container">
+      <div class="section-header">
+        <h2 i18n="heading|body">Our Services</h2>
+        <!-- <p>Insurance support services</p> -->
+      </div>
+      <div class="testimonials-carousels row">
+
+        <div class="testimonial-item col-lg-3 col-md-4">
+          <h3>
+            Insurance Audit
+          </h3>
+          <ul>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Risk assesment by team of experts.</span>
+            </li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Review of current insurance
+                coverage.</span></li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Preparation of gap analysis
+                report.</span></li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Suggest correct insurance cover
+                required.</span></li>
+          </ul>
+        </div>
+
+        <div class="testimonial-item col-lg-3 col-md-4">
+          <h3>
+            Underwriting
+          </h3>
+          <ul>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Identify best underwriters.</span></li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Obtain & assess offers received from
+                various
+                insurance
+                companies.</span></li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Work with underwriters to find the best
+                policy or get
+                a
+                customized one on best possible rates.</span></li>
+          </ul>
+        </div>
+
+        <div class="testimonial-item col-lg-3 col-md-4">
+          <h3>Claim Management</h3>
+          <ul>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Help in preparation of documents &
+                claim
+                filing</span></li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Coordinating survey & loss
+                assessment with surveyor, TPAs & insurance
+                companies</span></li>
+            <li><i class="ion-android-checkmark-circle"></i> <span>Leasing with insurance companies for
+                swift settlement
+                of
+                claims</span></li>
+          </ul>
+        </div>
+
+        <!-- 
+            <div class="testimonial-item">
+              <p>
+                <img src="./assets/themes/img/quote-sign-left.png" class="quote-sign-left" alt="">
+                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
+                velit minim
+                dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                <img src="./assets/themes/img/quote-sign-right.png" class="quote-sign-right" alt="">
+              </p>
+              <img src="./assets/themes/img/testimonial-4.jpg" class="testimonial-img" alt="">
+              <h3>Matt Brandon</h3>
+              <h4>Freelancer</h4>
+            </div>
+    
+            <div class="testimonial-item">
+              <p>
+                <img src="./assets/themes/img/quote-sign-left.png" class="quote-sign-left" alt="">
+                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim
+                culpa
+                labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                <img src="./assets/themes/img/quote-sign-right.png" class="quote-sign-right" alt="">
+              </p>
+              <img src="./assets/themes/img/testimonial-5.jpg" class="testimonial-img" alt="">
+              <h3>John Larson</h3>
+              <h4>Entrepreneur</h4>
+            </div> -->
+
+      </div>
+
+    </div>
+  </section><!-- #Services -->
+
+  <!--==========================
+      Clients Section
+    ============================-->
+  <!-- <section id="clients" class="wow fadeInUp">
+    <div class="container">
+      <div class="section-header">
+        <h2 i18n="heading|body">Our Partners</h2>
+        <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam
+          enim
+          export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit
+          export
+          irure minim illum fore</p>
+      </div>
+
+      <div class="owl-carousel clients-carousel">
+        <img src="./assets/themes/img/clients/client-1.png" alt="">
+        <img src="./assets/themes/img/clients/client-2.png" alt="">
+        <img src="./assets/themes/img/clients/client-3.png" alt="">
+        <img src="./assets/themes/img/clients/client-4.png" alt="">
+        <img src="./assets/themes/img/clients/client-5.png" alt="">
+        <img src="./assets/themes/img/clients/client-6.png" alt="">
+        <img src="./assets/themes/img/clients/client-7.png" alt="">
+        <img src="./assets/themes/img/clients/client-8.png" alt="">
+      </div>
+
+    </div>
+  </section> -->
+  <!-- #clients -->
+  <!--==========================
+      Call To Action Section
+    ============================-->
+  <!-- <section id="call-to-action" class="wow fadeInUp">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 text-center text-lg-left">
+          <h3 class="cta-title" i18n="heading|body">Call To Action</h3>
+          <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+            deserunt mollit
+            anim id est laborum.</p>
+        </div>
+        <div class="col-lg-3 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="#">Call To Action</a>
+        </div>
+      </div>
+
+    </div>
+  </section> -->
+  <!-- #call-to-action -->
+
+
+
+  <!--==========================
+      Our Team Section
+    ============================-->
+  <section id="team" class="wow fadeInUp">
+    <div class="container">
+      <div class="section-header">
+        <h2>OUR INSURANCE PARTNERS</h2>
+      </div>
+      <div class="row">
+        <ul class="compay-logo">
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/bhartiaxa.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/digit.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/future.jpg" alt="">
+            </div>
+          </li>
+          <!-- <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/hdfcergo.jpg" alt="">
+            </div>
+          </li> -->
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/sbi.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/united.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/oriental.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/tataaig.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/religare.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/national.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/star.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/iffcotokio.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/royalsundar.jpg" alt="">
+            </div>
+          </li>
+          <!-- <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/icicilombard.jpg" alt="">
+            </div>
+          </li> -->
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/newindia.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/universal.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/bajaj.jpg" alt="">
+            </div>
+          </li>
+          <li class="member">
+            <div class="pic"><img src="../../assets/img/partners/manipal.jpg" alt="">
+            </div>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- #team -->
+  <!--==========================
+        Contact Us Section
+      ============================-->
+  <section id="contactus" class="wow fadeInUp">
+    <div class="container">
+      <div class="section-header">
+        <h2 i18n="heading|body">Contact Us</h2>
+        <h3 class="subhead">Corporate & Registered Office
+        </h3>
+        <div class="complain">
+          <button class="btn btn-primary" (click)="isContact = !isContact">Register your complaint</button>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-12">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="contact-us">
+              <div class="row">
+                <div class="col-lg-12 px-0">
+                  <div class="box addrs">
+                    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address
+                    </h3>
+                    <p>Hamara Bima Insurance Brokers Pvt. Ltd. <br />Block - A, 1st Floor, 60, Electronic Complex,
+                      Pardesipura, Indore, Madhya
+                      Pradesh 452010</p>
+                    <p class="info">Licence No. 720, IRDA Direct Broker Code: IRDA/ DB 810/ 20, Valid till: 02/07/2023,
+                      CIN:
+                      U66000MP2019PTC049230</p>
+                  </div>
+                </div>
+                <div class="col-lg-12 px-0">
+                  <div class="box">
+                    <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone Number
+                    </h3>
+                    <p class="info">+91-731-4724444</p>
+                  </div>
+                </div>
+                <div class="col-lg-12 px-0">
+                  <div class="box">
+                    <h3><i class="fa fa-envelope" aria-hidden="true"></i> E-mail Address
+                    </h3>
+                    <p class="info">mail@hamarabima.com</p>
+                  </div>
+                </div>
+                <div class="col-lg-12 px-0">
+                  <div class="box">
+                    <h3><i class="fa fa-question-circle" aria-hidden="true"></i> Claims
+                    </h3>
+                    <p class="mb-3">For queries regarding claims please mail the details </p>
+                    <p class="info">claims@hamarabima.com<br /> +91-731-4724444</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-12 col-md-6">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14717.353913783438!2d75.86771803407197!3d22.752816646954617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3963039e6842b30b%3A0x549e5bed82e955c2!2sHamara%20Bima%20Insurance%20Brokers%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1595251953349!5m2!1sen!2sin"
+              height="383" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+              tabindex="0"></iframe>
+            <div class="col-lg-12 px-0">
+              <div class="box implinks">
+                <h3><i class="fa fa-mouse-pointer" aria-hidden="true"></i> Important Links
+                </h3>
+                <a href="https://www.irdai.gov.in/" target="_blank">
+                  <img src="/assets/img/irdai.png" /> IRDAI</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!--==========================
+    Footer
+  ============================-->
+<footer id="footer">
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong>Hamara Bima Insurance Brokers Pvt. Ltd.</strong>. All Rights Reserved
+    </div>
+
+  </div>
+</footer><!-- #footer -->
+
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+<button class="btn-message" (click)="isContact = !isContact"><i class="fa fa-envelope" aria-hidden="true"></i> Need some
+  help?</button>
+
+<!-- Need Some Help Modal Popup -->
+<bima-custom-popop [isVisible]="isContact" (closePopupClick)="onClickCloseContact()"></bima-custom-popop>

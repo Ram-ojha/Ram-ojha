@@ -1,0 +1,127 @@
+#main {
+  /* background-color: #f9f9f9; */
+  /* background-color: #ececec; */
+  background-color: #ffffff;
+  float: left;
+  width: 100%;
+}
+.pos_body {
+  /* background-color: #f9f9f9; */
+  background-color: #ffffff;
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- for side menus --- */
+
+.servcList {
+  position: fixed;
+  top: 19.9%;
+  right: -20%;
+  z-index: 4;
+  width: 15%;
+  transition: all 300ms linear;
+  -webkit-transition: all 300ms linear;
+}
+/* .servcList::before {
+    content: "";
+    position: fixed;
+    background: #dfdfdf;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    display: none;
+    margin-top: 7%;
+}
+.servcList.active::before{
+    opacity: 0.6;
+    display: block;
+} */
+.servcList.active {
+  right: 1%;
+  transition: all 300ms linear;
+  -webkit-transition: all 300ms linear;
+}
+
+.servcList ul li {
+  display: flex;
+}
+
+.servcList ul li a {
+  position: relative;
+  display: -moz-flex;
+  display: flex;
+  -moz-align-items: center;
+  align-items: center;
+  width: 150px;
+  border-radius: 3.75rem;
+  background-color: #efefef;
+  transition: all 0.1s ease;
+  margin: 0 0 0.5rem auto;
+  overflow: hidden;
+  padding: 20px 20px;
+  height: 34px;
+  box-shadow: 0px 2px 5px 0 #606669;
+  text-align: center;
+  color: #2b3f55;
+}
+
+.servcList ul {
+  padding: 0;
+}
+
+/* .servcList ul li a i {
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+} */
+mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color {
+  font-size: 24px;
+  position: absolute;
+  right: 6px;
+}
+.servcList ul li a span {
+  /* display: none; */
+  font-size: 14px;
+}
+
+.servcList ul li:hover a span {
+  display: inline-block;
+}
+
+.servcList ul li:hover a {
+  height: 34px;
+  width: 150px;
+  color: #2b3f55;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  padding-right: 3.125rem;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* .servcList ul li.active a span {
+    display: inline-block
+} */
+
+.servcList ul li.active a {
+  color: #ffffff;
+  background-color: #0c2e8a;
+}
+
+@media screen and (min-width:768px) and (max-width:991px){
+  .servcList{
+    width: 20%;
+  }
+}
+
+
+@media screen and (min-width:320px) and (max-width:767px){
+  .servcList{
+    width: 45%;
+    right: -50%;
+  }
+}

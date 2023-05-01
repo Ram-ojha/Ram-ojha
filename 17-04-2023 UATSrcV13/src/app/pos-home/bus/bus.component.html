@@ -1,0 +1,485 @@
+<div class="col-md-12 bike_pannal">
+    <div class="row" id="Bike_Number">
+        <div class="col-md-12 text-center">
+            <mat-radio-group aria-label="Select an option" (change)="car_selection($event)">
+                <mat-radio-button value="1" [checked]="true">Renew Policy
+                </mat-radio-button>
+                <mat-radio-button value="2">New Bus</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <hr>
+    <div class="col-md-12 text-center">
+        <div class="lds-ripple mx-auto box-tap">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="bike_area">
+
+        <!-- Renew Bus -->
+        <div id="Renew_Insorance" *ngIf="car_Renew_Insorance">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="field-wrapper">
+                        <mat-form-field>
+                            <mat-label>Your Bus</mat-label>
+                            <mat-select>
+                                <mat-option [value]="1"> Eicher : 10.5 C </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.5 C Starline School Bus
+                                </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.5 C Starline Staff Bus
+                                </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.5 C Starline Staff Bus
+                                    MAXICAB </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.5 E </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.5 E Starline School Bus
+                                </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.50 </mat-option>
+                                <mat-option [value]="1"> VE COMMERCIAL VEHICLES : 10.50E
+                                </mat-option>
+                                <mat-option [value]="1"> Eicher : 10.59 </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="field-wrapper">
+                        <mat-form-field>
+                            <mat-label>Fuel Type</mat-label>
+                            <mat-select (selectionChange)="FuelType(fuel)" #fuel>
+                                <mat-option [value]="1"> Diesel</mat-option>
+                                <mat-option [value]="2"> Internally Built LPG / CNG
+                                </mat-option>
+                                <mat-option [value]="3"> Petrol </mat-option>
+                                <mat-option [value]="4"> Externally Fitted LPG/CNG
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="CNGKit">
+                    <div class="field-wrapper">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Enter CNG Kit Value" value="">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Variant</mat-label>
+                        <mat-select>
+                            <mat-option [value]="1"> Eicher 10.75 E Starline School Bus 47
+                                Seater / BS-III 3298-CC DIESEL </mat-option>
+                            <mat-option [value]="2"> Eicher 10.75 E Starline School Bus 35
+                                Seater / BS-IV 3298-CC DIESEL </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Bus Registration RTO</mat-label>
+                        <mat-select>
+                            <mat-option [value]="1"> AN01 Port Blair</mat-option>
+                            <mat-option [value]="2"> AN02 Car Nicobar </mat-option>
+                            <mat-option [value]="2"> AP01 Nirmal </mat-option>
+                            <mat-option [value]="2"> AP02 Anantapur </mat-option>
+                            <mat-option [value]="2"> AP03 Tirupathi </mat-option>
+                            <mat-option [value]="2"> AP04 Kadapa </mat-option>
+                            <mat-option [value]="2"> AP05 Kakinada </mat-option>
+                            <mat-option [value]="2"> AP06 Kakinada </mat-option>
+                            <mat-option [value]="2"> AP07 Guntur </mat-option>
+                            <mat-option [value]="2"> AP08 Guntur </mat-option>
+                            <mat-option [value]="2"> AP09 Hyderabad </mat-option>
+                            <mat-option [value]="2"> AP10 Secunderabad Hyderabad North
+                            </mat-option>
+                            <mat-option [value]="2"> AP11 Malakpet Hyderabad East
+                            </mat-option>
+                            <mat-option [value]="2"> AP12 Kisanbagh Hyderabad South
+                            </mat-option>
+                            <mat-option [value]="2"> AP13 Tolichowki Hyderabad West
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="Manufacturing" placeholder="Manufacturing Date">
+                        <mat-datepicker-toggle matSuffix [for]="Manufacturing">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #Manufacturing></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="RegDate" placeholder="Registration Date">
+                        <mat-datepicker-toggle matSuffix [for]="RegDate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #RegDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="PolicyExpiry" placeholder="Previous Policy Expiry Date">
+                        <mat-datepicker-toggle matSuffix [for]="PolicyExpiry">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #PolicyExpiry></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="field-wrapper">
+                        <mat-form-field>
+                            <mat-label>Any Claimed in previous year</mat-label>
+                            <mat-select>
+                                <mat-option [value]="1">Yes</mat-option>
+                                <mat-option [value]="1">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <mat-checkbox>This is not a route Bus</mat-checkbox>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Car Number -->
+
+        <!-- New Bus -->
+        <div class="row" id="New_Bike_insorance" *ngIf="New_Car_insorance">
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <mat-form-field>
+                        <mat-label>Your Bus</mat-label>
+                        <mat-select>
+                            <mat-option [value]="1"> Eicher : 10.5 C </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.5 C Starline School Bus
+                            </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.5 C Starline Staff Bus
+                            </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.5 C Starline Staff Bus
+                                MAXICAB </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.5 E </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.5 E Starline School Bus
+                            </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.50 </mat-option>
+                            <mat-option [value]="1"> VE COMMERCIAL VEHICLES : 10.50E
+                            </mat-option>
+                            <mat-option [value]="1"> Eicher : 10.59 </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="field-wrapper">
+                    <mat-form-field>
+                        <mat-label>Fuel Type</mat-label>
+                        <mat-select (selectionChange)="NewFuelType(fuel)" #fuel>
+                            <mat-option [value]="1"> Diesel</mat-option>
+                            <mat-option [value]="2"> Internally Built LPG / CNG
+                            </mat-option>
+                            <mat-option [value]="3"> Petrol </mat-option>
+                            <mat-option [value]="4"> Externally Fitted LPG/CNG </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="NewCNGKit">
+                <div class="field-wrapper">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Enter CNG Kit Value" value="">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="Manufacturing" placeholder="Manufacturing Date">
+                    <mat-datepicker-toggle matSuffix [for]="Manufacturing">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #Manufacturing></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="NewPolicy" placeholder="New Policy Start Date">
+                    <mat-datepicker-toggle matSuffix [for]="NewPolicy">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #NewPolicy></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-checkbox>This is not a route Bus</mat-checkbox>
+            </div>
+        </div>
+        <!-- New Car -->
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button title="View Quotes" class="w--button w--button--orange w--button--large"
+                    (click)="busplan()">View Quotes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- bus model and other info -->
+<div class="Select_Bike" *ngIf="Select_Bus">
+    <div class="bikeinsurance">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btncancel close_btn" (click)="close()">
+                        <img src="./assets/img/close.png" class="img-responsive">
+                    </div>
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="container container-two-wheeler-insurance ">
+                            <mat-tab-group>
+                                <mat-tab label="Your Bus">
+                                    <div class="col-md-12">
+                                        <div class="tab-content py-3 px-3 px-sm-0 Bike_Manufacturer"
+                                            id="nav-tabContent">
+                                            <div class="row tab-pane fade show active" id="nav-home" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-8 mx-auto">
+                                                            <div class="bike-insu-div">
+                                                                <h4>Which bus do you drive?
+                                                                </h4>
+                                                                <label>
+                                                                    Search
+                                                                    for your car or choose from a list of popular
+                                                                    bus</label>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="search-bike col-md-8 mx-auto">
+                                                                    <mat-form-field>
+                                                                        <mat-label>Search for your bus</mat-label>
+                                                                        <mat-select disableRipple>
+                                                                            <mat-option value="1">Hyundai i10
+                                                                            </mat-option>
+                                                                            <mat-option value="2">Maruti Wagon R
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Maruti Swift
+                                                                            </mat-option>
+                                                                            <mat-option value="1">Hyundai Santro Xing
+                                                                            </mat-option>
+                                                                            <mat-option value="2">Hyundai i20
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Hyundai Grand i10
+                                                                            </mat-option>
+                                                                            <mat-option value="1">Maruti Alto
+                                                                            </mat-option>
+                                                                            <mat-option value="2">Maruti Swift Dzire
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Honda Amaze
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Hyundai Eon
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Aprilia SRV 850
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Ashok Leyland Stile
+                                                                            </mat-option>
+                                                                            <mat-option value="3">Aston Martin DB11
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <h5 class="popularbikes"><span>Popular bus</span></h5>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 main-content">
+                                                    <div class="row">
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Hyundai i10</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Wagon R</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Swift</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Hyundai i10</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Wagon R</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Swift</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Hyundai i10</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Wagon R</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Swift</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Hyundai i10</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Wagon R</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Swift</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Hyundai i10</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Wagon R</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Swift</span>
+                                                        </div>
+                                                        <div class="col-md-2 bikebrand">
+                                                            <span>Maruti Wagon R</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Variant">
+                                    <div class="col-md-12">
+                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                            aria-labelledby="nav-home-tab">
+                                            <div class="">
+                                                <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Varient"
+                                                    id="nav-tabContent">
+                                                    <div class="row tab-pane fade show active" id="nav-insurance"
+                                                        role="tabpanel" aria-labelledby="nav-home-tab">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="bike-insu-div">
+                                                                        <h4>Which model of
+                                                                            Wagon R Stingray do you own?
+                                                                        </h4>
+                                                                        <label
+                                                                        >Filter
+                                                                            by fuel type below</label>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <mat-form-field>
+                                                                                <mat-label>Car Fuel Types</mat-label>
+                                                                                <mat-select disableRipple>
+                                                                                    <mat-option value="1">PETROL
+                                                                                    </mat-option>
+                                                                                    <mat-option value="2">Diesel
+                                                                                    </mat-option>
+                                                                                    <mat-option value="3">CNG/LPG
+                                                                                    </mat-option>
+                                                                                </mat-select>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="search-bike col-md-8">
+                                                                            <form>
+                                                                                <div class="form-group">
+                                                                                    <mat-form-field>
+                                                                                        <mat-label>Select Hyundai i10
+                                                                                            Model
+                                                                                        </mat-label>
+                                                                                        <mat-select disableRipple>
+                                                                                            <mat-option value="1">LXI
+                                                                                                Option (998 CC)
+                                                                                            </mat-option>
+                                                                                            <mat-option value="2">LXI
+                                                                                                (998 CC) </mat-option>
+                                                                                            <mat-option value="3">VXI
+                                                                                                (998 CC) </mat-option>
+                                                                                            <mat-option value="1">VXI
+                                                                                                Option (998 CC)
+                                                                                            </mat-option>
+                                                                                        </mat-select>
+                                                                                    </mat-form-field>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <h5 class="modal_header modal_header--hr"><span>Popular
+                                                                    Models</span></h5>
+                                                        </div>
+                                                        <div class="col-md-12 main-content">
+                                                            <div class="row" class="bike_add row">
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI Option (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>VXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI Option (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>VXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI Option (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>VXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI Option (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>VXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI Option (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>LXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>VXI (998 CC)</span>
+                                                                </div>
+                                                                <div class="col-md-2 bikebrand">
+                                                                    <span>VXI (998 CC)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

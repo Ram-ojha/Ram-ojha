@@ -1,0 +1,129 @@
+<div class="policyexpiry caddress" *ngIf="isVisible">
+    <div class="bikeinsurance">
+        <div class="modal fadein show" style="display: block;">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" #screen>
+                    <div class="modal-header">
+
+                        <div class="modal-title">
+                            Registration Address
+                            <button type="button" class="close" data-dismiss="modal" (click)="closePopup()"
+                                aria-label="Close"
+                                style="color: #ffffff; opacity: 1; margin: 5px 0px 0px 0; padding: 0">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="currentAddressForm" (submit)="onSubmitAddress()">
+                            <div class="row pt-4">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Area</mat-label>
+                                        <input matInput appUppercase appOnlyAlpha type="text" [maxlength]="30"
+                                            placeholder="Area " formControlName="area" required />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Postal Address (House, Building,
+                                            Street)</mat-label>
+                                        <input matInput appUppercase formControlName="postalAdd" required
+                                            [maxlength]="30" placeholder="Postal Address (House, Building, Street)" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- By kishori -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>State</mat-label>
+                                        <input type="text" placeholder="Select State" (focusout)="onChangeStateInput()"
+                                            matInput required formControlName="state" [matAutocomplete]="autoState" />
+                                        <mat-autocomplete autoActiveFirstOption #autoState="matAutocomplete">
+                                            <mat-option *ngFor="let s of filterState" [value]="s.StateDesc">
+                                                {{ s.StateDesc }}
+                                            </mat-option>
+                                            <mat-option [value]="" *ngIf="!filterState">
+                                                <p class="text-danger">Not Found</p>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf='af.get("state")?.errors?.["requireMatch"]'>
+                                            Please select a valid State name from the list!
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>City</mat-label>
+                                        <input type="text" placeholder="Select City" (focusout)="onChangeCityInput()"
+                                            matInput required formControlName="city" [matAutocomplete]="autoCity" />
+                                        <mat-autocomplete autoActiveFirstOption (optionSelected)="onChangeCity()"
+                                            #autoCity="matAutocomplete">
+                                            <mat-option *ngFor="let c of filteredCityList | async" [value]="c.CityDesc">
+                                                {{ c.CityDesc }}
+                                            </mat-option>
+                                            <mat-option [value]="" *ngIf="!filteredCityList">
+                                                <p class="text-danger">Not Found</p>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf='af.get("city")?.errors?.["requireMatch"]'>
+                                            Please select a valid City name from the list!
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <!-- by kishori -->
+                                <div class="col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Area Pincode</mat-label>
+                                        <input type="text" placeholder="Area Pincode"
+                                            (focusout)="onChangePinCodeInput()" matInput required
+                                            formControlName="pincode" [matAutocomplete]="autoPincode" [maxlength]="6" />
+                                        <mat-autocomplete autoActiveFirstOption (optionSelected)="onChangePincode()"
+                                            #autoPincode="matAutocomplete">
+                                            <mat-option *ngFor="
+                                  let c of filteredautoPincodeList | async
+                                " [value]="c.Pincode">
+                                                {{c.Pincode}},{{c["Area_Name"]}}
+                                            </mat-option>
+                                            <mat-option [value]="" *ngIf="!filteredautoPincodeList">
+                                                <p class="text-danger">Not Found</p>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf='af.get("pincode")?.errors?.["requireMatch"]'>
+                                            Please select a valid Pincode from the list!
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <!-- by kishori end -->
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-12 text-error text-left"
+                                        *ngIf="errMsg_add && currentAddressForm.invalid">
+                                        {{ errMsg_add }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 text-right">
+
+                                    <button type="submit" class="w--button w--button--orange w--button--large">
+                                        Save
+                                        <i aria-hidden="true" class="fa fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            >

@@ -1,0 +1,44 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+
+<!-- <div class="container-fluid" style="background: #ffffff;">
+    <div class="row">
+    </div>
+</div> -->
+<div class="form-body">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="insorence">
+                <label</label>  -->
+            <!-- <input type="button" value="get User" (click)="getUser()">
+                    <input type="button" value="get vehicle" (click)="getVehicleType()"> -->
+            <!-- </div> -->
+            <div class="ribbon-3">
+                <h2>AAPKI SURAKSHA HAMARA BIMA</h2>
+            </div>
+            <div class="col-md-11 mx-auto  box-tap">
+                <!-- ---- routable dynamic tabing----- -->
+                <mat-card [ngClass]="'two'" *ngIf="navLinks.length">
+                    <mat-card-content>
+                        <nav mat-tab-nav-bar class="product_list">
+                            <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.RouteUrl" routerLinkActive
+                                #rla="routerLinkActive" [active]="rla.isActive" (click)="onMenuChange(link)">
+                                <mat-icon class="example-tab-icon"> {{link.IconString}}</mat-icon>
+                                {{link.InsuranceCateDesc}}
+                            </a>
+                        </nav>
+                        <router-outlet></router-outlet>
+                        <div class="text-center alert alert-primary" *ngIf="!navLinks.length">
+                            <strong>No Record Found!</strong><br>
+                            Please contact to admin. Thanks for patience.
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <!-- ------------ -->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ---- normal animated tabing----- -->

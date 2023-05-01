@@ -1,0 +1,15 @@
+{
+    "config": {
+        "baseUrls": {
+            "localUrl": "http://localhost:51600/",
+            "localApi": "http://localhost:51600/api",
+            "liveUrl": "http://115.124.113.64/apihamarabimasource1",
+            "liveApi": "http://115.124.113.64/apihamarabimasource1/api"
+        },
+        "authentication": {
+            "rsa": {
+                "privateKey": "4hKwwRJn"
+            }
+        }
+    }
+}

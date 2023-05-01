@@ -1,0 +1,84 @@
+<!-- loader above -->
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+
+
+<div class="col-md-12 bike_pannal">
+
+    <form [formGroup]="renewCarForm" (ngSubmit)="onSubmitRenewCar()">
+        <div class="bike_area">
+            <div id="Renew_Insorance">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="field-wrapper">
+                            <mat-form-field class="example-full-width" (click)="onClickCar('renewCarForm')">
+                                <input matInput formControlName="CarDisplayValue" placeholder="Which Car do you drive?"
+                                    readonly required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-wrapper">
+                            <mat-form-field class="example-full-width"
+                                (click)="displayRtoPopup = !displayRtoPopup && openBy='renewCarForm'">
+                                <input matInput placeholder="Car registration RTO" readonly required
+                                    formControlName="RTODisplayName" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-wrapper">
+                            <mat-form-field>
+                                <mat-label>Previous policy expired?</mat-label>
+                                <mat-select formControlName="isPreviousPolicyExp" required
+                                    (selectionChange)="onPolicyExpiredChange(renewCarForm.get('isPreviousPolicyExp')?.value,'renewCarForm')">
+                                    <mat-option [value]="item.value" *ngFor="let item of yesNoList">{{item.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <label *ngIf="policyExpireDisplayValue"
+                            class="row col-md-12 deshboard">{{policyExpireDisplayValue}}<a
+                                (click)="onPolicyExpiredChange(1,'renewCarForm')">Edit
+                            </a></label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-wrapper">
+                            <mat-form-field>
+                                <mat-label>Any Claimed in previous year</mat-label>
+                                <mat-select formControlName="claimInPreviousYear" required>
+                                    <mat-option [value]="item.value" *ngFor="let item of yesNoList">{{item.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="col-md-12 text-error" *ngIf="(errMsg && renewCarForm.invalid) || errMsg">
+                        {{errMsg}}
+                    </div>
+
+                    <button title="View Quotes" type="submit" class="w--button w--button--orange w--button--large">View
+                        Quotes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<!-- car model , variant div -->
+<app-car-model-variant [insuranceCateCode]="insuranceType.InsuranceCateCode" [isVisible]="displayCarModelPopup"
+    (closePopupClick)="closeCarModelVariantPopup($event)" #carModel [openBy]="openBy">
+</app-car-model-variant>
+
+<!-- rto popup -->
+<app-vehicle-rtos #vehicleRtos [isVisible]="displayRtoPopup" (closePopupClick)="closeRtosPopup($event)">
+</app-vehicle-rtos>
+
+<!-- policy expired popup -->
+<app-policy-expired #policyExpire [isVisible]="showExpiredPolicy" [insuranceCateCode]="insuranceType.InsuranceCateCode"
+    (closePopupClick)="closePolicyExpiredPopup($event)">
+</app-policy-expired>

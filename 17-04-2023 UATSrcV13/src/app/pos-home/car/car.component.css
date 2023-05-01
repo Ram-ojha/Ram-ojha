@@ -1,0 +1,21 @@
+.btn1{
+    background-color: #083b66;
+}
+
+.deshboard{
+    margin-left: 10px; margin-top: 2px;
+}
+
+.w--button.w--button--orange w--button--large{
+    color: #ffffff;
+}
+.close{
+    color: #ffffff;
+    opacity: 1;
+    margin: 8px 10px 0px 0;
+    padding: 0;
+}
+
+.one{
+    border: solid 1px #e7eaee; padding: 10px;
+}

@@ -1,0 +1,386 @@
+.nav-menu select {
+  padding: 4px 0px;
+  display: inline-block;
+  color: #555;
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+/* New Style */
+
+/* Header */
+
+/* Header TagLine*/
+
+.smltxt {
+position: absolute;
+right: 8.2%;
+font-size: 8px;
+bottom: 0px;
+text-align: justify;
+width: 12%;
+letter-spacing: 0px;
+line-height: 9px;
+}
+
+#header {
+  padding: 10px 0;
+  height: 70px !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+#header h4 {
+  float: right;
+  color: #083b66;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 12px 5px 0;
+}
+
+#header p {
+  font-size: 13px;
+  color: #555;
+  margin: -7px 0px 2px 54px;
+  font-weight: 500;
+}
+
+a:not([href]):not([tabindex]).highlight {
+  background: #0c2e8a;
+  color: #fff;
+}
+.highlight {
+  background: #0c2e8a;
+  padding: 10px 23px;
+  color: #fff;
+}
+/* Service New Section */
+#about .content h3 {
+  font-style: normal;
+}
+#services .content ul {
+  list-style: none;
+  padding: 0;
+}
+
+#services .content ul li {
+  padding-bottom: 2px;
+}
+
+.products.content {
+  padding-left: 22%;
+}
+
+.products.content ul li i {
+  font-size: 20px;
+  padding-right: 4px;
+  color: #0c2e8a;
+}
+
+#services .box {
+  box-shadow: 10px 10px 10px 14px rgba(73, 78, 92, 0.1);
+  height: 400px;
+}
+
+/* Our Parnters Section */
+
+ul.compay-logo {
+  text-align: left;
+  padding: 0px;
+  width: 100%;
+}
+
+li.member {
+  list-style-type: none;
+  display: inline-block;
+  margin: 0 0 0px 0;
+  width: 11.33%;
+  border: solid 1px #eee;
+  padding: 0px;
+  margin: 0 6px;
+}
+.marR0 {
+  margin-right: 0;
+}
+
+/* Testimonial Section */
+
+#testimonials .testimonial-item h3 {
+  font-size: 21px;
+  margin-bottom: 20px;
+}
+#testimonials .testimonial-item ul li {
+  list-style-type: none;
+  text-align: left;
+  display: block;
+  margin-bottom: 16px;
+  float: left;
+  width: 100%;
+}
+
+#testimonials .testimonial-item ul {
+  padding-left: 0px;
+}
+#testimonials .testimonial-item ul i {
+  font-size: 16px;
+  padding-right: 4px;
+  color: #0c2e8a;
+  float: left;
+  width: 10%;
+}
+#testimonials .testimonial-item ul li span {
+  float: left;
+  width: 90%;
+}
+/* Contact Us */
+
+#contactus {
+  padding: 30px 0;
+}
+
+#contactus .box {
+  box-sizing: content-box;
+  padding: 30px 30px 0 30px;
+  margin: 0 0 20px 0;
+  text-align: left;
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+  border: solid 1px #5555552b;
+}
+
+#contactus h3.subhead {
+  font-size: 23px;
+  float: left;
+}
+
+#contactus .box i {
+  font-size: 20px;
+  padding-right: 4px;
+  color: #0c2e8a;
+}
+
+#contactus iframe {
+  width: 100%;
+}
+
+#contactus .box.addrs p {
+  margin-bottom: 15px;
+}
+
+#contactus p.info {
+  margin: 0 0 20px 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+.contact-us h3 {
+  font-size: 22px;
+}
+.complain {
+  text-align: right;
+}
+
+.complain .btn-primary {
+  color: #fff;
+  background-color: #ec691f;
+  border-color: #ec691f;
+}
+
+.box.implinks h3 {
+  margin-bottom: 10px;
+  font-size: 21px;
+}
+
+.box.implinks img {
+  width: 100%;
+  max-width: 42px;
+  margin-bottom: 10px;
+}
+.box.implinks a {
+  color: #000;
+}
+
+.insorence-full{
+  background: #ffffff;
+}
+#topbar{
+  display: none !important
+}
+/* Media Query Changes by Prateek*/
+
+@media screen and (min-width: 1251px) and (max-width: 1300px) {
+
+
+  .smltxt {
+    position: absolute;
+    right: 6%;
+    font-size: 7.5px;
+    bottom: 1px;
+    text-align: justify;
+    width: 152px;
+    letter-spacing: 0px;
+    line-height: 8px;
+  }
+
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1250px) {
+
+
+  .smltxt {
+    position: absolute;
+    right: 5%;
+    font-size: 7.5px;
+    bottom: 1px;
+    text-align: justify;
+    width: 152px;
+    letter-spacing: 0px;
+    line-height: 8px;
+  }
+
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    .logo-img {
+      height: 40px;
+    }
+
+    #header h4 {
+      float: right;
+      font-size: 16px;
+      margin: 12px 5px 0;
+    }
+
+    #header p {
+      font-size: 12px;
+      margin: -7px 0px 2px 54px;
+    }
+
+    .nav-menu a {
+      padding: 5px 4px;
+      font-size: 12px;
+      margin: 5px 0;
+    }
+
+ .smltxt {
+    position: absolute;
+    right: 4%;
+    font-size: 8px;
+    bottom: 1px;
+    text-align: justify;
+    width: 10%;
+    letter-spacing: 0px;
+    line-height: 8px;
+ }
+
+}
+
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+  .logo-img {
+    height: 40px;
+  }
+  #header h4 {
+    float: right;
+    font-size: 16px;
+    margin: 12px 5px 0;
+  }
+  #header p {
+    font-size: 12px;
+    margin: -7px 0px 2px 54px;
+  }
+  .nav-menu a {
+    padding: 5px 4px;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  .smltxt {
+position: absolute;
+right: 3%;
+font-size: 8px;
+bottom: 0px;
+text-align: justify;
+width: 16.9%;
+letter-spacing: 0px;
+line-height: 10px;
+  }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  #header h4 {
+    font-size: 19px;
+    margin: 11px 5px 0;
+  }
+  #header p {
+    font-size: 13px;
+    margin: -7px 0px 2px 54px;
+  }
+
+  #services .box {
+    height: auto;
+    padding: 30px;
+  }
+}
+
+@media screen and (min-width: 450px) and (max-width: 767px) {
+  #header h4 {
+    font-size: 16px;
+  }
+
+  #header p {
+    font-size: 13px;
+    margin: -7px 0px 2px 48px;
+  }
+  #services .box {
+    height: auto;
+    padding: 30px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 449px) {
+
+  #header {
+    padding: 10px 0;
+    height: 90px !important;
+  }
+
+  #header h4 {
+    float: left;
+    font-size: 14px;
+    margin: -8px 47px 0px;
+  }
+  #header p {
+    font-size: 12px;
+    color: #555;
+    margin: 5px 11px 12px 47px;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  .listitem {
+    box-shadow: none;
+  }
+  .listitem .item {
+    width: 33.33% !important;
+  }
+
+  #services .box {
+    height: auto;
+    padding: 30px;
+  }
+
+  .products.content {
+    padding-left: 0;
+  }
+
+  h3.subhead {
+    font-size: 21px;
+    text-align: center;
+  }
+
+  #contactus p.info {
+    font-size: 12px;
+  }
+}

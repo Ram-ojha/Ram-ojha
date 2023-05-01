@@ -1,0 +1,1198 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<div class="bikeinsurance" #screen>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center mb-2">
+        <!-- <p *ngIf="!isreview" class="Review_details_header">
+            Just 2 minutes to get insured. Provide your contact and car details,
+            then proceed to pay.
+          </p> -->
+        <!-- <p *ngIf="isreview" class="Review_details_header">
+            Review the details, pay online & download your policy.
+          </p> -->
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <!--- Left Side Bar -->
+              <div class="col-md-4 col-lg-3 col-12">
+                <div class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end padT10">
+                  <div class="insurance-company-image plan-info text-center">
+                    <img src='{{ "assets/img/company-logos/motor/" + premiumDataPlans["imageName"]  }}'
+                      class="img-responsive" />
+                  </div>
+
+                  <div class="plan-info text-center premium-plans">
+                    <div class="plan-description">
+                      <p class="font-14">
+                        <label class="orange">Policy Type : </label>
+                        <span *ngIf="premiumDataPlans['isComprehensive']">
+                          Comprehensive</span>
+                        <span *ngIf="premiumDataPlans['isTp']">
+                          Third Party</span>
+                        <span *ngIf="premiumDataPlans['isOdOnly']">
+                          Own Damage</span>
+                      </p>
+                      <p class="font-14 d-none">
+                        <label class="orange">IDV :</label>
+                        <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                        {{
+                        premiumDataPlans["MinIDVVAlue"]
+                        | currency: "INR":"symbol":"3.0"
+                        }}
+                      </p>
+                      <!-- <p class="font-14" *ngIf="PlanData.zeroDp || PlanData.pacover">
+                          <label class="orange">Addons : </label>
+                          <span *ngIf="
+                              PlanData.zeroDp && PlanData.pacover;
+                              else elseblock
+                            ">
+                            {{ PlanData.zeroDp ? "Zero Depreciation" : "" }},
+                            {{ PlanData.pacover ? "Personal Accident" : "" }}
+                          </span>
+                          <ng-template #elseblock>
+                            {{ PlanData.zeroDp ? "Zero Depreciation" : "" }}
+                            {{ PlanData.pacover ? "Personal Accident" : "" }}
+                          </ng-template>
+                        </p> -->
+                      <p class="font-14 d-none">
+                        <label class="orange">TENURE : </label>
+                        {{ PlanData.tenure }} Years
+                      </p>
+                      <!-- <p class="font-14">
+                          <label class="orange">Registration Date : </label
+                          >{{ vehicleDetailForm.controls.regDate.value | date }}
+                        </p> -->
+                      <!--	<a  class="change-insurer"><i aria-hidden="true"
+                                                          class="fa fa-pencil"></i> Change Insurer</a> -->
+                      <a (click)="onClickChangeInsurer()" class="change-insurer"><i class="fa fa-pencil-square-o"
+                          aria-hidden="true"></i>
+                        Edit</a>
+                    </div>
+                  </div>
+                  <div class="plan-info text-center premium-plans">
+                    <div class="plan-description">
+                      <p class="font-14">
+                        <label class="orange">RTO : </label> {{ PlanData.rto }}
+                      </p>
+                      <p class="font-14">
+                        <label class="orange">CAR : </label>
+                        {{ PlanData.vehicleDesc }}
+                      </p>
+                      <a (click)="onClickEditCarInfo()" class="change-insurer"><i class="fa fa-pencil-square-o"
+                          aria-hidden="true"></i>
+                        Edit</a>
+                    </div>
+                  </div>
+                  <div class="plan-info text-center d-none">
+                    <div class="plan-description">
+                      <p class="font-14">
+                        <label class="orange">PREMIUM : </label>
+                        <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                        {{
+                        premiumDataPlans["Premium"]
+                        | currency: "INR":"symbol":"3.0"
+                        }}
+                      </p>
+                      <p class="font-14">
+                        <label class="orange">GST(18%) : </label>
+                        <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                        {{
+                        premiumDataPlans["gst"]
+                        | currency: "INR":"symbol":"3.0"
+                        }}
+                      </p>
+                      <p class="font-14">
+                        <label class="orange">TOTAL PREMIUM : </label>
+                        <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                        {{
+                        premiumDataPlans["amountPayableIncludingGst"]
+                        | currency: "INR":"symbol":"3.0"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="plan-info text-center premium-plans">
+                    <div class="plan-description">
+                      <!-- New Fields Are Added for Renewal of vehicle-->
+                      <div *ngIf="!isNewPolicy">
+                        <p class="font-14" *ngIf="!PlanData.isTp">
+                          <label class="orange">Current No Claim Bonus (NCB) :</label>
+                          <label>
+                            <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                          </label>
+                          {{ premiumDataPlans["currentNcb"] }}%
+                        </p>
+                        <!-- <p class="font-14">
+                            <label class="orange">Past Policy Start Date :
+                            </label>
+                            <label>
+                              <i class="fa fa-calendar" aria-hidden="true"></i></label>{{
+                            pastPolicyForm.get("prvPolicyStartDate").value
+                            | date
+                            }}
+                          </p> -->
+                        <p class="font-14">
+                          <label class="orange">Past Policy Expiry Date :
+                          </label>
+                          <label>
+                            <i class="fa fa-calendar" aria-hidden="true"></i></label>{{
+                          pastPolicyForm.get("prvPolicyExpDate")?.value | date
+                          }}
+                        </p>
+                      </div>
+                      <ul class="ins-plan-list pd-popup-anchr pad0">
+                        <li>
+                          <a (click)="onClickPlanDetails(0)">Premium Breakup</a>
+                          |
+                          <a class="org-clr" [href]="
+                                PlanData.garageURL != null
+                                  ? PlanData.garageURL
+                                  : ''
+                              " target="_blank">View Garages</a>
+                        </li>
+                      </ul>
+                      <!-- <a
+                          class="change-insurer"
+                          data-toggle="modal"
+                          data-target="#carExampleModalCenter"
+                          ><i aria-hidden="true" class="fa fa-pencil"></i> Premium
+                          Breakup</a
+                        > -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Side Start-->
+              <div class="col-md-8 col-lg-9 col-12" *ngIf="!isreview">
+                <mat-horizontal-stepper [linear]="true" #stepper class="materila-card" [selectedIndex]="tabIndex"
+                  (selectionChange)="onChangeTab($event)">
+                  <!--- Car Owners Details Start-->
+                  <mat-step [completed]="isCompleted">
+                    <form [formGroup]="ownerInfoForm" #oiForm="ngForm" (ngSubmit)="onSubmitOwnerInfo()">
+                      <ng-template matStepLabel>CV Owner Details</ng-template>
+                      <div class="row pt-4">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-2 padR0">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Salutation</mat-label>
+                                <mat-select formControlName="PropGenderTitle" required>
+                                  <mat-option [value]="s.value" *ngFor="let s of salutations">
+                                    {{s.value}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-5">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Owner first name as per RC</mat-label>
+                                <input matInput appUppercase placeholder="Owner first name as per RC" appOnlyAlpha
+                                  formControlName="ownerName" required [maxlength]="60" autocomplete="off" />
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-5">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Owner last name as per RC</mat-label>
+                                <input matInput appUppercase placeholder="Owner last name as per RC" appOnlyAlpha
+                                  formControlName="ownerLastName" required [maxlength]="60" autocomplete="off" />
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 select-gender padT20">
+                          <div class="row">
+                            <label class="col-md-2 col-12">Gender</label>
+                            <div class="col-md-10 col-12">
+                              <mat-radio-group aria-label="Select an option" formControlName="gender" required>
+                                <mat-radio-button name="rbdGender" [value]="g.GenderCode + ',' + g.GenderDesc"
+                                  *ngFor="let g of genderList">
+                                  {{ g.GenderDesc }}</mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                            <div class="col-md-12 padt10" *ngIf="
+                                  ownerInfoForm.hasError('required', 'gender') &&
+                                  oiForm.submitted
+                                ">
+                              <span class="text-error">
+                                Please select your gender.
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div>
+                          <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Email Address</mat-label>
+                              <input
+                                matInput
+                                placeholder="YourName@domain.com"
+                                type="email"
+                                required
+                                formControlName="emailId"
+                                [maxlength]="70"
+                                pattern
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Date of birth</mat-label>
+                            <input matInput [matDatepicker]="dp5" (click)="dp5.open()" formControlName="dob" required
+                              [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)" [maxlength]="10"
+                              autocomplete="off" />
+                            <mat-datepicker-toggle matSuffix [for]="dp5">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field class="" appearance="outline" id="Mobile">
+                            <mat-label>Mobile Number</mat-label>
+                            <span matPrefix>+91 &nbsp;</span>
+                            <input type="tel" formControlName="mobileNo" required [maxlength]="10" appOnlyNumbers
+                              matInput placeholder="Mobile Number" autocomplete="off" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="row">
+                          <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Mobile Number</mat-label>
+                              <span matPrefix>+91 &nbsp;</span>
+                              <input
+                                type="tel"
+                                formControlName="mobileNo"
+                                required
+                                [maxlength]="10"
+                                appOnlyNumbers
+                                matInput
+                                placeholder="Mobile Number"
+                              />
+                            </mat-form-field>
+                          </div>
+  
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="field-wrapper">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Date of birth</mat-label>
+                                <input
+                                  matInput
+                                  [matDatepicker]="dp5"
+                                  formControlName="dob"
+                                  required
+                                  placeholder="02/10/1997"
+                                  [max]="getMinDate(18)"
+                                  [min]="getMinDate(99)"
+                                  [maxlength]="10"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="dp5">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker
+                                  #dp5
+                                  disabled="false"
+                                ></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div> -->
+                      <!-- <div class="col-md-6">
+                            <div class="field-wrapper">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Nominee's Name</mat-label>
+                                <input
+                                  matInput
+                                  appUppercase
+                                  placeholder="Nominee's Name"
+                                  formControlName="nomineeName"
+                                  required
+                                  appOnlyAlpha
+                                  [maxlength]="60"
+                                />
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div> -->
+                      <!-- <div class="row">
+                          <div class="col-md-6">
+                            <div class="field-wrapper">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Relationship with Nominee</mat-label>
+                                <mat-select formControlName="nomineeRelation">
+                                  <mat-option
+                                    [value]="
+                                      m.FamilyMemberCode +
+                                      ',' +
+                                      m.FamilyMemberDesc
+                                    "
+                                    *ngFor="let m of familyMemberList"
+                                  >
+                                    {{ m.FamilyMemberDesc }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="field-wrapper">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Nominee's DOB</mat-label>
+                                <input
+                                  matInput
+                                  [matDatepicker]="dp6"
+                                  formControlName="nomineeDob"
+                                  required
+                                  placeholder="02/10/1997"
+                                  [max]="getMinDate(18)"
+                                  [min]="getMinDate(99)"
+                                  [maxlength]="10"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="dp6">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker
+                                  #dp6
+                                  disabled="false"
+                                ></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <mat-form-field appearance="outline">
+                              <mat-label>GST Identification Number</mat-label>
+                              <input
+                                type="text"
+                                formControlName="gstin"
+                                [maxlength]="15"
+                                matInput
+                                appUppercase
+                                placeholder="GST Identification Number (optional)"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input matInput placeholder="Yourname@domain.com" type="email" required appTrim
+                              formControlName="emailId" [maxlength]="70" pattern autocomplete="off" />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Nominee Full Name</mat-label>
+                            <input appUppercase matInput placeholder="Nominee Full Name" formControlName="nomineeName"
+                              required appOnlyAlpha [maxlength]="60" autocomplete="off" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row padB10">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Relationship</mat-label>
+                            <mat-select formControlName="nomineeRelation">
+                              <mat-option [value]="
+                                    m.FamilyMemberCode + ',' + m.FamilyMemberDesc
+                                  " *ngFor="let m of familyMemberList">
+                                {{ m.FamilyMemberDesc }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <!-- <mat-form-field>
+                                                      <input matInput placeholder="Nominee's Age" formControlName="nomineeAge"
+                                                          type="text" appOnlyNumbers [maxlength]="2" id="nomineeage" autocomplete="off">
+                                                      <mat-error
+                                                          *ngIf="ownerInfoForm.get('nomineeAge').value < 18 && (ownerInfoForm.get('nomineeAge').touched || ownerInfoForm.get('nomineeAge').dirty)">
+                                                          Nominee must be over 18 years of age.</mat-error>
+                                                  </mat-form-field> -->
+                          <mat-form-field appearance="outline">
+                            <mat-label>Nominee DOB</mat-label>
+                            <input matInput [matDatepicker]="dp" (click)="dp.open()" formControlName="nomineeDob"
+                              required [placeholder]="date" [max]="getMinDate(18)" [min]="getMinDate(99)"
+                              [maxlength]="10" />
+                            <mat-datepicker-toggle matSuffix [for]="dp">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #dp disabled="false"></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="col-md-12 text-error text-left" *ngIf="
+                                errMsg_oi && ownerInfoForm.invalid
+                              ">
+                            {{ errMsg_oi }}
+                          </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                          <button type="submit" class="w--button w--button--orange w--button--large">
+                            Next: Communication Details
+                            <i aria-hidden="true" class="fa fa-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </mat-step>
+
+                  <!--- Personal Details Start -->
+                  <mat-step [completed]="isCompleted_pd">
+                    <form [formGroup]="addressForm" (ngSubmit)="onSubmitAddress()">
+                      <ng-template matStepLabel>Communication Address</ng-template>
+                      <div class="row pt-4">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Area</mat-label>
+                            <input matInput appUppercase appOnlyAlpha type="text" [maxlength]="150" placeholder="Area "
+                              formControlName="area" [pattern]="addressRegex" required />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Postal Address (House, Building,
+                              Street)</mat-label>
+                            <input matInput appUppercase formControlName="postalAdd" [pattern]="addressRegex" required
+                              [maxlength]="150" placeholder="Postal Address (House, Building, Street)" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- By kishori -->
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input type="text" placeholder="Select State" (keyup)="emptyAddressFieldOnError()"
+                              (focusout)="onChangeStateInput()" matInput required formControlName="state"
+                              [matAutocomplete]="autoState" />
+                            <mat-autocomplete autoActiveFirstOption (optionSelected)="onChangeState()"
+                              #autoState="matAutocomplete">
+                              <mat-option *ngFor="let s of filterState" [value]="s.StateDesc">
+                                {{ s.StateDesc }}
+                              </mat-option>
+                              <mat-option [value]="" *ngIf="!filterState">
+                                <p class="text-danger">Not Found</p>
+                              </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf='af.get("state")?.errors?.["requireMatch"]'>
+                              Please select a valid State name from the list!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input type="text" placeholder="Select City" (change)="onChangeCityInput();"
+                              (keyup)="emptyAddressFieldOnError()" matInput required formControlName="city"
+                              [matAutocomplete]="autoCity" />
+                            <mat-autocomplete autoActiveFirstOption (optionSelected)="onChangeCity()"
+                              #autoCity="matAutocomplete">
+                              <mat-option *ngFor="let c of filteredCityList | async" [value]="c.CityDesc">
+                                {{ c.CityDesc }}
+                              </mat-option>
+                              <mat-option [value]="" *ngIf="!filteredCityList">
+                                <p class="text-danger">Not Found</p>
+                              </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf='af.get("city")?.errors?.["requireMatch"]'>
+                              Please select a valid City name from the list!
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <!-- by kishori -->
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Area Pincode</mat-label>
+                            <input type="text" placeholder="Area Pincode" (focusout)="onChangePinCodeInput()" matInput
+                              required formControlName="pincode" [matAutocomplete]="autoPincode" [maxlength]="6" />
+                            <mat-autocomplete autoActiveFirstOption (optionSelected)="onChangePincode()"
+                              #autoPincode="matAutocomplete">
+                              <mat-option *ngFor="
+                                    let c of filteredautoPincodeList | async
+                                  " [value]="c.Pincode">
+                                {{c.Pincode}},{{c["Area_Name"]}}
+                              </mat-option>
+                              <mat-option [value]="" *ngIf="!filteredautoPincodeList">
+                                <p class="text-danger">Not Found</p>
+                              </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf='af.get("pincode")?.errors?.["requireMatch"]'>
+                              Please select a valid Pincode from the list!
+                            </mat-error>
+                          </mat-form-field>
+                          <!-- by kishori end -->
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="col-md-12 text-error text-left" *ngIf="errMsg_add && addressForm.invalid">
+                            {{ errMsg_add }}
+                          </div>
+                        </div>
+                        <!-- <div class="col-md-6 text-right">
+                            <input
+                              type="button"
+                              (click)="onClickBack(1)"
+                              class="w--button w--button--orange w--button--large"
+                              style="margin-right: 10px"
+                              value="Back"
+                            />
+                            <button
+                              type="submit"
+                              class="w--button w--button--orange w--button--large"
+                            >
+                              Next, Vehicle Details
+                            </button>
+                          </div> -->
+                        <div class="col-md-6 text-right">
+                          <input type="button" class="w--button w--button--orange w--button--large marR10" value="Back"
+                            (click)="onClickBack(0)" autocomplete="off" />
+                          <button type="submit" class="w--button w--button--orange w--button--large">
+                            Next: Vehicle Details
+                            <i aria-hidden="true" class="fa fa-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </mat-step>
+                  <!-- changes by kishori -->
+                  <!---- Vehicle Details Start -->
+                  <mat-step [completed]="isCompleted_vd">
+                    <form [formGroup]="vehicleDetailForm" (ngSubmit)="onSubmitVehicleInfo()">
+                      <ng-template matStepLabel>Vehicle Details</ng-template>
+                      <div class="row pt-4">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline" id="RTO">
+                            <mat-label [ngClass]="'reg-no'">Registration No.</mat-label>
+                            <span matPrefix>{{ selectedRto }}</span>
+                            <input matInput appUppercase [textMask]="vehicleMask" [required]="!isNewPolicy"
+                              formControlName="regNo" [maxlength]="8" autocomplete="off" />
+                          </mat-form-field>
+                          <!-- <mat-form-field appearance="outline">
+                              <mat-label>Car Registration No.</mat-label>
+                              <input
+                                matInput
+                                [textMask]="vehicleMask"
+                                appUppercase
+                                placeholder="Car Registration No."
+                                formControlName="regNo"
+                                [maxlength]="13"
+                              />
+                            </mat-form-field> -->
+                        </div>
+                        <div class="col-md-6">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>CV registration date</mat-label>
+                              <input matInput [matDatepicker]="dp2" (click)="!isNewPolicy && dp2.open()"
+                                formControlName="regDate" [placeholder]="date" [max]="maxDate" [min]="minDate"
+                                [maxlength]="10" [readonly]='isNewPolicy' />
+                              <mat-datepicker-toggle matSuffix [for]="dp2" [hidden]='isNewPolicy'>
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+                              <mat-error *ngIf='vehicleDetailForm.get("regDate")?.errors?.["dateError"]'>Policy older
+                                than 9
+                                years & 9 months can't be renewed</mat-error>
+                              <mat-error
+                                *ngIf='vehicleDetailForm.get("regDate")?.errors?.["postPolicyDateError"]'>Policy
+                                expiring within 9 months from the Registration date , can't be renewed</mat-error>
+                              <mat-error *ngIf='vehicleDetailForm.get("regDate")?.errors?.["OdError"]'> This policy is
+                                not
+                                allowed, please select Comprehensive to proceed further. </mat-error>
+                              <mat-error *ngIf='vehicleDetailForm.get("regDate")?.errors?.["CompError"]'> This policy is
+                                not
+                                allowed, please select Own Damage to proceed further. </mat-error>
+                              <mat-error *ngIf='vehicleDetailForm.get("regDate")?.errors?.["dateErrorSept2018"]'>Policy
+                                having
+                                Vehicle Registration date before 1/09/2018 can't be renewed with selected policy type.
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Engine No.</mat-label>
+                            <!-- [maxlength]="25" -->
+                            <input matInput appUppercase appDisallowWhitespace placeholder="Engine No."
+                              formControlName="engineNo" [maxlength]="17" required [minlength]="5" />
+                          </mat-form-field>
+                          <mat-error *ngIf="vehValid?.['engineNo']?.errors?.['pattern']">
+                            Please enter a valid engine no.
+                          </mat-error>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Chassis No.</mat-label>
+                            <!-- [maxlength]="17" -->
+                            <input matInput appUppercase appDisallowWhitespace placeholder="Chassis No."
+                              formControlName="chassisNo" [maxlength]="17" required [minlength]="10" />
+                          </mat-form-field>
+                          <mat-error *ngIf="vehValid?.['chassisNo']?.errors?.['pattern']">
+                            Please enter a valid Chassis no.
+                          </mat-error>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 padT20">
+                          <div class="row">
+                            <label class="col-md-6">Is CV currently on Finance/Hypothecation?</label>
+                            <div class="col-md-6">
+                              <mat-radio-group aria-label="Select an option" formControlName="onMortgage" required>
+                                <mat-radio-button name="rbdMortgage" [value]="i.value" *ngFor="let i of yesNoList">{{
+                                  i.viewValue }}
+                                </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="vehicleDetailForm.get('onMortgage')?.value == 1">
+                        <div class="col-md-6">
+                          <!-- <mat-form-field appearance="outline">
+                              <input
+                                matInput
+                                appUppercase
+                                placeholder="Bank Name"
+                                formControlName="bankName"
+                                [maxlength]="60"
+                              />
+                            </mat-form-field> -->
+                          <mat-form-field appearance="outline">
+                            <mat-label>Financer Name</mat-label>
+                            <input type="text" appUppercase placeholder="Select Bank" [maxlength]="100" matInput
+                              required formControlName="bankName" [matAutocomplete]="autoBank" />
+                            <mat-autocomplete [disableRipple]="false" autoActiveFirstOption
+                              (optionSelected)="onChangeBank()" #autoBank="matAutocomplete">
+                              <mat-option *ngFor="let b of filterMortgageBankList | async"
+                                [value]="b.MortgageLBankName">
+                                {{ b.MortgageLBankName }}
+                              </mat-option>
+                              <mat-option [value]="" *ngIf="!filterMortgageBankList">
+                                <p class="text-danger">Not Found</p>
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Financer Address</mat-label>
+
+                            <input matInput appUppercase appTrim placeholder="Bank Address"
+                              formControlName="bankAddress" [maxlength]="190" [pattern]="addressRegex" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="col-md-12 text-error text-left" *ngIf="
+                                errMsg_vd && vehicleDetailForm.invalid
+                              ">
+                            {{ errMsg_vd }}
+                          </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                          <input type="button" (click)="onClickBack(1)"
+                            class="w--button w--button--orange w--button--large marR10" value="Back" />
+                          <button *ngIf="!isNewPolicy" type="submit"
+                            class="w--button w--button--orange w--button--large">
+                            Next: Past Policy Details
+                            <i aria-hidden="true" class="fa fa-arrow-right"></i>
+                          </button>
+                          <button *ngIf="isNewPolicy" type="submit"
+                            class="w--button w--button--orange w--button--large">
+                            Next: Review & Pay
+                            <i aria-hidden="true" class="fa fa-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </mat-step>
+                  <!-- Communiation Detail Start -->
+                  <mat-step *ngIf="!isNewPolicy" [completed]="isCompleted_add">
+                    <form [formGroup]="pastPolicyForm" #ppForm="ngForm" (ngSubmit)="onSubmitPastPolicy()">
+                      <ng-template matStepLabel>Past Policy Details</ng-template>
+                      <div class="row pt-4">
+                        <div class="col-md-6" *ngIf="!isNewPolicy">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Previous Policy Start Date</mat-label>
+                              <input matInput [matDatepicker]="dp4" (click)="dp4.open()" [max]="maxDate"
+                                (dateChange)="calculateDiff()" [maxlength]="10" required [min]="minDate"
+                                formControlName="prvPolicyStartDate" [placeholder]="date" autocomplete="off" />
+                              <!--previous version was [max]="getMaxDate(1)"
+                                      && [min]="getMinDate(0)-->
+                              <mat-datepicker-toggle matSuffix [for]="dp4">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <div class="text-error" *ngIf="InvalidDate != ''">
+                              {{ InvalidDate }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Previous Policy Expiry Date</mat-label>
+                              <!-- by kishori -->
+                              <input matInput [matDatepicker]="dp3" (click)="dp3.open()" [max]="getMaxDate(3)"
+                                (dateChange)="calculateDiff()" [maxlength]="10" required [min]="getMinDate(0)"
+                                formControlName="prvPolicyExpDate" [placeholder]="date" autocomplete="off" />
+                              <mat-datepicker-toggle matSuffix [for]="dp3">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <div class="text-error" *ngIf="InvalidDate != ''">
+                              {{ InvalidDate }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Previous Policy Insurer</mat-label>
+                              <input type="text" placeholder="Previous Policy Insurer " matInput required
+                                formControlName="prvPolicyInsurer" [matAutocomplete]="autoPPInsurer" />
+                              <mat-autocomplete autoActiveFirstOption (optionSelected)="onChangePPInsurer()"
+                                #autoPPInsurer="matAutocomplete">
+                                <mat-option *ngFor="let item of ppInsurerList | async"
+                                  [value]="item.InsuranceCompanyDesc">
+                                  {{ item.InsuranceCompanyDesc }}
+                                </mat-option>
+                                <mat-option [value]="" *ngIf="!ppInsurerList">
+                                  <p class="text-danger">Not Found</p>
+                                </mat-option>
+                              </mat-autocomplete>
+                              <!-- by kishori end -->
+                              <!-- <mat-select
+                                  formControlName="prvPolicyInsurer"
+                                  required
+                                >
+                                  <mat-option
+                                    [value]="
+                                      item.InsuranceCompanyCode +
+                                      ',' +
+                                      item.InsuranceCompanyDesc
+                                    "
+                                    *ngFor="let item of insuCompanyList"
+                                  >
+                                    {{ item.InsuranceCompanyDesc }}
+                                  </mat-option>
+                                </mat-select> -->
+                              <mat-error *ngIf='pf.get("prvPolicyInsurer")?.errors?.["requireMatch"]'>
+                                Please select a valid option from the list!
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Previous Policy Number</mat-label>
+                              <input matInput appUppercase placeholder="Previous Policy Number"
+                                formControlName="prvPolicyNo" required [maxLength]="21" autocomplete="off" />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="PlanData.isOdOnly">
+                        <div class="col-md-6">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Third Party Policy Inception Date</mat-label>
+                              <!-- [max]="getMaxDate(1)"
+                                [min]="getMinDate(0)" -->
+                              <input matInput [matDatepicker]="dp7" (click)="dp7.open()" (dateChange)="calculateDiff()"
+                                [maxlength]="10" required formControlName="thirdPartyPolicyIncepDate"
+                                [placeholder]="date" autocomplete="off" />
+                              <mat-datepicker-toggle matSuffix [for]="dp7">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #dp7 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <div class="text-error" *ngIf="InvalidDate != ''">
+                              {{ InvalidDate }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="PlanData.isOdOnly">
+                          <div class="field-wrapper">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Third Party Policy Expiry Date</mat-label>
+                              <!-- [max]="getMaxDate(1)"
+                                [min]="getMinDate(0)" -->
+                              <input matInput [matDatepicker]="dp8" (click)="dp8.open()" (dateChange)="calculateDiff()"
+                                [maxlength]="10" required formControlName="thirdPartyPolicyExpDate" [placeholder]="date"
+                                autocomplete="off" />
+                              <mat-datepicker-toggle matSuffix [for]="dp8">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #dp8 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <div class="text-error" *ngIf="InvalidDate != ''">
+                              {{ InvalidDate }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- <div
+                            class="col-md-6"
+                            style="padding-top: 20px"
+                            *ngIf="!PlanData.isTp"
+                          >
+                            <div class="row">
+                              <label class="col-md-6"
+                                >Claimed in the past year?</label
+                              >
+                              <div class="col-md-6">
+                                <mat-radio-group
+                                  aria-label="Select an option"
+                                  formControlName="claimInPrvYear"
+                                  required
+                                >
+                                  <mat-radio-button
+                                    name="rbdClaim"
+                                    [value]="i.value"
+                                    *ngFor="let i of yesNoList"
+                                    >{{ i.viewValue }}
+                                  </mat-radio-button>
+                                </mat-radio-group>
+                              </div>
+                              <div
+                                class="col-md-12"
+                                style="margin-top: -10px"
+                                *ngIf="
+                                  pastPolicyForm.hasError(
+                                    'required',
+                                    'claimInPrvYear'
+                                  ) && ppForm.submitted
+                                "
+                              >
+                                <span class="text-error">
+                                  Please select your claim status.
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="row">
+                          <div
+                            class="col-md-6"
+                            *ngIf="
+                              pastPolicyForm.get('claimInPrvYear').value &&
+                              !PlanData.isTp
+                            "
+                          >
+                            <mat-form-field appearance="outline">
+                              <mat-label>Previous No Claim Bonus (NCB)</mat-label>
+                              <mat-select formControlName="ncb">
+                                <mat-option
+                                  [value]="ncb.id + ',' + ncb.value"
+                                  *ngFor="let ncb of NCBList"
+                                >
+                                  {{ ncb.value }} %
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-error class="col-md-12 text-error text-left"
+                            *ngIf='pastPolicyForm.errors?.["expiryDateError"] && pastPolicyForm.get("thirdPartyPolicyExpDate")?.dirty'>
+                            Stand-alone OD policy can't be renewed if your third party policy has already expired!
+                          </mat-error>
+                          <div class="col-md-12 text-error text-left" *ngIf="errMsg_pp && pastPolicyForm.invalid">
+                            {{ errMsg_pp }}
+                          </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                          <input class="w--button w--button--orange w--button--large marR10" type="button" value="Back"
+                            (click)="onClickBack(2)" autocomplete="off" />
+                          <button class="w--button w--button--orange w--button--large" type="submit">
+                            {{yearChanged ? 'Verify Premium' : 'Next: Review & Pay'}}
+                            <i aria-hidden="true" class="fa fa-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </mat-step>
+                </mat-horizontal-stepper>
+              </div>
+              <div class="col-md-9 mr-auto ml-auto text-center" *ngIf="isreview">
+                <app-review-pay [reviewData]="postData" (onClickEdit)="onClickEdit($event)"
+                  (onPageVisible)='takeScreenShot()' [isNewPolicy]="isNewPolicy">
+                </app-review-pay>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-cv-plan-and-premium-details #cpp [data]="premiumDataPlans">
+</app-cv-plan-and-premium-details>
+
+<!-- New Premium Modal -->
+<!-- <div id="newPremiumModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Your Premium has changed!</h4>
+        </div>
+        <div class="modal-body">
+          <div class="p-3 d-flex flex-column align-items-center">
+            <p class="p-2"><b>Old Premium</b> : {{oldPremium |
+              currency:"INR":"symbol":"3.0"}}</p>
+            <h4 class="p-2"><b>New Premium</b> : {{newPremium | currency:"INR":"symbol":"3.0"}}</h4>
+          </div>
+          <button class="btn btn-primary btn-lg btn-block" (click)='onSubmitNewPolicyPayment()'>Pay {{newPremium |
+            currency:"INR":"symbol":"3.0"}}</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div> -->
+
+
+<!-- New Premium Modal changes by kishori id="newPremiumModal"-->
+<div class="modal fadein policyexpiry" [ngStyle]="{'display' : this.newPremiumModal}" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Your Premium has changed!</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closeModalDialog()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="pt-1"><b>Old Premium : {{oldPremium |
+                currency:"INR":"symbol":"3.0"}}</b></h6>
+          </div>
+          <div class="col-md-6 text-right">
+            <h6 class="pt-1"><b>New Premium : {{newPremium | currency:"INR":"symbol":"3.0"}}</b></h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-success btn-md" (click)='onSubmitNewPolicyPayment()'>Continue with new
+          Premium
+          <i aria-hidden="true" class="fa fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- changes by kishori end -->
+<!-- plan details Modal popup -->
+<!-- <div class="modal fade Plan_Details" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content modal-lg">
+              <div class="modal-body">
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-md-3" style="padding: 0px;">
+                              <div class="plan_card">
+                                  <div class="company_logo">
+                                      <img src="./assets/img/insurance/icici.png" alt="">
+                                  </div>
+                                  <label class="price">Cover Value(IDV) :
+                                      <strong> <i aria-hidden="true" class="fa fa-rupee marL5"></i> 2,11,956 </strong>
+                                  </label>
+                                  <p class="claim">New No Claim Bonus</p>
+                                  <p class="claim">(NCB): <strong> 35% </strong></p>
+                                  <button class="btn communication-address" type="submit" style="margin-top: 15px;">
+                                      Buy Now <br> <i aria-hidden="true" class="fa fa-inr"></i> 7,433
+                                  </button>
+                              </div>
+                          </div>
+                          <div class="col-md-9">
+                              <mat-tab-group [(selectedIndex)]="selectedIndex">
+                                  <mat-tab label="Premium Breakup">
+                                      <div class="col-md-8 mx-auto" style="padding-top: 20px;">
+                                          <table class="Premium_Breakup">
+                                              <tr>
+                                                  <th>Basic Covers</th>
+                                              </tr>
+                                              <tr>
+                                                  <td>Basic OD Premium</td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> 2,187</td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="padding-bottom: 20px;">Basic TP Premium</td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> 2,187</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Addon Covers</th>
+                                              </tr>
+                                              <tr>
+                                                  <td style="padding-bottom: 20px;">Personal Accident Cover</td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> 2,187</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Discounts</th>
+                                              </tr>
+                                              <tr style="border-bottom: 1px solid #d4d4d4;">
+                                                  <td>No Claim Bonus</td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> -350</td>
+                                              </tr>
+                                              <tr style="color: #2a4798;">
+                                                  <td style="padding-bottom: 20px;">Premium:</td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> 3,744</td>
+                                              </tr>
+                                              <tr>
+                                                  <th>Taxes</th>
+                                              </tr>
+                                              <tr style="border-bottom: 1px solid #d4d4d4;">
+                                                  <td>GST (18%)</td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> 674</td>
+                                              </tr>
+                                              <tr style="color: #2a4798;">
+                                                  <td>Amount payable including GST </td>
+                                                  <td><i aria-hidden="true" class="fa fa-rupee"></i> 4,418</td>
+                                              </tr>
+                                          </table>
+                                      </div>
+                                  </mat-tab> -->
+<!-- <mat-tab label="Plan Details"> Content 2 </mat-tab> -->
+<!-- <mat-tab label="Cashless Garages">
+                                      <br>
+                                      <div class="container">
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                  <select name="state" class="form-control">
+                                                      <option value="">Select State</option>
+                                                      <option value="1">Madhya Pradesh</option>
+                                                      <option value="1">Andhra Pradesh</option>
+                                                  </select>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <select name="state" class="form-control">
+                                                      <option value="">Select City</option>
+                                                      <option value="1">Ambikanagara</option>
+                                                      <option value="1">Bagalkot</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <br>
+                                      <div class="container">
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                  <p>9 garages found in your area</p>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <table style="width: 100%">
+                                                      <tr style="border-bottom: 1px solid #d2d2d2;">
+                                                          <th style="width: 80%;">Garage</th>
+                                                          <th style="width: 20%;">Contact Number</th>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>M/S.Canaraa Auto Centre</td>
+                                                          <td>9611898939</td>
+                                                      </tr>
+                                                      <tr style="border-bottom: 1px solid #d2d2d2;">
+                                                          <td style="font-size: 14px; padding-bottom: 10px;">No.- 24,26,
+                                                              4Th Main Santhurpti
+                                                              Nagar, Kothnoor Main Road,
+                                                              Jp Nagar 7Th Phase Bangalore</td>
+                                                          <td></td>
+                                                      </tr>
+                                                      <tr style="padding-top: 10px;">
+                                                          <td>M/S.Fast Cars Auto Services Llp</td>
+                                                          <td>9880133887</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="font-size: 14px;">No.- 24,26, 4Th Main Santhurpti
+                                                              Nagar, Kothnoor Main Road,
+                                                              Jp Nagar 7Th Phase Bangalore</td>
+                                                      </tr>
+                                                  </table>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </mat-tab>
+                              </mat-tab-group>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> -->
+<!-- <div class="row" *ngIf="!isNewPolicy">
+          <div class="col-md-6">
+            <div class="field-wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Previous policy expiry date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="dp3"
+                  [max]="getMaxDate(1)"
+                  [maxlength]="10"
+                  [min]="getMinDate(0)"
+                  formControlName="prvPolicyExpDate"
+                  placeholder="01/02/2020"
+                />
+                <mat-datepicker-toggle matSuffix [for]="dp3">
+                </mat-datepicker-toggle>
+                <mat-datepicker
+                  #dp3
+                  disabled="false"
+                ></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="field-wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label
+                  >Select Your Previous Policy Insurer</mat-label
+                >
+                <mat-select formControlName="prvPolicyInsurer">
+                  <mat-option
+                    [value]="
+                      item.InsuranceCompanyCode +
+                      ',' +
+                      item.InsuranceCompanyDesc
+                    "
+                    *ngFor="let item of insuCompanyList"
+                  >
+                    {{ item.InsuranceCompanyDesc }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                appUppercase
+                placeholder="Previous Policy Number"
+                formControlName="prvPolicyNo"
+                [maxLength]="21"
+              />
+            </mat-form-field>
+          </div>
+        </div> -->

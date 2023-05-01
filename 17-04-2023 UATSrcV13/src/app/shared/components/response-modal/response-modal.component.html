@@ -1,0 +1,38 @@
+<div class="modal fadein  policyexpiry Plan_Details" [ngStyle]="{'display': showResponse == true ?  'block' : 'none'}"
+    tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" #screen>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-md">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Plan's Response For Application No.({{ApplicationNo}})
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="scroller">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="additionaldata">
+                            <th mat-header-cell *matHeaderCellDef> Company Name </th>
+                            <td mat-cell *matCellDef="let responseDetails">
+                                {{responseDetails.data.APIMethod.split("/")[0]}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="msg">
+                            <th mat-header-cell *matHeaderCellDef> Response </th>
+                            <td mat-cell *matCellDef="let responseDetails"> {{responseDetails.result.msg}} </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+.mat-card
+{
+	margin-bottom: 70px;
+	background: #f7fafc;
+}
+.Profile
+{
+    margin-bottom: 15px;
+}
+.photo
+{
+    height: 100px;
+    width: 100px;
+    border: 2px solid #a4b1bd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.photo img
+{
+    border-radius: 5px;
+}
+.profile a
+{
+    color: #7c7e86;
+}
+.personal_information
+{
+    margin-bottom: 0px;
+}
+.Document_Uploader ul li
+{
+    margin-bottom: 8px;;
+}
+.Document_Uploader a
+{
+    color: #ec691f;
+}
+.personal-info1{
+	border: 1px solid #9c9999;
+	padding-top: 1.25em;
+	margin-bottom: 30px;
+}
+.personal-info1 .form-group{
+	margin-bottom: 0;
+}
+.divprofile-register h4.color-black{
+	font-weight: 400 !important;
+    background: #f7fafc;
+    position: absolute !important;
+    top: -9px !important;
+	padding: 0 10px 0 10px !important;
+	font-size: 1rem !important;
+	color: #ec691f;
+}
+
+a{
+				color:#ec691f;
+			}
+			.profile-section img{
+				width:250px;
+			}
+			.document-uploader ul{
+				padding-left: 20px;
+			}
+			.document-uploader ul li{
+				margin-bottom:10px;
+			}
+			.mb-2{
+				font-weight:100;
+			}
+			.btnupdate{
+				float:right;
+				margin-right: 16px;
+				background-color:#ec691f;
+				border-color:#ec691f;
+			}
+			.btnupdate:hover{
+				background-color:#ec691f;
+				border-color:#ec691f;
+			}

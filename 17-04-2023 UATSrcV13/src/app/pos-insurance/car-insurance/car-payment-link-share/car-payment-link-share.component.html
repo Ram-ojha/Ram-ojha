@@ -1,0 +1,515 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<app-headerforsharedlink></app-headerforsharedlink>
+<div class="bikeinsurance">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12" *ngIf="reviewData">
+        <div class="row">
+          <div class="col-md-3">
+            <div
+              class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end bike_last_details">
+              <div class="row">
+                <div class="insurance-company-image plan-info text-center">
+                  <img src='{{ "./assets/img/company-logos/motor/" +  reviewData.imageName  }}'
+                    class="img-responsive" />
+                </div>
+                <div class="plan-info text-center">
+                  <div class="plan-description">
+                    <p class="font-14 d-none">
+                      <label class="orange">IDV:</label>
+                      <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                      {{ reviewData && (reviewData.MinIDVVAlue | currency: "INR":"symbol":"3.0") }}
+                    </p>
+
+                    <p class="font-14">
+                      <label class="orange">Policy Type :</label>
+                      {{
+                      reviewData && (reviewData["isComprehensive"]
+                      ? "Comprehensive"
+                      : reviewData["isTp"]
+                      ? "Third Party"
+                      : "Own Damage")
+                      }}
+                    </p>
+                    <!-- <p class="font-14" *ngIf="reviewData.zeroDp || reviewData.pacover">
+                    <label class="orange">Addons : </label>
+                    <span *ngIf="
+                        reviewData.zeroDp && reviewData.pacover;
+                        else elseblock
+                      ">
+                      {{ reviewData.zeroDp ? "Zero Depreciation" : "" }},
+                      {{ reviewData.pacover ? "Personal Accident" : "" }}
+                    </span>
+                    <ng-template #elseblock>
+                      {{ reviewData.zeroDp ? "Zero Depreciation" : "" }}
+                      {{ reviewData.pacover ? "Personal Accident" : "" }}
+                    </ng-template>
+                  </p> -->
+                    <p class="font-14 d-none">
+                      <label class="orange">TENURE :</label>
+                      {{reviewData && (reviewData.policyTenure) }} Years
+                    </p>
+                    <p class="font-14 d-none">
+                      <label class="orange">Registration Date :</label>{{ reviewData && (reviewData.regDate | date)
+                      }}
+                    </p>
+                    <!-- <a (click)="onClickChangeInsurer()" class="change-insurer"><i class="fa fa-pencil-square-o"
+                      aria-hidden="true"></i> Edit</a> -->
+                  </div>
+                </div>
+                <div class="plan-info text-center premium-plans">
+                  <div class="plan-description">
+                    <p class="font-14">
+                      <label class="orange">RTO :</label> {{reviewData && (reviewData.VehicleRTODesc) }}
+                    </p>
+                    <p class="font-14">
+                      <label class="orange">CAR :</label>
+                      {{reviewData && (reviewData.VehicleDesc) }}
+                    </p>
+                    <!-- <a (click)="onClickEditVehicleInfo()" class="change-insurer"><i class="fa fa-pencil-square-o"
+                      aria-hidden="true"></i> Edit</a> -->
+                  </div>
+                </div>
+                <div class="plan-info text-center premium-plans d-none">
+                  <div class="plan-description">
+                    <p class="font-14">
+                      <label class="orange">PREMIUM :</label>
+                      <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                      {{ reviewData &&(reviewData.PolicyPremiumAmount | currency: "INR":"symbol":"3.0") }}
+                    </p>
+                    <!-- 6,299 -->
+                    <p class="font-14">
+                      <label class="orange">GST(18%) :</label>
+                      <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                      {{reviewData && (reviewData.PlanRequest.NetPremium | currency: "INR":"symbol":"3.0") }}
+                    </p>
+                    <!-- 1,134 -->
+                    <p class="font-14">
+                      <label class="orange">TOTAL PREMIUM :</label>
+                      <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                      {{
+                      reviewData &&(reviewData.PlanRequest.NetPremium
+                      | currency: "INR":"symbol":"3.0")
+                      }}
+                    </p>
+                    <!-- 7,433 -->
+                  </div>
+                </div>
+                <div class="plan-info text-center premium-plans">
+                  <div class="plan-description">
+                    <!-- New Fields Are Added for Renewal of vehicle-->
+                    <div *ngIf="!isNewPolicy">
+                      <!-- <p class="font-14" *ngIf="!reviewData.isTp">
+                      <label class="orange">Current No Claim Bonus (NCB) : </label>
+                      {{ reviewData.currentNcb }}%
+                    </p> -->
+                      <!-- <p class="font-14">
+                      <label class="orange">Past Policy Start Date : </label>
+                      <label>
+                        <i class="fa fa-calendar" aria-hidden="true"></i></label>{{
+                      pastPolicyForm.get("prvPolicyStartDate").value | date
+                      }}
+                    </p> -->
+                      <p class="font-14">
+                        <label class="orange">Past Policy Expiry Date : </label>
+                        <label>
+                          <i class="fa fa-calendar" aria-hidden="true"></i></label>{{
+                        reviewData && (reviewData.PreviousPolicyExpDate ) }}
+                      </p>
+                    </div>
+
+                    <!-- <ul class="ins-plan-list pd-popup-anchr pad0">
+                    <li>
+                      <a >Premium Breakup</a> |
+                      <a class="org-clr" [href]="
+                          reviewData.garageURL != null ? reviewData.garageURL : ''
+                        " target="_blank">View Garages</a>
+                    </li>
+                  </ul> -->
+                    <!-- <a (click)="onClickPlanDetails(0)" class="change-insurer"
+                    ><i aria-hidden="true" class="fa fa-eye"></i> Premium
+                    Breakup</a
+                  > -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div
+              class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end bike_last_details">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="bike_owner_header">
+                    <label>CAR OWNER DETAILS</label>
+                    <!-- <label class="edit">
+                <a (click)="onEditClick(0)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+                </a>
+              </label> -->
+                  </div>
+                  <div class="bike_owner_details">
+                    <div>
+                      <span>First Name: {{ reviewData.VechileOwnerName }}</span>
+                    </div>
+                    <div>
+                      <span>Last Name: {{ reviewData.VehicleOwnerLastName }}</span>
+                    </div>
+                    <div>
+                      <span>Gender: {{ reviewData.GenderCodeDesc }}</span>
+                    </div>
+                    <div>
+                      <span>DOB: {{ reviewData.DOB }}</span>
+                    </div>
+                    <div>
+                      <span>Mobile Number: {{ reviewData.MobileNo }}</span>
+                    </div>
+                    <div>
+                      <span>Email Id: {{ reviewData.EmailID }}</span>
+                    </div>
+                    <div>
+                      <!-- <span>Nominee: ad,</span> -->
+                      <span>Nominee Full Name:&nbsp;{{ reviewData.NomineeName }}</span>
+                    </div>
+                    <div>
+                      <span>Nominee DOB:&nbsp;{{ reviewData.NomineeDOB }}</span>
+                    </div>
+                    <div>
+                      <span>Nominee Relation :&nbsp;{{ reviewData.RelationshipDesc }}</span>
+                    </div>
+                  </div>
+                  <div class="bike_owner_header">
+                    <label>COMMUNICATION ADDRESS</label>
+                    <!-- <label class="edit">
+                <a (click)="onEditClick(1)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+                </a>
+              </label> -->
+                  </div>
+                  <div class="bike_owner_details">
+                    <div>
+                      <span>Area: {{ reviewData.Area}}</span>
+                    </div>
+                    <div>
+                      <span>Postal Address: {{ reviewData.PostalAdd }}</span>
+                    </div>
+                    <div>
+                      <span>Pincode: {{ reviewData.PINCode }}</span>
+                    </div>
+                    <div>
+                      <span>City: {{ reviewData.CityDesc }}</span>
+                    </div>
+                    <div>
+                      <span>State: {{ reviewData.StateDesc }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="bike_owner_header" *ngIf="!isNewPolicy">
+                    <label>PAST POLICY DETAILS</label>
+                    <!-- <label class="edit">
+                    <a (click)="onEditClick(3)">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+                    </a>
+                  </label> -->
+                  </div>
+                  <div class="bike_owner_details" *ngIf="!isNewPolicy">
+                    <div>
+                      <span>Previous Policy Start Date:
+                        {{ reviewData && (reviewData.PreviousPolicyStartDate) }}</span>
+                    </div>
+                    <div>
+                      <span>Previous Policy Expiry Date:
+                        {{ reviewData && (reviewData.PreviousPolicyExpDate) }}</span>
+                    </div>
+                    <div>
+                      <span>Previous Policy insurer:&nbsp;{{
+                        reviewData && (reviewData.PreviousPolicyInsurerDesc)
+                        }}</span>
+                    </div>
+                    <div>
+                      <span>Previous Policy No.: {{ reviewData && (reviewData.PreviousPolicyNo) }}</span>
+                    </div>
+                  </div>
+                  <div class="bike_owner_header">
+                    <label>VEHICLE DETAILS</label>
+                    <!-- <label class="edit">
+                    <a (click)="onEditClick(2)">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i> EDIT
+                    </a>
+                  </label> -->
+                  </div>
+                  <div class="bike_owner_details">
+                    <div>
+                      <span>Registration Number:&nbsp;{{reviewData && (reviewData.VechileRegNo) }}</span>
+                    </div>
+                    <div>
+                      <span>Registration Date:&nbsp;{{ reviewData && (reviewData.VechileRegDate) }}</span>
+                    </div>
+                    <div>
+                      <span>Engine Number:&nbsp;{{ reviewData && (reviewData.VechileEngineNo) }}</span>
+                    </div>
+                    <div>
+                      <span>Chassis Number:&nbsp;{{ reviewData && (reviewData.VechileChassisNo) }}</span>
+                    </div>
+                    <div>
+                      CAR on Mortgage: {{reviewData && (reviewData.MortgageIndDesc)}}
+                    </div>
+                    <div *ngIf="reviewData && reviewData.MortgageInd == 1 ">
+                      <div>
+                        <span>Loan Provider Name:&nbsp;{{ reviewData && (reviewData.MortgageLBankName) }}</span>
+                      </div>
+                      <div>
+                        <span>Loan Provider Address:&nbsp;{{reviewData &&(reviewData.MortgageBankAddress)}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="custom-control tnc custom-checkbox mb-3 px-0" style="text-align: left">
+                    <mat-checkbox [formControl]="termAndCon">
+                      The information provided by me is correct. I have understood all terms
+                      & conditions related to the policy. <br />
+                      I authorise Hamara Bima Insurance Brokers Pvt. Ltd. to coordinate with
+                      the insurance company on my behalf.<br />
+                      I authorise Hamara Bima Insurance Brokers Pvt. Ltd. or it's authorised
+                      representative to contact me in relation to my policy via SMS, call,
+                      e-Mail or Whatsapp.
+                    </mat-checkbox>
+                  </div>
+                </div>
+                <div class="col-md-12 text-center text-error" *ngIf="errMsg && !termAndCon.value">
+                  {{ errMsg }}
+                </div>
+                <!-- {{termAndCon.value}} -->
+                <div class="col-md-12 text-center">
+                  <button type="button" (click)="onSubmitPay(termAndCon.value)" [disabled]="!termAndCon.value"
+                    class="btn communication-address" type="submit">
+                    <!-- <i class="fa fa-inr" aria-hidden="true"></i> -->
+                    {{sessData.PlanRequest.NetPremium | currency: "INR":"symbol":"3.0" }} Payment
+                  </button>
+                  <div class="c-timer ">
+                    <h3 *ngIf="!displayNone" class="blink_me" [ngClass]="{'blink_me': changetored}"
+                      [ngStyle]="{'color': changetored ? 'red' : 'black' }"> Pay Before : {{display}}</h3>
+                    <h3 *ngIf="displayNone" class="text-danger"> Time Out </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end bike_last_details">
+
+  <!-- Break in case -->
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button> -->
+
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="BreakInCase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Break in Inspection</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="breakInCase" (ngSubmit)="onSubmitBreakInCase()">
+          <div class="col-md-12">
+            <mat-form-field appearance="legacy">
+              <mat-label>OD Meter</mat-label>
+              <input matInput formControlName="odometer" [maxlength]="8" appOnlyNumbers>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field appearance="legacy">
+              <mat-label>Inspection Type</mat-label>
+              <mat-select formControlName="InpectionType">
+                <mat-option value="0">Self</mat-option>
+                <mat-option value="1">Agent</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field appearance="legacy">
+              <mat-label>Mobile Number</mat-label>
+              <input matInput formControlName="MobileNo" [maxlength]="10" appOnlyNumbers>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button mat-raised-button data-dismiss="modal" style="background-color: #ec691f; color: white" (click)="onSubmitBreakInCase()">Submit & Next</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+  <!-- Break in case end -->
+  <!-- Break in case status -->
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#breakInCaseStatus">
+  Launch demo modal
+</button> -->
+
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="breakInCaseStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Break in Inspection Check Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center">{{ReturnKeyOfPaymentMsg}}</h4>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button mat-raised-button [disabled]="countDownValue != 0" (click)="onSubmitBreakInCaseStatus()" style="background-color: #ec691f; color: white">{{countDownValue != 0?'Please wait ':''}}{{ countDownValue == 0?"Check Status":countDownValue | timerformat}}</button>
+        <button mat-raised-button [hidden]="ReturnKeyOfPaymentMsg!='accepted'" style="background-color: #ec691f; color: white" (click)="requestPayment()"><i class="fa fa-inr" aria-hidden="true"></i>
+          {{ sessData.premiumDataPlans.AmountPayableIncludingGST }} Payment</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+  <!-- Break in case status end -->
+
+
+
+
+  <!-- Modal for Inspection from other than third party (by company only i.e. godigit) -->
+  <!-- id="BreakinCompanyInspectionModal" changes by kishori -->
+  <div class="modal fadein policyexpiry" [ngStyle]="{'display':this.BreakinCompanyInspectionModal}" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLongTitle">Break in Policy Status</h5>
+          <button type="button" class="close" data-dismiss="modal" (click)="closeModalDialog()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="col-md-12 m-auto row">
+            <p>Your Vehicle break-in case is under inspection now. The concerned company will communicate with you
+              shortly. Thank you for your patience</p>
+          </div>
+          <div class="col-md-12 m-auto row">
+            <div class="col-md-4 m-auto text-right font-weight-bold">Policy Number</div>
+            <div class="col-md-4 m-auto text-left">{{result && result[0] ? result[0].ProposalPolicyNumber : ''}}</div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-12 m-auto row">
+              <div class="col-md-4 m-auto text-right font-weight-bold">Policy Status</div>
+              <div class="col-md-4 m-auto text-left">{{result && result[0] ? result[0].ProposalStatusMsg : ''}}</div>
+            </div>
+          </div>
+          <!-- <div class="col-md-12">
+          <div class="col-md-12 m-auto row">
+            <div class="col-md-4 m-auto text-right font-weight-bold">Mobile Number</div>
+            <div class="col-md-4 m-auto text-left">{{result && result[0] ? result[0].MobileNo : ''}}</div>
+          </div>+
+        </div>
+      </div> -->
+          <div class="modal-footer d-flex justify-content-between">
+            <button mat-raised-button data-dismiss="modal" style="background-color: #ec691f; color: white"
+              routerLink='/pos/car-insurance'>Go Home
+            </button>
+
+            <button mat-raised-button data-dismiss="modal" style="background-color: #ec691f; color: white">Check Status
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- <button id="rzp-button1">Pay</button> -->
+    <!-- <script>
+    var options = {
+      "key": "rzp_test_TNM7NAj5tr8DiY", // Enter the Key ID generated from the Dashboard
+      "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "SBIGeneral",
+      "description": "M2W",
+      "image": "https:\/\/ansappsuat.sbigen.in\/SBIGTP_Dev\/images\/logo.jpg",
+      "order_id": "order_Dc9i4YihAtYtF6", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response) {
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "quote_number": '0000000001079544',
+      "sbig_partner_id": 'RazorPay',
+      "notes": {
+        "address": "Razorpay Corporate Office",
+        "merchant_order_id": "04112019113328124209"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    }
+  </script> -->
+
+
+  </div>
+
+
+
+  <div class="modal fadein policyexpiry" tabindex="-1" role="dialog" [ngStyle]="{'display': this.showPopUp}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+
+            <button type="button" class="close" (click)="closeModalDialog()" data-dismiss="modal" aria-label="Close"
+              style="
+              color: #ffffff;
+              opacity: 1;
+              margin: 0px 0px 0px 0;
+              padding: 0;
+            ">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 col-12">
+            <h2>{{msg}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

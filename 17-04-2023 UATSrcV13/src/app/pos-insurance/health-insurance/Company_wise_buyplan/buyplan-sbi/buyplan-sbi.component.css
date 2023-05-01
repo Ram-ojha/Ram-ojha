@@ -1,0 +1,675 @@
+.mat-step-header {
+  pointer-events: none !important;
+}
+.materila-card {
+  display: block;
+  box-shadow: 0px 7px 13px -5px #cecece;
+  border-radius: 5px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.plan-info i {
+  padding: 7px 2px 0px 7px !important;
+}
+
+.pad0 {
+  padding: 0px;
+}
+
+.padR0 {
+  padding-right: 0px;
+}
+
+.insurer_apply {
+  border: solid 1px #d2d2d2;
+  box-shadow: 0px 7px 13px -5px #cecece;
+  float: left;
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  border-radius: 0px;
+  margin-bottom: 5px;
+}
+.insurer_apply span.mat-checkbox-label {
+  line-height: 24px;
+  white-space: normal;
+  font-size: 16px;
+  font-weight: 500;
+}
+.insurer_apply .mat-checkbox-layout {
+  margin-bottom: 0px;
+}
+.insurance_details {
+  float: left;
+  position: relative;
+  width: 100%;
+  padding: 5px 0;
+  background: #fff;
+  box-shadow: 0 2px 10px 0 rgb(18 26 31 / 32%);
+  border-radius: 5px;
+}
+.insurance_details .plan-info {
+  border-bottom: none;
+  float: left;
+  width: 100%;
+  list-style-type: none;
+  padding: 0 0;
+}
+.insurance_details .plan-info li {
+  display: block;
+  margin: 0 0 4px;
+  width: 100%;
+  float: left;
+  text-align: left;
+  font-size: 13px;
+}
+.insurance_details .plan-info li b {
+  text-align: right;
+  float: right;
+}
+.insurance_details .plan-description {
+  padding: 10px 0;
+}
+
+.insurance-company-image.plan-info img {
+  width: 100%;
+  max-width: 65%;
+  padding: 10px 0 0;
+  height: 100px;
+}
+.details_form {
+  float: left;
+  position: relative;
+  width: 100%;
+  border: solid 1px #d2d2d2;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+mat-vertical-content {
+  padding: 0 20px 20px 20px;
+}
+
+.bikeinsurance {
+  padding: 25px 8px 60px;
+}
+.mat-step-icon {
+  border-radius: 0px;
+}
+.Traveller .mat-vertical-stepper-header {
+  padding: 5px 20px;
+}
+
+.bike-model-name {
+  background: #fff;
+  padding: 0;
+  text-align: center;
+  border-bottom: 1px solid #c9cdd0;
+  border-top: 2px solid #ec691f;
+  padding: 0;
+  width: 100%;
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 1;
+  height: 47px;
+  box-shadow: 0px 7px 13px -5px #cecece;
+}
+.rdobikeowner {
+  float: left;
+}
+.nominee {
+  padding: 0;
+}
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #ec691f;
+}
+
+.bike-model-varient {
+  border-left: solid 1px #eaeaea;
+  padding: 8px 0px 8px 0px;
+  border-right: solid 1px #eaeaea;
+  float: left;
+  font-size: 12px;
+}
+.bike-model-varient p,
+.rto-code p {
+  margin-bottom: 0 !important;
+}
+.rto-code {
+  padding: 8px 0px 8px 0px;
+  border-right: solid 1px #eaeaea;
+  float: left;
+  font-size: 12px;
+}
+.cover-value-desc p {
+  color: #ea805b;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.accessories {
+  padding: 0;
+}
+.drpdown-accessories {
+  float: left;
+}
+.cover-value-desc span {
+  font-size: 11px;
+  color: #ea805b;
+}
+.cover-value-desc {
+  background: #fff;
+
+  padding: 10px;
+}
+.cover-value {
+  padding: 0;
+  box-shadow: rgb(187, 187, 187) 0px 0px 44px -3px;
+}
+.arrow-right {
+  position: absolute;
+  right: -12px;
+  margin-top: 17px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid #ffffff;
+}
+.bike-quote {
+  margin: 60px 0 0 0;
+}
+.ddl-cover-value {
+  float: left;
+}
+button#dropdownMenuButton {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #000;
+  padding-top: 0;
+}
+.dropdownmenubutton {
+  padding: 10px;
+}
+.bike-link {
+  text-transform: uppercase;
+  color: #ec6920;
+  font-weight: bold;
+  padding-left: 7px;
+}
+.bike-link:hover {
+  color: #007bff;
+}
+.select-bike-insurance {
+  padding: 8px;
+}
+.insurance-plan-info {
+  background-color: #083b66;
+  padding: 5px;
+}
+.plan-info {
+  border-bottom: 1px solid #ced4da;
+  width: 95%;
+  margin: 0 auto;
+}
+.plan-info i {
+  padding: 7px;
+}
+.plan-info p {
+  margin-bottom: 0;
+  margin-top: 0px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.insurance-company-name-section {
+  margin-top: 20px;
+  min-height: 425px;
+}
+.plan-description {
+  color: #292b2c;
+  text-align: justify;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.buy-now-link {
+  color: #292b2c;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  width: 50%;
+  margin: 0 auto;
+}
+.includegst {
+  font-size: 15px;
+  float: left;
+  width: 100%;
+  margin-top: -5px;
+  margin-left: 3px;
+}
+.orange {
+  text-transform: uppercase;
+  color: #212529;
+  font-size: 12px;
+  font-weight: 500;
+}
+.plan-info img {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+.btnbuynow {
+  background-color: #ec6920;
+  color: #fff;
+  padding: 2px 22px 2px 22px;
+  margin-top: -13px;
+}
+
+.premium-plans-3year {
+  margin-left: 27px;
+  padding-left: 32px;
+}
+.insurance-company-plans-detail {
+  box-shadow: 0px 7px 13px -5px #cecece;
+  margin-top: 5px;
+  padding-top: 10px;
+  background: #fff;
+  border-radius: 5px;
+  padding-bottom: 30px;
+}
+.dtlinsurance {
+  margin-top: 0;
+}
+.dropdown-accessories {
+  float: left;
+}
+div#collapsedrop-down {
+  background: red;
+  width: 260px;
+  position: absolute;
+  top: 44px;
+  margin-right: 0;
+  z-index: 3;
+  color: #000;
+  box-shadow: 0px 7px 13px -5px #cecece;
+}
+div#collapsedrop-down ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+div#collapsedrop-down h6 {
+  color: #3e4c5a;
+  border-bottom: dashed 1px #ccc;
+  margin: 0 0 2px;
+  padding: 0 0 5px;
+  padding: 15px;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+  left: -50px;
+  width: 23rem;
+  top: 33px;
+}
+
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
+}
+.additionalcover-menu h6 {
+  color: #3e4c5a;
+  border-bottom: dashed 1px #ccc;
+  margin: 0 0 2px;
+  padding: 0 0 5px;
+  width: 100%;
+}
+.additionalcover-menu ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.additionalcover-menu {
+  padding: 20px;
+}
+.ncb-verify .addonandassnew .filtercount {
+  background: #ebe4de;
+  display: block;
+  padding: 0 6px;
+  float: right;
+  margin: 1px 15px;
+  border: solid 1px #ccc;
+  color: #4b4036;
+  font-size: 12px;
+}
+.filtercount {
+  background: #ec6920;
+  margin-top: -3px;
+  padding: 4px;
+  border: 1px solid #ec6920 !important;
+}
+.filtercount:hover {
+  background: #083b66;
+}
+.plan-info {
+  border-bottom: 1px solid #ced4da;
+  width: 95%;
+  margin: 0 auto;
+}
+.insurance-detail-form {
+  padding: 24px;
+}
+.insurance-detail-form input {
+  border-bottom-color: #ced4da;
+}
+.communication-address {
+  background: #ec691f;
+  color: #ffffff;
+  text-decoration: none;
+  border-color: #ec691f;
+}
+.communication-address:hover {
+  background: #ec691f;
+  color: #ffffff;
+  text-decoration: none;
+  border-color: #ec691f;
+}
+
+/**** stepper css start ****/
+
+.stepwizard-step p {
+  margin-top: 10px;
+}
+.stepwizard-row {
+  display: table-row;
+}
+.stepwizard {
+  display: table;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+}
+.stepwizard-step a {
+  background-color: #fff;
+  border-color: #ccc;
+  color: #000;
+}
+.stepwizard-step a.btn-primary {
+  color: #fff !important;
+  background-color: #ec6920 !important;
+  border-color: #ec6920 !important;
+}
+
+.stepwizard-step button[disabled] {
+  opacity: 1 !important;
+  filter: alpha(opacity=100) !important;
+}
+.stepwizard-row:before {
+  top: 14px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 68%;
+  height: 1px;
+  background-color: #ccc;
+  left: 16%;
+}
+.stepwizard-step {
+  display: table-cell;
+  text-align: center;
+  position: relative;
+}
+.btn-circle {
+  width: 70%;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+  font-weight: bold;
+}
+/**** stepper css end ****/
+
+@media only screen and (max-width: 600px) {
+  .stepwizard {
+    display: none;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .bike-model-varient {
+    border-left-color: transparent;
+    border-bottom: 1px solid #eee;
+  }
+  .bike-model-varient,
+  .rto-code {
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom: 1px solid #eee;
+  }
+  .drpdown-accessories {
+    float: none;
+  }
+  .bike-model-name {
+    height: 155px;
+  }
+  .dropdown {
+    margin-top: 10px;
+  }
+  .insurance-plan-info {
+    display: none;
+  }
+  .radio {
+    float: left;
+  }
+}
+
+@media only screen and (max-width: 480px) and (min-width: 320px) {
+  .plan-info img {
+    width: 50% !important;
+    padding-bottom: 20px;
+  }
+  .plan-description {
+    text-align: center;
+    padding-left: 0px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+
+  .plan-info {
+    border-bottom: 1px solid #ced4da;
+  }
+  .premium-plans {
+    margin-right: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+  }
+  .premium-plans-3year {
+    margin-left: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+    border-bottom-color: transparent;
+  }
+  .communication-address {
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 600px) and (min-width: 481px) {
+  .plan-info img {
+    width: 30% !important;
+    padding-bottom: 20px;
+  }
+  .plan-description {
+    text-align: center;
+    padding-left: 0px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+  .includegst {
+    float: none;
+  }
+  .btnbuynow {
+    margin-top: 17px;
+    margin-bottom: 15px;
+  }
+  .plan-info {
+    border-bottom: 1px solid #ced4da;
+  }
+  .premium-plans {
+    margin-right: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+  }
+  .premium-plans-3year {
+    margin-left: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+    border-bottom-color: transparent;
+  }
+}
+@media only screen and (max-width: 767px) and (min-width: 601px) {
+  .plan-info img {
+    width: 30% !important;
+    padding-bottom: 20px;
+  }
+  .plan-description {
+    text-align: center;
+    padding-left: 0px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+  .includegst {
+    float: none;
+  }
+  .btnbuynow {
+    margin-top: 17px;
+    margin-bottom: 15px;
+  }
+  .plan-info {
+    border-bottom: 1px solid #ced4da;
+  }
+  .premium-plans {
+    margin-right: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+  }
+  .premium-plans-3year {
+    margin-left: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+    border-bottom-color: transparent;
+  }
+}
+@media only screen and (max-width: 990px) and (min-width: 768px) {
+  .insurance-plan-info {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .dtlinsurance {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .insurance-company-plans-detail {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    /* flex: 0 0 100%; */
+    /* max-width: 100%; */
+  }
+  .premium-plans {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .premium-plans-3year {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .buy-now-link {
+    width: 90%;
+  }
+  .radio {
+    float: left;
+  }
+}
+@media only screen and (max-width: 1200px) and (min-width: 991px) {
+  .accessories {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .premium-plans {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .premium-plans-3year {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.change-insurer {
+  color: #ec691f;
+  font-weight: 600;
+  font-size: 12px;
+}
+.bike_owner_header {
+  text-align: left;
+  font-weight: 500;
+  border-bottom: 1px solid #e2e2e2;
+}
+.bike_owner_header .edit {
+  float: right;
+}
+a {
+  color: #ec6920;
+}
+.bike_owner_details {
+  margin-bottom: 20px;
+}
+.bike_owner_details div {
+  text-align: left;
+}
+.bike_owner_details div span {
+  font-size: 12px;
+  font-weight: 500;
+}
+.Review_details_header {
+  font-weight: 500;
+}
+.insurance_details .plan-info h5 {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.insurance_details .plan-info li:last-child {
+  border-top: dotted 1px #ec691f;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 5px 0 0;
+  margin-top: 5px;
+}
+
+.my-btn {
+  background: #ec691f;
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  padding: 7px 0px;
+  border: 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  min-width: auto;
+  letter-spacing: 1px;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+}

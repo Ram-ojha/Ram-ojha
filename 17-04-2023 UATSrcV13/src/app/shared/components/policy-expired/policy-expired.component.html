@@ -1,0 +1,36 @@
+<!-- policy expired popup -->
+<div class="Previous_policy" *ngIf="isVisible">
+  <div class="col-md-4 mx-auto">
+    <mat-card class="policy_card">
+      <div class="policy_card_header">
+        Is your current policy expired?
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          (click)="closePopup()"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="policy_card_body" *ngIf="policyExpiredList.length > 0">
+        <div class="col-md-12" *ngFor="let p of policyExpiredList">
+          <mat-checkbox
+            (change)="onSelect(chkValue)"
+            #chkValue
+            [checked]="p.BikeExpiryCode == +selectedValue.split(',')[0]"
+            [value]="p.BikeExpiryCode + ',' + p.BikeExpiryDesc"
+          >
+            {{ p.BikeExpiryDesc }}
+          </mat-checkbox>
+        </div>
+        <div
+          class="col-md-12 alert alert-primary"
+          *ngIf="policyExpiredList.length == 0"
+        >
+          Please contact to admin. Thanks for patience.
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,314 @@
+<!-- id="carExampleModalCenter" -->
+<div class="modal fadein policyexpiry Plan_Details" [ngStyle]="{'display': PopUp == true ?  'block' : 'none'}"
+  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content modal-md" #screen>
+      <div class="modal-title">
+        Plan Details
+        <button type="button" class="close" data-dismiss="modal" (click)="closeModal()" aria-label="Close"
+          style="color: #ffffff; opacity: 1; margin: 5px 0px 0px 0; padding: 0">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--  <div class="container-fluid"  >
+          <div class="row">
+            <div class="col-md-3" style="padding: 0px;">
+                            <div class="plan_card">
+                                <div class="company_logo">
+                                    <img src="./assets/img/insurance/icici.png" alt="">
+                                </div>
+                                <label class="price">Cover Value(IDV) :
+                                    <strong> <i aria-hidden="true" class="fa fa-rupee marL5"></i> 2,11,956 </strong>
+                                </label>
+                                <p class="claim">New No Claim Bonus</p>
+                                <p class="claim">(NCB): <strong> 35% </strong></p>
+                                <button class="btn communication-address" type="submit" style="margin-top: 15px;">
+                                    Buy Now <br>
+                                    {{data.amountPayableIncludingGst | currency:'INR':'symbol':'3.0'}}
+                                </button>
+                            </div>
+                        </div> -->
+        <!-- {{data.CoverageList[0].CoverageCode}} -->
+        <!-- <h1>TEST</h1> -->
+        <div class="col-md-12" *ngIf="data">
+          <!-- <mat-tab-group [(selectedIndex)]="selectedIndex">
+                                <mat-tab label="Premium Breakup"> -->
+          <!-- {{SelectedAddons | json}} -->
+          <div class="row" style="padding-top: 10px">
+            <div class="col-md-4 txt-L">
+              <div class="text-center">
+                <img src='{{ "assets/img/company-logos/motor/" + data.imageName  }}' style="width: 100%" />
+              </div>
+            </div>
+            <div class="col-md-8 txt-R">
+              <div class="premium-data">
+                <p>
+                  Car: <b>{{ data.vehicleDesc }}</b>
+                </p>
+                <p *ngIf="!data.isTp">
+                  IDV:
+                  <b><i aria-hidden="true" class="fa fa-rupee"></i>{{ data.IDVVAlue | number: "1.0-0" }}</b>
+                </p>
+                <div *ngIf="data.isOdOnly || data.isComprehensive">
+                  <span>
+                    IDV Range:
+                    <b>(</b> Min<b><i aria-hidden="true" class="fa fa-rupee"></i>{{ data.MinIDVVAlue}}</b> - Max<b><i
+                        aria-hidden="true" class="fa fa-rupee"></i>{{ data.MaxIDVVAlue}} )</b>
+                  </span>
+                </div>
+                <p>
+                  Tenure: <b>{{ data.tenure == 1?data.tenure+' Year':data.tenure+' Years' }} </b>
+                </p>
+                <p *ngIf="data.SubCateCode == 3 && !data.isTp">
+                  Current NCB: <b>{{ data.currentNcb ? data.currentNcb : 0 }} %</b>
+                </p>
+              </div>
+            </div>
+          </div>
+          <p class="mb-0 text-center fw-6">POLICY - PREMIUM BREAKUP</p>
+          <div style="padding-bottom: 20px">
+            <table class="Premium_Breakup">
+              <tr *ngIf="data.isTp" class="title">
+                <th>Third party Only</th>
+                <td></td>
+              </tr>
+              <tr *ngIf="data.isTp">
+                <td>Third party TP Premium({{data.tenure == 1?data.tenure+' Year':data.tenure+' Years'}})</td>
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ data.IDV.TPPremium | number: "1.0-0" }}
+                </td>
+              </tr>
+              <!-- If od only -->
+              <tr *ngIf="data.isOdOnly" class="">
+                <th>Own Damage Only</th>
+                <td></td>
+              </tr>
+              <tr *ngIf="data.isOdOnly">
+                <td>Own Damage OD Premium({{data.tenure == 1?data.tenure+' Year':data.tenure+' Years'}})</td>
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ data.IDV.ODPremium | number: "1.0-0" }}
+                </td>
+              </tr>
+              <tr *ngIf="data.isComprehensive" class="">
+                <th>Basic Covers</th>
+                <td></td>
+              </tr>
+              <tr *ngIf="data.isComprehensive">
+                <!-- <td *ngIf="data.SubCateCode == 3">Basic OD Premium</td> -->
+                <!-- *ngIf="data.SubCateCode == 4" -->
+                <td>Basic OD Premium(1 Year)</td>
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ data.IDV.ODPremium | number: "1.0-0" }}
+                </td>
+              </tr>
+              <tr *ngIf="data.isComprehensive">
+                <!-- <td *ngIf="data.SubCateCode == 3">Basic TP Premium</td> -->
+                <!-- Renew -->
+                <!-- *ngIf="data.SubCateCode == 4" -->
+                <td>
+                  Basic TP Premium({{ data.tenure == 1?data.tenure+' Year':data.tenure+' Years' }})
+                </td>
+                <!-- New -->
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ data.IDV.TPPremium | number: "1.0-0" }}
+                </td>
+              </tr>
+            </table>
+            <!-- Addons list View -->
+            <div class="addons-list">
+              <table class="Premium_Breakup">
+                <tr *ngIf="data.selectedAddons.length > 0 || data.depreciation || data.paOwner">
+                  <th>Addon Covers</th>
+                  <td></td>
+                </tr>
+                <tr *ngIf="data.depreciation">
+                  <!-- .ODPremium != '0' -->
+                  <td>
+                    {{data.depreciation.CoverageCode}}
+                  </td>
+                  <td>{{data.depreciation.ODPremium}}</td>
+                </tr>
+                <tr *ngIf="data.paOwner">
+                  <!-- .ODPremium != '0' -->
+                  <td>
+                    {{data.paOwner.CoverageCode}}
+                  </td>
+                  <td><i aria-hidden="true" class="fa fa-rupee"></i>{{data.paOwner.TPPremium}}</td>
+                </tr>
+
+                <tr *ngFor="let item of data.selectedAddons"
+                  [hidden]='(+item.ODPremium + +item.TPPremium) < 0 || item.CoverageID===0'>
+                  <td>
+                    {{ item.CoverageCode }}
+                  </td>
+                  <td>
+                    <i aria-hidden="true" class="fa fa-rupee"></i>{{ (+item.ODPremium + +item.TPPremium) | number:
+                    "1.0-0"
+                    }}
+                  </td>
+                </tr>
+                <!-- -------------=-- -->
+                <!-- <tr *ngFor="let item of data.selectedAddons">
+                <td>
+                  {{ item.CoverageCode }}
+                </td>
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ +item.ODPremium+ +item.TPPremium | number: "1.0-0" }}
+                </td> -->
+
+                <!-- <td *ngIf="+item.ODPremium == 0">
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ item.TPPremium | number: "1.0-0" }}
+                </td>
+                <td *ngIf="+item.TPPremium == 0">
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ item.ODPremium | number: "1.0-0" }}
+                </td>
+                <td *ngIf="+item.ODPremium != 0 && +item.TPPremium != 0">
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ +item.TPPremium + +item.ODPremium | number: "1.0-0"
+                  }}
+                </td> -->
+                <!-- </tr> -->
+              </table>
+            </div>
+            <table class="Premium_Breakup">
+              <tr class="mt-2" *ngIf="data.DiscountAmt && !data.isTp">
+                <th>Discounts</th>
+                <td></td>
+              </tr>
+              <tr *ngIf="data.DiscountAmt && !data.isTp">
+                <td>Additional Discount
+                  <!-- <span *ngIf='+data.DiscountPercent'>({{data["DiscountPercent"] | number :
+                    '1.2-2'}} %)</span> -->
+                </td>
+                <td><i aria-hidden="true" class="fa fa-rupee"></i>{{data.DiscountAmt}}</td>
+              <tr *ngFor="let item of data.selectedAddons" [hidden]='(+item.ODPremium + +item.TPPremium) >= 0'>
+                <td>
+                  {{ item.CoverageCode }}
+                </td>
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ (+item.ODPremium + +item.TPPremium) | number: "1.0-0"
+                  }}
+                </td>
+              </tr>
+              <!-- <tr style="border-bottom: 1px solid #d4d4d4" *ngIf="!data.isTp">
+                <td>No Claim Bonus</td>
+                <td>
+                  <i aria-hidden="true" class="fa fa-rupee"></i>{{ data.NCB ? data.NCB.ODPremium : (0 | number: "1.0-0")
+                  }}
+                </td>
+              </tr> -->
+            </table>
+
+            <p style="
+                margin: 10px 0 0px;
+                text-align: right;
+                font-size: 14px;
+                border-bottom: solid 1px #000;
+              ">
+              Premium:
+              <b> <i aria-hidden="true" class="fa fa-rupee"></i>{{ data.Premium | number: "1.0-0" }}</b>
+            </p>
+            <p style="
+                margin: 5px 0 0px;
+                text-align: right;
+                font-size: 14px;
+                border-bottom: solid 2px #000;
+              ">
+              GST(18%):
+              <b><i aria-hidden="true" class="fa fa-rupee"></i>{{ data.gst | number: "1.0-0" }}</b>
+            </p>
+            <p style="
+                margin: 5px 0 0px;
+                text-align: right;
+                font-size: 14px;
+                border-bottom: solid 2px #000;
+              ">
+              Total Premium:
+              <b><i aria-hidden="true" class="fa fa-rupee"></i>{{ data.amountPayableIncludingGst | number: "1.0-0"
+                }}</b>
+            </p>
+
+          </div>
+        </div>
+        <div class="whatsapp-btn">
+          <button class="btn" (click)="openDialog()" matTooltip='Share on whatsapp'>
+            <i class="fa fa-whatsapp" aria-hidden="true"></i>
+          </button>
+        </div>
+        <!-- <div class="col-md-12 text-center"> -->
+        <!-- <button
+                  class="btn communication-address"
+                  type="submit"
+                  style="margin-top: 20px; margin-bottom: 20px; width: 200px"
+                >
+                  Buy Now <br />
+                  <i aria-hidden="true" class="fa fa-inr"></i
+                  >{{ data.amountPayableIncludingGst }}
+                </button> -->
+        <!-- </mat-tab> -->
+        <!-- <mat-tab label="Cashless Garages"> -->
+        <!-- <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select name="state" class="form-control">
+                                                    <option value="">Select State</option>
+                                                    <option value="1">Madhya Pradesh</option>
+                                                    <option value="1">Andhra Pradesh</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select name="state" class="form-control">
+                                                    <option value="">Select City</option>
+                                                    <option value="1">Ambikanagara</option>
+                                                    <option value="1">Bagalkot</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>9 garages found in your area</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table style="width: 100%">
+                                                    <tr style="border-bottom: 1px solid #d2d2d2;">
+                                                        <th style="width: 80%;">Garage</th>
+                                                        <th style="width: 20%;">Contact Number</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>M/S.Canaraa Auto Centre</td>
+                                                        <td>9611898939</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid #d2d2d2;">
+                                                        <td style="font-size: 14px; padding-bottom: 10px;">No.- 24,26,
+                                                            4Th Main Santhurpti
+                                                            Nagar, Kothnoor Main Road,
+                                                            Jp Nagar 7Th Phase Bangalore</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr style="padding-top: 10px;">
+                                                        <td>M/S.Fast Cars Auto Services Llp</td>
+                                                        <td>9880133887</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 14px;">No.- 24,26, 4Th Main Santhurpti
+                                                            Nagar, Kothnoor Main Road,
+                                                            Jp Nagar 7Th Phase Bangalore</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div> -->
+        <!-- </mat-tab> -->
+        <!-- </mat-tab-group> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-quotes-sharing-modal #shareQuotesModal [quotesDetailsForSharing]='quotesDetailsForSharing'>
+</app-quotes-sharing-modal>
