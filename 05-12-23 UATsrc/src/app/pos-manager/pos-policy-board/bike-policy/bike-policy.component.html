@@ -1,0 +1,363 @@
+<app-loader *ngIf='loading'></app-loader>
+
+<div class="col-md-12">
+    <div class="bike_area">
+        <div class="row datepickerpannel">
+            <div class="col-md-8">
+                <div class="left-block">
+                    <h4 class="Subtitle">Search Record</h4>
+                    <form [formGroup]='dateForm' (ngSubmit)='filterByDate()'>
+                        <div class="row mt-3 pr-2 pl-2">
+                            <div class="col-md-4">
+                                <div class="field-wrapper">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>From</mat-label>
+                                        <input matInput [matDatepicker]="From_Date" placeholder="From Date"
+                                            (click)="From_Date.open()" formControlName='fromDate'
+                                            [readonly]='successCode !== "1"' [disabled]='successCode !== "1"'>
+                                        <mat-datepicker-toggle matSuffix [for]="From_Date">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #From_Date></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="field-wrapper">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>To</mat-label>
+                                        <input matInput [matDatepicker]="To_Date" placeholder="To Date"
+                                            (click)="To_Date.open()" formControlName='toDate'
+                                            [readonly]='successCode !== "1"' [disabled]='successCode !== "1"'>
+                                        <mat-datepicker-toggle matSuffix [for]="To_Date">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #To_Date></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="THM--button mt-0 w--button--orange w--button--large mt-2"
+                                    title="View Quotes" [disabled]='successCode !== "1"'>Get
+                                    Data</button>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf='errorMessage'>
+                            <div class="col-md-4 m-auto p-2">
+                                <mat-error>
+                                    {{errorMessage}}
+
+                                </mat-error>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="side-block">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="policy_block">NUMBER OF POLICIES
+                                <br>
+                                <span>{{policyAndPremiumStats?policyAndPremiumStats.NoOfPolicies:0}}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="policy_block">TOTAL PREMIUM
+                                <br>
+
+                                <span><i class="fa fa-inr" aria-hidden="true"></i>
+                                    {{policyAndPremiumStats?(policyAndPremiumStats.TotalPremiumPerYr | number:
+                                    '1.0-0'):0 }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="payment-mode">
+        <div class="row">
+            <!-- *ngIf='successCode==="1"' -->
+
+            <div class="col-md-12">
+                <mat-tab-group mat-align-tabs="start">
+                    <mat-tab label="Payment Done">
+                        <!-- <div class="alert alert-warning text-center"
+                            *ngIf='successfullPaymentRecord.length==0'>No any
+                            Payments made</div> -->
+                        <div class="col-md-12">
+                            <div class="row" [hidden]='successCode !== "1"'>
+                                <!-- filter by name -->
+                                <div class="col-md-3 float-right">
+                                    <div class="example-header">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Enter Name" [formControl]="nameFilter">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <!-- (keyup)="nameFilter($event.target.value)" -->
+                                <!--  -->
+
+                                <!-- filter by policy No. -->
+                                <div class="col-md-3 float-right">
+                                    <div class="example-header">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Enter Policy No."
+                                                [formControl]="policyNoFilter">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- filter by Vehicle No. -->
+                                <div class="col-md-3 float-right">
+                                    <div class="example-header">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Enter Vehicle No."
+                                                [formControl]="VehicleNoFilter">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- clear filters button -->
+                                <div class="col-md-3 float-right p-2">
+                                    <div class="example-header">
+                                        <button mat-stroked-button color='primary' (click)="clearFilter()"
+                                            [disabled]='clearAllFilters'>
+                                            Clear
+                                            Filters
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!-- Message for Empty data array -->
+                                    <div class="alert alert-warning text-center"
+                                        *ngIf='successCode !== "1" || policyHistoryData.length ===0'>
+                                        No data found !
+                                    </div>
+
+                                    <!-- Message for No filtered data found -->
+                                    <mat-card *ngIf="(noResults$ | async) || !dataSource" class='text-center'>
+                                        <span> No results </span>
+                                    </mat-card>
+
+                                    <div class="example-container mat-elevation-z8"
+                                        [hidden]='successCode !== "1" || policyHistoryData.length ===0'>
+
+                                        <mat-table [dataSource]="dataSource" #paymentDoneSort="matSort" matSort>
+
+                                            <!-- Name Column -->
+                                            <ng-container matColumnDef="name">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Name
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.name}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Mobile No Column -->
+                                            <ng-container matColumnDef="mobileNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.mobileNo}} </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Reg No Column -->
+                                            <ng-container matColumnDef="regNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Reg. No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.regNo}}
+                                                </mat-cell>
+                                            </ng-container>
+
+
+                                            <!-- Vehicle No Column -->
+                                            <ng-container matColumnDef="vehicleNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row">
+                                                    {{row.vehicleNo}} </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Insurer Column -->
+                                            <ng-container matColumnDef="insurer">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Insurer
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.insurer}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Premium Column -->
+                                            <ng-container matColumnDef="premium">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Premium
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.premium}}
+                                                </mat-cell>
+                                            </ng-container>
+
+
+                                            <!-- Payment Date Column -->
+                                            <ng-container matColumnDef="paymentDate">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Date
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.paymentDate | date}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Policy No. Column -->
+                                            <ng-container matColumnDef="policyNo">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Policy No.
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.policyNo}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <!-- Commission Amount -->
+                                            <ng-container matColumnDef="CommisionAmt">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header> Commission
+                                                </mat-header-cell>
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                    {{row.CommisionAmt}}
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="DownloadLinkURL">
+                                                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                    Download Policy
+                                                </mat-header-cell>
+
+                                                <mat-cell *matCellDef="let row" [style.color]="row.color"
+                                                    class="text-center">
+                                                    <!-- <button mat-raised-button color="warn"  class=" mt-2 " ></button> -->
+                                                    <a (click)='viewPdf(row)' class="btn btn-success btn-xs"><i
+                                                            class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <!-- <span *ngIf="row.DownloadLinkURL ===null">NA</span> -->
+                                                    <!-- <a [href]="row.InsuranceCompCode===4 ? (viewPdf(row.DownloadLinkURL) | async) : row.DownloadLinkURL"
+                                                        target="_blank" class="btn btn-success btn-xs"><i
+                                                            class="fa fa-download" aria-hidden="true"></i></a> -->
+                                                </mat-cell>
+                                                <!-- <a [href]="
+                                                                        row.DownloadLinkURL != null ? row.DownloadLinkURL : ''
+                                                                      " target="_blank" >Download Policy</a> -->
+                                            </ng-container>
+                                            <mat-header-row *matHeaderRowDef="displayedColumnsForVehicles">
+                                            </mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumnsForVehicles;">
+                                            </mat-row>
+                                        </mat-table>
+
+                                        <mat-paginator #paymentDonePaginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Payment Pending">
+                        <div class="row">
+
+
+
+
+                            <div class="col-md-12">
+
+                                <div class="alert alert-warning text-center"
+                                    *ngIf='successCodeForPendingPayment !== "1" || paymentPendingData.length ===0'>
+                                    No any
+                                    Pending
+                                    Payment
+                                </div>
+
+                                <div class="example-container mat-elevation-z8"
+                                    [hidden]='successCodeForPendingPayment !== "1" || paymentPendingData.length ===0'>
+
+                                    <mat-table [dataSource]="dataSourceForPendingPaymentData"
+                                        #paymentPendingSort="matSort" matSort>
+                                        {{dataSourceForPendingPaymentData}}
+                                        <!-- General column -->
+                                        <ng-container *ngFor="let column of columns" [matColumnDef]="column.colId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.colName}}
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                                {{column.colId==='paymentDate' ? (row[column.colId] | date) :
+                                                row[column.colId]}}
+                                            </mat-cell>
+                                        </ng-container>
+
+
+                                        <!-- Actions Column -->
+                                        <ng-container matColumnDef="actions">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Actions
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" [style.color]="row.color">
+                                                <!-- {{row | json}} -->
+                                                <button class="THM--button mt-2">
+                                                    Check Status
+                                                </button>
+                                                <button class="THM--button mt-2">
+                                                    Make Payment
+                                                </button>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <mat-header-row *matHeaderRowDef="displayedColumns">
+                                        </mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                        </mat-row>
+                                    </mat-table>
+
+                                    <mat-paginator #paymentPendingPaginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <app-car-policy></app-car-policy> -->
+                        <!-- <div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Mobile</th>
+                                        <th scope="col">Vehicle Type</th>
+                                        <th scope="col">Vehicle</th>
+                                        <th scope="col">Reg. No</th>
+                                        <th scope="col">Insurer</th>
+                                        <th scope="col">Premium</th>
+                                        <th scope="col">Payment Date</th>
+                                        <th scope="col">Policy No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>SIGNET INDUSTRIES LTD</th>
+                                        <td>9993090435</td>
+                                        <td>fourwheeler</td>
+                                        <td>Ford Ecosport 1.5 Trend Plus</td>
+                                        <td>RJ14NC2845</td>
+                                        <td>Iffco Tokio General Insurance</td>
+                                        <td>16585</td>
+                                        <td>01-06-2019</td>
+                                        <td>M8153517</td>
+                                      
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

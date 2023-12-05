@@ -1,0 +1,184 @@
+<!-- policy expired popup -->
+<div class="Previous_policy" *ngIf="isVisible && isRememberPrvPolDetails==1">
+  <div class="col-md-8 mx-auto">
+    <!-- <mat-card class="policy_card">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field-wrapper">
+            <input type="text" placeholder="Previous Policy Insurer OD " matInput required
+              formControlName="prvPolicyODInsurer" [matAutocomplete]="autoPPInsurer" />
+            <mat-autocomplete autoActiveFirstOption #autoPPInsurer="matAutocomplete">
+              <mat-option *ngFor="let item of PreviousPolicyCompList" [value]="
+                                                          item.InsuranceCompanyDesc
+                                                        ">
+                {{ item.InsuranceCompanyDesc }}
+              </mat-option>
+              <mat-option [value]="" *ngIf="!PreviousPolicyCompList">
+                <p class="text-danger">Not Found</p>
+              </mat-option>
+            </mat-autocomplete>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="field-wrapper">
+            <mat-form-field class="" appearance="outline">
+              <mat-label>Previous Policy OD Number </mat-label>
+              <input matInput appUppercase appTrim placeholder="Previous Policy Number OD"
+                formControlName="prvPolicyODNo" required [minlength]="6" [maxLength]="25" autocomplete="off" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card> -->
+
+    <mat-card><!--class="policy_card"-->
+      <!-- <button type="button" class="close" data-dismiss="modal" (click)="closePopup()">
+        &times;
+      </button> -->
+      <div class="policy_card_headline">
+        Previous Policy Details
+        <button type="button" class="close" data-dismiss="modal" (click)="closePopup()">
+          &times;
+        </button>
+      </div>
+      <div class="container row m-0 mt-2">
+
+
+        <div class="col-md-6 prvPolicyInsurerClass row m-0 ">
+          <div class="col-md-12 policy_card_header">
+            Previous insurer ?
+            <!-- <button type="button" class="close" data-dismiss="modal" (click)="closePopup()">
+              &times;
+            </button> -->
+          </div>
+          <div class="col-md-12">
+            <div class="field-wrapper">
+              <!-- <form (ngSubmit)="onSubmitPreviousCompany()" #form="ngForm"> -->
+              <mat-form-field appearance="outline">
+                <mat-label>Previous Policy Insurer </mat-label>
+                <input type="text" placeholder="Previous Policy Insurer " matInput required
+                  [formControl]="prvPolicyInsurer" [matAutocomplete]="autoPPInsurer" />
+                <mat-autocomplete autoActiveFirstOption #autoPPInsurer="matAutocomplete"
+                  (optionSelected)="OnSelectPreviousCompany($event.option.value)">
+                  <mat-option *ngFor="let item of previousPolicyCompListAsync |async" [value]="
+                                                                          item.InsuranceCompanyDesc
+                                                                        ">
+                    {{ item.InsuranceCompanyDesc }}
+                  </mat-option>
+                  <mat-option [value]="" *ngIf="!previousPolicyCompListAsync">
+                    <p class="text-danger">Not Found</p>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="prvPolicyInsurer!.errors"> {{errorMsg}}</mat-error>
+              </mat-form-field>
+              <!-- </form> -->
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-6 prvPolicyInsurerClass row m-0">
+          <div class="col-md-12 policy_card_header">
+            Which cover did you have on your previous policy?
+
+          </div>
+          <hr />
+          <div class="col-md-12 " *ngIf="PolicyExpiryType != undefined">
+
+
+            <mat-radio-group aria-labelledby="example-radio-group-label" [formControl]="prvPolicyType"
+              class="policy_radio_button example-radio-group"><!--class="example-radio-group"-->
+              <mat-radio-button [checked]="prvPolicyType.value?.PolicyTypeCode ===p.PolicyTypeCode"
+                class="example-radio-button" (click)="onSelect(p.PolicyTypeCode)" *ngFor="let p of PolicyExpiryType"
+                [value]="p">
+                <span>{{ p.PolicyTypeDesc }}</span>
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <div class=" alert alert-primary" *ngIf="this.PolicyExpiryType == undefined">
+              Please contact to admin. Thanks for patience.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+
+          <hr class="hrLine">
+        </div>
+        <div class="col-md-12 form-element prvPolicySubmitDiv">
+          <!-- <input (click)="sendData()" type="button" mat-raised-button color="primary" type="submit"
+            class="btn btn-primary button" /> -->
+          <!-- <button type="button" mat-raised-button (click)="sendData()" color="primary">Primary</button> -->
+          <button type="button" class="btn btn-primary btn1" (click)="sendData()">
+            Next
+          </button>
+        </div>
+      </div>
+    </mat-card>
+
+
+  </div>
+</div>
+
+
+<!--which policy customer want  popup -->
+<div class="Previous_policy" *ngIf="isVisible  && isRememberPrvPolDetails==0">
+  <div class="col-md-4 mx-auto">
+    <mat-card class="policy_card">
+      <div class="policy_card_header">
+        Which cover do you want ?
+        <button type="button" class="close" data-dismiss="modal" (click)="closePopup()">
+          &times;
+        </button>
+      </div>
+      <div class="policy_card_body" *ngIf="PolicyExpiryType != undefined">
+        <div class="col-md-12" *ngFor="let p of PolicyExpiryType">
+          <!-- PolicyTypeCode
+            PolicyTypeDesc
+            PolicyTypeDescDetail -->
+          <!-- <mat-card #chkValue (change)="onSelect(chkValue)">
+                <input matInput #chkValue (change)="onSelect(chkValue)" [value]="p.PolicyTypeCode">
+                {{ p.PolicyTypeDesc }}
+                {{ p.PolicyTypeDescDetail }}
+              </mat-card> -->
+          <mat-card class="policyExpiryType" [matTooltip]="p.PolicyTypeDescDetail" matTooltipPosition="right"
+            (click)="onSelect(p.PolicyTypeCode)">
+            <span>{{ p.PolicyTypeDesc }}</span>
+            <br />
+            <!-- <mat-panel-description>
+              {{ p.PolicyTypeDescDetail }}ks
+            </mat-panel-description> -->
+          </mat-card>
+        </div>
+        <div class="col-md-12 alert alert-primary" *ngIf="this.PolicyExpiryType == undefined">
+          Please contact to admin. Thanks for patience.
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-md-12" *ngFor="let p of PolicyExpiryType">
+
+    <mat-card class="policyExpiryType" [matTooltip]="p.PolicyTypeDescDetail" matTooltipPosition="right"
+      (click)="onSelect(p.PolicyTypeCode)">
+      <span>{{ p.PolicyTypeDesc }}</span>
+      <br />
+    </mat-card>
+  
+  
+  </div> -->

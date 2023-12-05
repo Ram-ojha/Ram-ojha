@@ -1,0 +1,687 @@
+<!-- for model of car -->
+<div class="Select_Bike" *ngIf="isVisible">
+  <div class="bikeinsurance">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="cvForm">
+            <div class="btncancel close_btn" (click)="closePopup()">
+              <img src="./assets/img/close.png" class="img-responsive" />
+            </div>
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div class="container container-two-wheeler-insurance">
+                <mat-tab-group [(selectedIndex)]="selectedTab" (selectedTabChange)="selectedTabChange($event)">
+                  <mat-tab label="Choose CV">
+                    <app-sm-loader *ngIf="showLoader"></app-sm-loader>
+                    <div class="col-md-12" *ngIf="!showLoader">
+                      <div class="tab-content py-3 px-3 px-sm-0 Bike_Manufacturer" id="nav-tabContent">
+                        <div class="row tab-pane fade show active" id="nav-home" role="tabpanel"
+                          aria-labelledby="nav-home-tab">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-8 mx-auto">
+                                <div class="bike-insu-div">
+                                  <h4 style="margin-bottom: 0px">
+                                    Choose the type of your vehicle?
+                                  </h4>
+                                  <label style="
+                                      font-size: 12px;
+                                      color: #948080;
+                                      margin-bottom: 15px;
+                                    ">
+                                    Search for your cv or choose from a list of
+                                    popular cv</label>
+                                </div>
+                                <div class="row">
+                                  <div class="search-bike col-md-8 mx-auto">
+                                    <!-- <mat-form-field>
+                                                                        <mat-label>Select Manufacturer</mat-label>
+                                                                        <mat-select [(ngModel)]="selectedCarManuf"
+                                                                            disableRipple name="CarBrandCode"
+                                                                            (selectionChange)="onSelectCarBrand(selectedCarManuf)">
+                                                                            <mat-option
+                                                                                value="{{man.CarBrandCode+','+man.CarBrandDesc}}"
+                                                                                *ngFor="let man of carBrandList">
+                                                                                {{man.CarBrandDesc}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field> -->
+
+                                    <!-- /////////////// -->
+
+                                    <!-- <mat-form-field appearance="outline">
+                                      <mat-label>Select Vehicle </mat-label>
+                                      <input type="text" formControlName="CvBrandDesc" matInput
+                                        [matAutocomplete]="auto" />
+                                      <mat-icon matSuffix>search</mat-icon>
+                                      <mat-autocomplete (optionSelected)="
+                                          onSelectCVBrand($event.option.value)
+                                        " #auto="matAutocomplete">
+                                        <mat-option value="{{
+                                            man.MakeCode +
+                                              ',' +
+                                              man.MakeDesc
+                                          }}" *ngFor="
+                                            let man of filteredOptions | async
+                                          ">
+                                          {{ man.MakeDesc }}
+                                        </mat-option>
+                                      </mat-autocomplete>
+                                    </mat-form-field> -->
+
+                                    <!-- //////// -->
+                                    <!-- <mat-form-field>
+                                                                        <mat-label>Select Manufacturer</mat-label>
+                                                                        <input type="text"
+                                                                            name="CarBrandCode"
+                                                                            (input)='_filter()'
+                                                                            [(ngModel)]="selectedCarManuf"
+                                                                            matInput
+                                                                            [matAutocomplete]="auto">
+                                                                        <mat-autocomplete
+                                                                        (optionSelected)="onSelectCarBrand($event.option.value)"
+                                                                        #auto="matAutocomplete">
+                                                                          <mat-option
+                                                                            value="{{man.CarBrandCode+','+man.CarBrandDesc}}"
+                                                                            *ngFor="let man of filteredOptions ">
+                                                                            {{man.CarBrandDesc}}
+                                                                          </mat-option>
+                                                                        </mat-autocomplete>
+                                                                      </mat-form-field> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <h5 class="popularbikes">
+                              <span>Popular Vehicle Type</span>
+                            </h5>
+                          </div>
+
+                          <!-- [class.active]="
+                                  manuf.MakeCode ==
+                                  cvForm.get('CvBrandCode').value
+                                " -->
+                          <!-- onSelectCVBrand(
+                                    manuf.MakeCode +
+                                      ',' +
+                                      manuf.MakeDesc
+                                  )
+                                "  -->
+                          <!-- [class.active]="
+                                manuf.CvVehicleType ==
+                                cvForm.get('CvVehicleType').value
+                              " -->
+                          <!-- + ',' + -->
+                          <!-- manuf.CVehicleDesc -->
+                          <div class="col-md-12 col-sm-12 main-content">
+                            <div class="row" *ngIf="cvVehicleTypeList.length !=0">
+                              <div *ngFor="let manuf of cvVehicleTypeList" [class.active]="
+                              manuf.CVehicleType ==
+                              cvForm.get('CvVehicleType')?.value
+                            " (click)="onSelectCVvehicleType(
+                                manuf.RecordNo 
+                                + ',' + 
+                                manuf.CVehicleType 
+      
+                                + ',' +
+                                manuf.VehicleTypeCarriageCode
+                                + ',' +
+                                manuf.VehicleTypeCarriageDesc
+                                + ',' +
+                                manuf.VehicleTypeId
+                                
+                              )" class="col-md-2 bikebrand cvbrands">
+                                <img src='{{ "assets/webicon/" + manuf.CVehicleTypeIcon  }}'
+                                  alt="{{manuf.CVehicleType}}" />
+
+
+                                <span>{{ manuf.CVehicleType}}</span>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12" *ngIf="cvVehicleTypeList.length ==0">
+                            <div class="col-md-12 alert alert-primary">
+                              Please contact to admin. Thanks for patience.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Your CV"
+                    [disabled]=" !cvForm.get('CvVehicleType')?.value || cvForm.get('CvVehicleType')?.errors">
+                    <app-sm-loader *ngIf="showLoader"></app-sm-loader>
+                    <div class="col-md-12" *ngIf="!showLoader">
+                      <div class="tab-content py-3 px-3 px-sm-0 Bike_Manufacturer" id="nav-tabContent">
+                        <div class="row tab-pane fade show active" id="nav-home" role="tabpanel"
+                          aria-labelledby="nav-home-tab">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-8 mx-auto">
+                                <div class="bike-insu-div">
+                                  <h4 style="margin-bottom: 0px">
+                                    Which CV do you drive?
+                                  </h4>
+                                  <label style="
+                                      font-size: 12px;
+                                      color: #948080;
+                                      margin-bottom: 15px;
+                                    ">
+                                    Search for your cv or choose from a list of
+                                    popular cv</label>
+                                </div>
+                                <div class="row">
+                                  <div class="search-bike col-md-8 mx-auto">
+                                    <!-- <mat-form-field>
+                                                                        <mat-label>Select Manufacturer</mat-label>
+                                                                        <mat-select [(ngModel)]="selectedCarManuf"
+                                                                            disableRipple name="CarBrandCode"
+                                                                            (selectionChange)="onSelectCarBrand(selectedCarManuf)">
+                                                                            <mat-option
+                                                                                value="{{man.CarBrandCode+','+man.CarBrandDesc}}"
+                                                                                *ngFor="let man of carBrandList">
+                                                                                {{man.CarBrandDesc}}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field> -->
+
+                                    <!-- /////////////// -->
+
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Select Manufacturer</mat-label>
+                                      <input type="text" formControlName="CvBrandDesc" matInput
+                                        [matAutocomplete]="auto" />
+                                      <mat-icon matSuffix>search</mat-icon>
+                                      <mat-autocomplete (optionSelected)="
+                                          onSelectCVBrand($event.option.value)
+                                        " #auto="matAutocomplete">
+                                        <mat-option value="{{
+                                            man.MakeCode +
+                                              ',' +
+                                              man.MakeDesc
+                                          }}" *ngFor="
+                                            let man of filteredOptions | async
+                                          ">
+                                          {{ man.MakeDesc }}
+                                        </mat-option>
+                                      </mat-autocomplete>
+                                      <mat-error *ngIf='af.get("CvBrandDesc")?.errors?.["requireMatch"]'>
+                                        Please select a valid manufacturer name from the list!
+                                      </mat-error>
+                                    </mat-form-field>
+
+                                    <!-- //////// -->
+                                    <!-- <mat-form-field>
+                                                                        <mat-label>Select Manufacturer</mat-label>
+                                                                        <input type="text"
+                                                                            name="CarBrandCode"
+                                                                            (input)='_filter()'
+                                                                            [(ngModel)]="selectedCarManuf"
+                                                                            matInput
+                                                                            [matAutocomplete]="auto">
+                                                                        <mat-autocomplete
+                                                                        (optionSelected)="onSelectCarBrand($event.option.value)"
+                                                                        #auto="matAutocomplete">
+                                                                          <mat-option
+                                                                            value="{{man.CarBrandCode+','+man.CarBrandDesc}}"
+                                                                            *ngFor="let man of filteredOptions ">
+                                                                            {{man.CarBrandDesc}}
+                                                                          </mat-option>
+                                                                        </mat-autocomplete>
+                                                                      </mat-form-field> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div>
+                              <!-- <h5> {{cvForm.get('VehicleTypeCarriageDesc').value}}</h5>   -->
+                            </div>
+                            <h5 class="popularbikes">
+                              <span>Popular Manufacturers</span>
+                            </h5>
+                          </div>
+                          <div class="col-md-12 col-sm-12 main-content">
+                            <div class="row" *ngIf="cvBrandList.length">
+                              <div *ngFor="let manuf of cvBrandList.slice(0, 12)" [class.active]="
+                                  manuf.MakeCode ==
+                                  cvForm.get('CvBrandCode')?.value
+                                " (click)="
+                                  onSelectCVBrand(
+                                    manuf.MakeCode +
+                                      ',' +
+                                      manuf.MakeDesc
+                                  )
+                                " class="col-md-2 bikebrand">
+                                <span>{{ manuf.MakeDesc }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12" *ngIf="cvBrandList.length == 0">
+                            <div class="col-md-12 alert alert-primary">
+                              Please contact to admin. Thanks for patience.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="CV Model"
+                    [disabled]="(!cvForm.get('CvVehicleType')?.value || cvForm.get('CvVehicleType')?.errors) || (!cvForm.get('CvBrandDesc')?.value || cvForm.get('CvBrandDesc')?.errors)">
+                    <app-sm-loader *ngIf="showLoader"></app-sm-loader>
+                    <div class="col-md-12" *ngIf="!showLoader">
+                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                        aria-labelledby="nav-home-tab">
+                        <div class="">
+                          <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Variant" id="nav-tabContent">
+                            <div class="row tab-pane fade show active" id="nav-insurance" role="tabpanel"
+                              aria-labelledby="nav-home-tab">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="bike-insu-div">
+                                      <h4 style="margin-bottom: 0px">
+                                        Which model of
+                                        {{ selectedCVManuf }} do you own?
+                                        <!-- Which model of
+                                                                            {{selectedCarManuf.split(',')[1]}} do you
+                                                                            own? -->
+                                      </h4>
+                                      <label style="
+                                          font-size: 12px;
+                                          color: #948080;
+                                          margin-bottom: 15px;
+                                        ">
+                                        Filter by fuel type below
+                                      </label>
+                                    </div>
+                                    <div class="row">
+
+                                      <div class="search-bike col-md-8">
+                                        <div class="form-group">
+                                          <!-- <mat-form-field>
+                                                                                    <mat-label>
+                                                                                        Select
+                                                                                        {{selectedCarManuf}}
+                                                                                        Model
+                                                                                    </mat-label>
+                                                                                        <input type="text"
+                                                                                        name="CarModelCode"
+                                                                                        (input)='_filter()'
+                                                                                        [(ngModel)]="selectedCarModel"
+                                                                                        matInput
+                                                                                        [matAutocomplete]="auto1">
+                                                                                    <mat-autocomplete
+                                                                                        (optionSelected)="onSelectCarModel($event.option.value)"
+                                                                                        #auto1="matAutocomplete">
+                                                                                        <mat-option
+                                                                                            value="{{fuel.CarModelCode+','+fuel.CarModelDesc}}"
+                                                                                            *ngFor="let fuel of filteredOptionsModel | async">
+                                                                                        {{man.CarBrandDesc}}
+                                                                                        </mat-option>
+                                                                                    </mat-autocomplete>
+                                                                                </mat-form-field> -->
+                                          <!-- ///// -->
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>
+                                              Select
+                                              {{ selectedCVManuf }}
+                                              Model
+                                            </mat-label>
+                                            <input type="text" formControlName="CvModelDesc" matInput
+                                              [matAutocomplete]="autoModels" />
+                                            <mat-icon matSuffix>search</mat-icon>
+
+                                            <mat-autocomplete (optionSelected)="
+                                                onSelectCVModel(
+                                                  $event.option.value
+                                                )
+                                              " #autoModels="matAutocomplete">
+                                              <mat-option value="{{
+                                                  man.ModelCode +
+                                                    ',' +
+                                                    man.ModelDesc
+                                                }}" *ngFor="
+                                                  let man of filteredCVModels
+                                                    | async
+                                                ">
+                                                {{ man.ModelDesc }}
+                                              </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-error *ngIf='af.get("CvModelDesc")?.errors?.["requireMatch"]'>
+                                              Please select a valid model name from the list!
+                                            </mat-error>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <mat-form-field appearance="outline">
+                                          <mat-label>CV Fuel Types</mat-label>
+                                          <input type="text" formControlName="FuelDesc" matInput
+                                            [matAutocomplete]="autoFuel" />
+                                          <mat-icon matSuffix>search</mat-icon>
+
+                                          <mat-autocomplete (optionSelected)="
+                                                                                    onSelectCVFuel(
+                                                                                      $event.option.value
+                                                                                    )
+                                                                                  " #autoFuel="matAutocomplete">
+                                            <mat-option value="{{
+                                                                                      fuel.FuelTypeCode +
+                                                                                        ',' +
+                                                                                        fuel.FuelTypeDesc
+                                                                                    }}" *ngFor="
+                                                                                      let fuel of filteredFuels
+                                                                                        | async
+                                                                                    ">
+                                              {{ fuel.FuelTypeDesc }}
+                                            </mat-option>
+                                          </mat-autocomplete>
+                                        </mat-form-field>
+
+                                        <!-- ////// -->
+                                        <!-- <mat-form-field>
+                                                                                                                      <mat-label>Car Fuel Types</mat-label>
+                                                                                                                      <mat-select formControlN ame="FuelCode"
+                                                                                                                      [(ngModel)]="selectedFuelType"
+                                                                                                                          (selectionChange)="onSelectCarFuel($event)">
+                                                                                                                          <mat-option
+                                                                                                                              value="{{fuel.FuelTypeCode+','+fuel.FuelTypeDesc}}"
+                                                                                                                              *ngFor="let fuel of carFuelList">
+                                                                                                                              {{fuel.FuelTypeDesc}}
+                                                                                                                          </mat-option>
+                                                                                                                      </mat-select>
+                                                                                                                  </mat-form-field> -->
+                                      </div>
+                                      <!-- <mat-error *ngIf="Sel"> Car Fuel Type Is Required</mat-error> -->
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <h5 class="modal_header modal_header--hr">
+                                  <span>
+                                    Popular {{ selectedCVManuf }}
+                                    Models
+                                    <!-- Popular {{selectedCarManuf.split(',')[1]}}
+                                                                    Models -->
+                                  </span>
+                                </h5>
+                              </div>
+                              <div class="col-md-12 main-content">
+                                <div class="row" class="bike_add row">
+                                  <div class="col-md-2 bikebrand" [class.active]="
+                                      item.ModelCode ==
+                                      cvForm.get('CvModelCode')?.value
+                                    " *ngFor="
+                                      let item of cvModelList.slice(0, 12)
+                                    " (click)="
+                                      onSelectCVModel(
+                                        item.ModelCode +
+                                          ',' +
+                                          item.ModelDesc
+                                      )
+                                    ">
+                                    <span>{{ item.ModelDesc }}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <!-- ----Car Variant -->
+                  <mat-tab label="CV Variant"
+                    [disabled]="(!cvForm.get('CvVehicleType')?.value || cvForm.get('CvVehicleType')?.errors) || (!cvForm.get('CvBrandDesc')?.value || cvForm.get('CvBrandDesc')?.errors) || (!cvForm.get('FuelDesc')?.value || cvForm.get('FuelDesc')?.errors)">
+                    <app-sm-loader *ngIf="showLoader"></app-sm-loader>
+                    <div class="col-md-12" *ngIf="!showLoader">
+                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                        aria-labelledby="nav-home-tab">
+                        <div class="">
+                          <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Variant" id="nav-tabContent">
+                            <div class="row tab-pane fade show active" id="nav-insurance" role="tabpanel"
+                              aria-labelledby="nav-home-tab">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="bike-insu-div">
+                                      <h4 style="margin-bottom: 0px">
+                                        Which model of
+                                        {{ selectedCVManuf }}
+                                        {{ selectedCVModel }} do you own?
+                                        <!-- Which model of
+                                                                            {{selectedCarManuf.split(',')[1]}}
+                                                                            {{selectedCarModel.split(',')[1]}} do you
+                                                                            own? -->
+                                      </h4>
+                                    </div>
+                                    <div class="row">
+                                      <div class="search-bike col-md-8 mx-auto CVehicle-list">
+                                        <mat-form-field appearance="outline">
+                                          <mat-label>
+                                            Select
+                                            {{ selectedCVManuf }}
+                                            {{ selectedCVModel }}
+                                            Variant</mat-label>
+                                          <input type="text" formControlName="CvVariantDesc" matInput
+                                            [matAutocomplete]="autoVariant" />
+                                          <mat-icon matSuffix>search</mat-icon>
+                                          <mat-autocomplete (optionSelected)="
+                                              onSelectCVVariant(
+                                                $event.option.value
+                                              )
+                                            " #autoVariant="matAutocomplete">
+                                            <mat-option value="{{
+                                               man.VariantCode +
+                                          ',' +
+                                          man.VariantDesc +
+                                          ',' +
+                                          man.CubicCapacity +
+                                          ',' +
+                                          man.VariantName
+                                               
+                                              }}" *ngFor="
+                                                let man of filteredCVVariants
+                                                  | async
+                                              ">
+                                              <span class="name">
+                                                {{ man.VariantDesc }}
+                                              </span>
+                                              <span class="subname">
+                                                {{man.Capacity}}
+                                              </span>
+
+                                            </mat-option>
+                                          </mat-autocomplete>
+                                          <mat-error *ngIf='af.get("CvVariantDesc")?.errors?.["requireMatch"]'>
+                                            Please select a valid variant name from the list!
+                                          </mat-error>
+                                        </mat-form-field>
+                                        <!-- <mat-form-field>
+                                                                                <mat-label>
+                                                                                    Select
+                                                                                    {{selectedCarManuf.split(',')[1]}}
+                                                                                    {{selectedCarModel.split(',')[1]}}
+                                                                                    Variant
+                                                                                </mat-label>
+                                                                                <mat-select
+                                                                                [(ngModel)]="selectedCarVariant"
+                                                                                    disableRipple
+                                                                                    (selectionChange)="onSelectCarVariant(selectedCarVariant)">
+                                                                                    <mat-option
+                                                                                        value="{{model.CarVariantCode+','+model.CarVariantDesc}}"
+                                                                                        *ngFor="let model of carVariantList">
+                                                                                        {{model.CarVariantDesc}}
+                                                                                    </mat-option>
+                                                                                </mat-select>
+                                                                            </mat-form-field> -->
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <h5 class="modal_header modal_header--hr">
+                                  <span>
+                                    Popular {{ selectedCVManuf }}
+                                    {{ selectedCVModel }} ({{selectedFuelType}}) Variants
+                                    <!-- Popular {{selectedCarManuf.split(',')[1]}}
+                                                                    {{selectedCarModel.split(',')[1]}} Variants -->
+                                  </span>
+                                </h5>
+                              </div>
+                              <div class="col-md-12 main-content">
+                                <div class="row" class="bike_add row">
+                                  <div class="col-md-2 bikebrand CVehicle" [class.active]="
+                                      item.VariantCode ==
+                                      cvForm.get('CvVariantCode')?.value
+                                    " *ngFor="
+                                      let item of cvVariantList.slice(0, 12)
+                                    " (click)="
+                                      onSelectCVVariant(
+                                        item.VariantCode +
+                                          ',' +
+                                          item.VariantDesc +
+                                          ',' +
+                                          item.CubicCapacity +
+                                          ',' +
+                                          item.VariantName
+                                      )
+                                    ">
+                                    <!-- item.SeatingCapacity +
+                                          ',' + -->
+                                    <span>{{ item.VariantDesc }}</span>
+                                    <span class="capacity"> {{item.Capacity}}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <!-- ----Car Variant  -->
+                  <mat-tab label="CV Registration Year" *ngIf="openBy != 'newCVForm'"
+                    [disabled]=" (!cvForm.get('CvVehicleType')?.value || cvForm.get('CvVehicleType')?.errors) || (!cvForm.get('CvBrandDesc')?.value || cvForm.get('CvBrandDesc')?.errors) || (!cvForm.get('FuelDesc')?.value || cvForm.get('FuelDesc')?.errors)">
+                    <!-- [disabled]="!carVariantSelected" -->
+                    <app-sm-loader *ngIf="showLoader"></app-sm-loader>
+                    <div class="col-md-12" *ngIf="!showLoader">
+                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                        aria-labelledby="nav-home-tab">
+                        <div class="">
+                          <div class="tab-content py-3 px-3 px-sm-0 Bike_Model_and_Variant" id="nav-tabContent">
+                            <div class="row tab-pane fade show active" id="nav-insurance" role="tabpanel"
+                              aria-labelledby="nav-home-tab">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-10 mx-auto box-tap">
+                                    <div class="bike-insu-div">
+                                      <h4 style="margin-bottom: 0px">
+                                        When was your
+                                        {{ selectedCVManuf }}
+                                        {{ selectedCVModel }}
+                                        registered?
+
+                                      </h4>
+                                      <label style="
+                                          font-size: 12px;
+                                          color: #948080;
+                                          margin-bottom: 15px;
+                                        ">
+                                        Select the registration year of your
+                                        cv</label>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-8">
+                                        <mat-form-field appearance="outline">
+                                          <mat-label>Bike registration date</mat-label>
+                                          <input readonly matInput [matDatepicker]="dp2" (click)="dp2.open()"
+                                            (dateChange)="onSelectRegYear()" formControlName="RegistrationDate"
+                                            [placeholder]="date" [maxlength]="10" />
+                                          <mat-datepicker-toggle matSuffix [for]="dp2">
+                                          </mat-datepicker-toggle>
+                                          <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+
+                                        </mat-form-field>
+                                        <!-- <mat-form-field appearance="outline">
+                                          <mat-label>Select Registration Year
+                                          </mat-label>
+                                          <input type="text" formControlName="RegistrationYearDesc" matInput
+                                            [matAutocomplete]="autoRegYear" />
+                                          <mat-icon matSuffix>search</mat-icon>
+                                          <mat-autocomplete (optionSelected)="
+                                              onSelectRegYear(
+                                                $event.option.value
+                                              )
+                                            " #autoRegYear="matAutocomplete">
+                                            <mat-option value="{{
+                                                man.RegistrationYearCode +
+                                                  ',' +
+                                                  man.RegistrationYearDesc
+                                              }}" *ngFor="
+                                                let man of filteredCVRegYears
+                                                  | async
+                                              ">
+                                              {{ man.RegistrationYearDesc }}
+                                            </mat-option>
+                                          </mat-autocomplete>
+                                          <mat-error *ngIf='af.get("RegistrationYearDesc")?.errors?.["requireMatch"]'>
+                                            Please select a valid registration year!
+                                          </mat-error>
+                                        </mat-form-field> -->
+
+                                      </div>
+                                      <div class="col-md-2 "><button (click)="closePopup()" title="View Quotes"
+                                          class="w--button w--button--orange w--button--large mt-2">
+                                          Next
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="col-md-12">
+                                <h5 class="modal_header modal_header--hr">
+                                  <span>Select Registration Year</span>
+                                </h5>
+                              </div>
+                              <div class="col-md-12 main-content">
+                                <div class="row" class="bike_add row">
+                                  <div class="col-md-2 bikebrand" [class.active]="
+                                      item.RegistrationYearCode ==
+                                      cvForm.get('RegistrationYearCode')?.value
+                                    " *ngFor="
+                                      let item of regYearList.slice(0, 12)
+                                    " (click)="
+                                      onSelectRegYear(
+                                        item.RegistrationYearCode +
+                                          ',' +
+                                          item.RegistrationYearDesc
+                                      )
+                                    ">
+                                    <span>{{ item.RegistrationYearDesc }}</span>
+                                  </div>
+                                </div>
+                              </div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

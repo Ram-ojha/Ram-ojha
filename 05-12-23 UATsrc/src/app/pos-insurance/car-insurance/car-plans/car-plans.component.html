@@ -1,0 +1,1986 @@
+<!-- <app-full-loader [display]="showLoader"></app-full-loader> -->
+<!--- Main list ----->
+<div class="main-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-12 col-lg-12">
+        <div class="top-head marT5 marB5">
+          <div class="row">
+            <div class="col-md-3 col-12 col-sm-6">
+              <div class="left-model-name">
+                <h2>{{ plan.vehicleDesc }}</h2>
+                <h4 (click)="onClickNotYourCar()">
+                  {{ plan.RegYear
+                  }}{{
+                  plan.engineSize ? " | " + plan.engineSize + " CC" : " "
+                  }}
+                  <a>NOT YOUR CAR?</a>
+                </h4>
+              </div>
+            </div>
+            <div class="col-md-6 col-12 col-sm-6">
+              <div class="row ex-section">
+                <div class="col-md-4">
+                  <section class="example-section">
+                    <mat-slide-toggle (change)="onToggleChange(0)"
+                      [disabled]="plan.SubCateCode == 4 || showComprehensive || disableControlsUntilLoading"
+                      class="example-margin" color="warn" [(ngModel)]="plan.isComprehensive">
+                      Comprehensive
+                    </mat-slide-toggle>
+                  </section>
+                </div>
+                <div class="col-md-3">
+                  <section class="example-section" *ngIf="plan.SubCateCode != 2">
+                    <mat-slide-toggle [disabled]="showOd || plan.SubCateCode == 4 || disableControlsUntilLoading"
+                      (change)="onToggleChange(2)" class="example-margin" color="warn" [(ngModel)]="plan.isOdOnly">
+                      OD Only
+                    </mat-slide-toggle>
+                  </section>
+                </div>
+                <div class="col-md-4">
+                  <section class="example-section" *ngIf="plan.SubCateCode != 2">
+                    <mat-slide-toggle [disabled]="plan.SubCateCode == 4 || showTp||disableControlsUntilLoading"
+                      (change)="onToggleChange(1)" class="example-margin" color="warn" [(ngModel)]="plan.isTp">
+                      Third Party Only
+                    </mat-slide-toggle>
+                  </section>
+                </div>
+                <!-- <div class="col-md-6">
+              <section class="example-section">
+                <mat-slide-toggle
+                  class="example-margin"
+                  (toggleChange)="onToggleChange(0)"
+                  color="accent"
+                  [(ngModel)]="plan.isComprehensive"
+                >
+                  Comprehensive
+                </mat-slide-toggle>
+              </section>
+            </div>
+            <div class="col-md-6">
+              <section class="example-section">
+                <mat-slide-toggle
+                  (toggleChange)="onToggleChange(1)"
+                  class="example-margin"
+                  color="accent"
+                  [(ngModel)]="plan.isTp"
+                >
+                  Third Party Only
+                </mat-slide-toggle>
+              </section>
+            </div> -->
+              </div>
+            </div>
+            <div class="col-md-3 col-12 col-sm-6">
+              <div class="left-model-name txt-R">
+                <h2>
+                  {{ plan.rto
+                  }}{{ plan.vehicleNo ? " | " + plan.vehicleNo : " " }}
+                </h2>
+                <h4 (click)="onClickNotYourCar()">
+                  {{ plan.SubCateDesc }}<a>EDIT</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- IDV Editer -->
+      <div class="editer-plan">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mx-auto">
+              <mat-card>
+                <div class="row col-md-12">
+                  <div class="col-md-2 col-12 pad0">
+                    <div class="middle-block-check">
+                      <!-- <span class="left-icon">
+                        <img src="./assets/img/insurance/shield.png" alt="" />
+                      </span> -->
+                      <span class="right-text padT3">
+                        <h4 matTooltip="The maximum value you will receive in case of total damage or theft."
+                          matTooltipClass="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end"
+                          aria-label="Button that displays a tooltip when focused or hovered over"
+                          [ngClass]="{ idvDisabled: plan.isTp }">
+                          Car Cover Value (IDV):
+                          <b class="cursor" *ngIf="!plan.isTp" (click)="onClickOpenIdvModal()">
+                            {{ plan.idvType == 1 ? "Lowest " : " " }}
+                            <i class="fa fa-chevron-down" aria-hidden="true"
+                              [hidden]='disableControlsUntilLoading'></i></b>
+                        </h4>
+                        <label [ngClass]="{ idvDisabled: plan.isTp }" class="dep dep1">IDV from
+                          <i class="fa fa-rupees" aria-hidden="true"></i>
+                          {{
+                          plan.idvValue | currency: "INR":"symbol":"3.0"
+                          }}</label>
+                        <h4>Currently set for lowest price</h4>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-2 co-12 pad0">
+                    <div class="left-model-name Claim_Policy" *ngIf="plan.SubCateCode != 4">
+                      <h4 class="hide">
+                        Claim in Previous Policy : {{ plan.ClaimPrvPolicyDesc }}
+                      </h4>
+                      <h5 class="ncb-value" *ngIf="!plan.isTp">
+
+                        Previous NCB : {{ plan.previousNcb }}%
+                        <a [hidden]="!isNcbEditable || disableControlsUntilLoading || isExMoreThan90Days == true  || plan.currentNcb == '0' "
+                          [matMenuTriggerFor]="menu">Edit</a>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item [value]="item.value" (click)="onClickOkPrvPolicyModal(item.value)"
+                            *ngFor="let item of ncbList">{{ item.value }} %</button>
+                        </mat-menu>
+                      </h5>
+                      <h5 *ngIf="!plan.isTp" class="ncb-value">
+                        Current NCB : {{ plan.currentNcb }}%
+                      </h5>
+
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-12 pad0 txt-R">
+                    <div class="middle-block-check">
+                      <span class="right-text">
+                        <h4>
+                          <!-- <mat-checkbox [(ngModel)]="plan.zeroDp" [disabled]="this.plan.isTp" -->
+                          <mat-checkbox [(ngModel)]="plan.zeroDp"
+                            [disabled]="this.plan.isTp || disableZeroDep || disableControlsUntilLoading"
+                            (change)="onChangeZeroDep($event)"
+                            matTooltip="Zero depreciation means that you will get full cost of repair in case your bike gets damaged in accident. It is also called Bumper to Bumper cover."
+                            matTooltipClass="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end"
+                            aria-label="Button that displays a tooltip when focused or hovered over" #zeroDp>
+                            Zero Depreciation</mat-checkbox>
+                          <!-- <label class="dep">
+                        Starting at
+                        <i class="fa fa-rupees" aria-hidden="true"></i>
+                        48
+                      </label> -->
+                        </h4>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-12 pad0">
+                    <div class="middle-block-check">
+                      <span class="right-text">
+                        <h4>
+                          <!-- [disabled]="plan.isOdOnly || plan.isTp" -->
+                          <mat-checkbox [(ngModel)]="plan.paCover"
+                            [disabled]="plan.isOdOnly || disableControlsUntilLoading" (change)="onChangePAcover($event)"
+                            matTooltip="Personal Accident (PA) cover offers user or nominee Rs.15 Lakh in case of death or disability due to accident.
+                        You can buy a plan without PA cover if:
+                        1. The bike is registered in company's name.
+                        2. You already have a PA cover of Rs. 15 Lakh or more."
+                            matTooltipClass="materila-card mat-stepper-horizontal ng-tns-c4-1 mat-stepper-label-position-end"
+                            aria-label="Button that displays a tooltip when focused or hovered over">
+                            Personal Accident (PA) Cover</mat-checkbox>
+                          <!-- <label class="dep">
+                        Starting at
+                        <i class="fa fa-rupees" aria-hidden="true"></i>
+                        260
+                      </label> -->
+                        </h4>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 col-12 pad0">
+                    <div class="row">
+                      <div class="col-md-6 marB10">
+                        <!-- [hidden]="plan.SubCateCode == 4" -->
+                        <mat-form-field *ngIf="plan.SubCateCode != 4" class="plan">
+                          <mat-label>Tenure</mat-label>
+                          <mat-select disabled [(ngModel)]="plan.isMultiYear" (selectionChange)="callForQuotation()">
+                            <mat-option *ngFor="let year of yearList" [value]="year">{{ year.value }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <!-- <mat-form-field appearance="outline" class="d-none">
+                          <mat-label>Sort by:</mat-label>
+                          <mat-select name="plans">
+                            <mat-option value="0">Recommended</mat-option>
+                            <mat-option value="1"
+                              >Premium (high-low)</mat-option
+                            >
+                            <mat-option value="2"
+                              >Premium (low-high)</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field> -->
+                        <div class="sort txt-R">
+                          <div class="hide">
+                            <label>Sort by Price</label>
+                            <p (click)="filterPremium()" *ngIf="sortPlans">
+                              <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+                            </p>
+                            <p (click)="filterPremium()" *ngIf="!sortPlans">
+                              <i class="fa fa-sort-amount-desc rotate" aria-hidden="true"></i>
+                            </p>
+                          </div>
+                          <mat-form-field class="plan" appearance="legacy">
+                            <mat-label>Additional Covers</mat-label>
+                            <input matInput [disabled]="additionalCoverDisable" (click)="openAddonCoverPopUp()"
+                              placeholder="Placeholder"
+                              [value]="checkedAddons.length>0?checkedAddons.length+' Selected':''">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-12 pad0">
+                      <mat-form-field class="plan" appearance="legacy">
+                        <mat-label>Additional Covers</mat-label>
+                        <mat-select multiple [disabled]="plan.isTp" [(ngModel)]="addonCover">
+                          <mat-option *ngFor="let item of additionalCover" [value]="item" (click)="addons(item)">
+                            {{ item }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div> -->
+                    <!-- <div class="col-md-6 pad0 float-right">
+                    </div> -->
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="service-check">
+  <div class="container">
+    <div class="marT50 marB0 row">
+      <!-- Service List --->
+      <div class="col-md-12 col-12">
+
+
+        <div class="whatsapp-btn" *ngIf='filterPlans.length >0'>
+          <button class="btn" (click)="openDialog()" [disabled]='disableControlsUntilLoading'
+            matTooltip='Share Plans on whatsapp'>
+            <i class="fa fa-whatsapp" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="response-btn">
+          <button class="btn" (click)="openResponseModal()" [disabled]='disableControlsUntilLoading'>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="bike-details-container" style="margin-top: 15" #screen>
+          <!-- <div class="row ">
+            <div class="col-md-9">
+              <span class="result ">
+                <h4 *ngIf="plan.isTp && !plan.isComprehensive && !plan.isOdOnly">
+                  Plans With
+                  {{ plan.isMultiYear.value ? plan.isMultiYear.value : "" }}
+                  Third Party Only
+                </h4>
+                <h4 *ngIf="plan.isOdOnly">
+                  Plans With
+                  {{ plan.isMultiYear.value ? plan.isMultiYear.value : "" }}
+                  Own Damage Only
+                </h4>
+                <h4 *ngIf="plan.isComprehensive">
+                  Plans With 1 Year Own Damage +
+                  {{ plan.isMultiYear.value }} Third Party Only
+                </h4>
+              </span>
+            </div>
+          </div> -->
+          <div class="row">
+
+            <!-- <div class="col-md-10 justify-content-end d-flex offset-md-1 pb-1" *ngIf='filterPlans.length >0'>
+              <button class="btn btn-success" (click)="openDialog()" [disabled]='disableControlsUntilLoading'>
+                <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                Share Plans
+              </button>
+            </div> -->
+
+            <!-- New Pricing Plans -->
+            <div class="col-md-10 offset-md-1" *ngFor="let items of filterPlans  ">
+              <!--| filterPlans:plan.zeroDp : true -->
+              <div class="price-plan">
+                <div class="price-box">
+                  <div class="row">
+                    <!--- Logo -->
+                    <div class="col-md-3 bdr_R">
+                      <div class="image">
+                        <figure>
+                          <!-- <img [src]="items.CompanyLogo" alt="CompanyLogo" /> -->
+                          <img src='{{ "assets/img/company-logos/motor/" + items.imageName  }}' alt="CompanyLogo" />
+
+                        </figure>
+                        <a [href]="
+                      items.garageURL != null ? items.garageURL : ''
+                    " target="_blank" class="view-details">View Garages</a>
+                      </div>
+                    </div>
+                    <!-- IDV Price -->
+                    <div class="col-md-3 bdr_R text-center">
+                      <div class="title">
+                        IDV: <span *ngIf="!plan.isTp"> {{ items.IDVVAlue | currency: "INR":"symbol":"3.0" }}</span>
+
+                      </div>
+                      <div class="IDV hide">
+                        <div class="title">
+                          Plan: <span>{{ plan.isMultiYear.value }}</span>
+                          <!-- <div class="col-md-12 text-capitalize wd-100" [ngClass]="{ 'col-md-12': plan.isTp }">
+                          {{ plan.isMultiYear.value }} plan
+                        </div> -->
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- Extra Addons -->
+                    <div class="col-md-3 bdr_R">
+                      <div class="title">
+                        Addons
+                      </div>
+                      <div class="Addons_list">
+                        <ul class="policy-tag" *ngFor="let item of checkedAddons | addons : items">
+                          <li *ngFor='let found of item.found'>
+                            <i class="fa fa-check" *ngIf='found.CoverageID !== 0 && found.CoverageID !== 20'></i>
+
+                            <span
+                              *ngIf='found.CoverageID !== 0 && found.CoverageID !== 20'>{{found.CoverageCode}}</span>
+                          </li>
+                          <li *ngFor=' let notFound of item.notFound'>
+                            <i class="fa fa-times"></i>
+                            <span>{{notFound.AddOnCoverName}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- View Plans Price  -->
+                    <div class="col-md-3">
+                      <div class="IdvPrice">
+                        <div class="title">
+                          Price:
+                          <span class="cut" *ngIf="premiumWithoutDiscount(items)">
+                            {{
+                            premiumWithoutDiscount(items)
+                            | currency: "INR":"symbol":"3.0"
+                            }}
+                          </span>
+                        </div>
+                        <!-- <span class="cut-price">{{
+                          items.Premium | currency: "INR":"symbol":"3.0"
+                          }}</span> -->
+                      </div>
+                      <div class="View_plans_Price">
+                        <div class="buy-nw">
+                          <a class="btn-buy" (click)="onBuyPlanClick1(items)">{{
+                            items.Premium | currency: "INR":"symbol":"3.0"
+                            }} </a>
+                        </div>
+                        <a data-toggle="modal" data-target="#carExampleModalCenter" (click)="selectTab(0, items)"
+                          class="view-details">Premium Breakup</a>
+                      </div>
+                    </div>
+                    <!-- Extra Details -->
+                    <div class="extra_details">
+                      <div class="col-md-12">
+                        <div class="cover-plan" *ngIf="plan.SubCateCode == 4">
+                          Bundled Cover (1 Year OD + {{ plan.isMultiYear.value }} TP)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Hidden Pln Loader -->
+            <div class="col-md-12 marT15" [hidden]="planLoader">
+              <app-sm-loader></app-sm-loader>
+            </div>
+
+            <!-- Old design -->
+            <div class="col-md-3 d-none" *ngFor="let items of filterPlans  ">
+              <!--| filterPlans:plan.zeroDp : true -->
+              <div class="price-plan">
+                <div class="price-box">
+                  <div class="image">
+                    <figure>
+                      <!-- <img [src]="items.CompanyLogo" alt="CompanyLogo" /> -->
+                      <img src='{{ "assets/img/company-logos/motor/" + items.imageName  }}' alt="CompanyLogo" />
+
+                    </figure>
+                  </div>
+                  <ul class="policy-tag" *ngFor="let item of checkedAddons | addons : items">
+                    <li *ngFor='let found of item.found'>
+                      <span *ngIf='found.CoverageID !==0'>{{found.CoverageCode}}</span>
+                      <i class="fa fa-check" *ngIf='found.CoverageID !==0'></i>
+                    </li>
+                    <li *ngFor=' let notFound of item.notFound'>
+                      <span>{{notFound.AddOnCoverName}}</span>
+                      <i class="fa fa-times"></i>
+                    </li>
+                  </ul>
+                  <div class="price-tag">
+                    <span class="cut">
+                      {{
+                      premiumWithoutDiscount(items)
+                      | currency: "INR":"symbol":"3.0"
+                      }}
+                    </span>
+                    <span class="cut-price">{{
+                      items.Premium | currency: "INR":"symbol":"3.0"
+                      }}</span>
+                  </div>
+                  <p class="gst-tag">*Exclusive of GST</p>
+                  <div class="p-detls">
+                    <div class="row mb-2">
+                      <div class="col-md-6 bdr_R" *ngIf="!plan.isTp">
+                        IDV:
+                        {{ items.IDVVAlue | currency: "INR":"symbol":"3.0" }}
+                      </div>
+                      <div class="col-md-6 text-capitalize" [ngClass]="{ 'col-md-12': plan.isTp }">
+                        {{ plan.isMultiYear.value }} plan
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 bdr_R">
+                        <a data-toggle="modal" data-target="#carExampleModalCenter" (click)="selectTab(0, items)"
+                          class="view-details">View Plan Details</a>
+                      </div>
+                      <div class="col-md-6">
+                        <a [href]="
+                            items.garageURL != null ? items.garageURL : ''
+                          " target="_blank" class="view-details mt-1">View Garages</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="buy-nw">
+                    <a class="btn-buy" (click)="onBuyPlanClick1(items)">Buy Now</a>
+                  </div>
+                  <div class="cover-plan" *ngIf="plan.SubCateCode == 4">
+                    Bundled Cover (1 Year OD + {{ plan.isMultiYear.value }} TP)
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 d-none marT13" [hidden]="planLoader">
+              <app-sm-loader></app-sm-loader>
+            </div>
+            <!-- <div class="col-md-3">
+                            <div class="bike-details-box">
+                                <figure>
+                                    <img src="./assets/img/insurance/hdfc.png" alt="">
+                                </figure>
+                                <span class="ins-price price_btn" (click)="onBuyPlanClick()">
+                                    <i class="fa fa-rupee marL5" aria-hidden="true"></i> <small>2500</small>
+                                </span>
+                                <ul class="ins-plan-list">
+                                    <li>IDV: <span><i class="fa fa-rupee marL5" aria-hidden="true"></i> 49000 </span>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter"
+                                            (click)="selectTab(0)">Plan
+                                            Details</a> |
+                                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter"
+                                            (click)="selectTab(1)">Cashless
+                                            Garages</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+          </div>
+          <!-- showing non matching plans  -->
+          <!-- <div class="divider" *ngIf='(filterPlans | filterPlans:plan.zeroDp : false)?.length > 0'>
+            <h4>Plans without Zero Depreciation</h4>
+          </div> -->
+
+          <div class="row d-none">
+            <div class="col-md-10 offset-md-1" *ngFor="let items of filterPlans  | filterPlans:plan.zeroDp : false ">
+              <div class="price-plan">
+                <div class="price-box">
+                  <div class="row">
+                    <!--- Logo -->
+                    <div class="col-md-3 bdr_R">
+                      <div class="image">
+                        <figure>
+                          <!-- <img [src]="items.CompanyLogo" alt="CompanyLogo" /> -->
+                          <img src='{{ "assets/img/company-logos/motor/" + items.imageName  }}' alt="CompanyLogo" />
+
+                        </figure>
+                        <a [href]="
+                      items.garageURL != null ? items.garageURL : ''
+                    " target="_blank" class="view-details mt-1">View Garages</a>
+                      </div>
+                    </div>
+                    <!-- IDV Price -->
+                    <div class="col-md-3 bdr_R text-center">
+                      <div class="title">
+                        IDV & Plan
+                      </div>
+                      <div class="row IDV">
+                        <div class="col-md-12 mt-1" *ngIf="!plan.isTp">
+                          {{ items.IDVVAlue | currency: "INR":"symbol":"3.0" }}
+                        </div>
+                        <div class="col-md-12 mt-1 text-capitalize wd-100" [ngClass]="{ 'col-md-12': plan.isTp }">
+                          {{ plan.isMultiYear.value }} plan
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- Extra Addons -->
+                    <div class="col-md-3 bdr_R">
+                      <div class="title">
+                        Addons
+                      </div>
+                      <div class="Addons_list">
+                        <ul class="policy-tag" *ngFor="let item of checkedAddons | addons : items">
+                          <li *ngFor='let found of item.found'>
+                            <i class="fa fa-check" *ngIf='found.CoverageID !==0'></i>
+                            <span *ngIf='found.CoverageID !==0'>{{found.CoverageCode}}</span>
+                          </li>
+                          <li *ngFor=' let notFound of item.notFound'>
+                            <i class="fa fa-times"></i>
+                            <span>{{notFound.AddOnCoverName}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- View Plans Price  -->
+                    <div class="col-md-3">
+                      <div class="title">
+                        Price
+                      </div>
+                      <div class="IdvPrice">
+                        <span class="cut">
+                          {{
+                          premiumWithoutDiscount(items)
+                          | currency: "INR":"symbol":"3.0"
+                          }}
+                        </span>
+                        <!-- <span class="cut-price">{{
+                          items.Premium | currency: "INR":"symbol":"3.0"
+                          }}</span> -->
+                      </div>
+                      <div class="View_plans_Price">
+                        <div class="buy-nw">
+                          <a class="btn-buy" (click)="onBuyPlanClick1(items)">{{
+                            items.Premium | currency: "INR":"symbol":"3.0"
+                            }} </a>
+                        </div>
+                        <a data-toggle="modal" data-target="#carExampleModalCenter" (click)="selectTab(0, items)"
+                          class="view-details">View Plan Details</a>
+                      </div>
+                    </div>
+                    <!-- Extra Details -->
+                    <div class="extra_details">
+                      <div class="col-md-12">
+                        <div class="cover-plan" *ngIf="plan.SubCateCode == 4">
+                          Bundled Cover (1 Year OD + {{ plan.isMultiYear.value }} TP)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Hidden Pln Loader -->
+            <div class="col-md-12 marT13" *ngIf='(filterPlans | filterPlans:plan.zeroDp : false)?.length > 0'
+              [hidden]="planLoader">
+              <app-sm-loader></app-sm-loader>
+            </div>
+
+
+            <!-- Old design for non matching plans -->
+            <div class="col-md-3 d-none" *ngFor='let items of filterPlans | filterPlans : plan.zeroDp : false'>
+              <div class="price-plan">
+                <div class="price-box">
+                  <div class="image">
+                    <figure>
+                      <!-- <img [src]="items.CompanyLogo" alt="CompanyLogo" /> -->
+                      <img src='{{ "assets/img/company-logos/motor/" + items.imageName  }}' alt="CompanyLogo" />
+
+                    </figure>
+                  </div>
+                  <ul class="policy-tag" *ngFor="let item of checkedAddons | addons : items">
+
+                    <li *ngFor='let found of item.found'>
+                      <span *ngIf='found.CoverageID !==0'>{{found.CoverageCode}}</span>
+                      <i class="fa fa-check" *ngIf='found.CoverageID !==0'></i>
+                    </li>
+                    <li *ngFor=' let notFound of item.notFound'>
+                      <span>{{notFound.AddOnCoverName}}</span>
+                      <i class="fa fa-times"></i>
+                    </li>
+                  </ul>
+                  <!-- <ul class="policy-tag">
+                    <li *ngIf="plan.paCover">
+                      <i class="fa fa-check"></i> PA (Cover)
+                    </li>
+                  </ul> -->
+                  <div class="price-tag">
+                    <span class="cut">
+                      {{
+                      premiumWithoutDiscount(items)
+                      | currency: "INR":"symbol":"3.0"
+                      }}
+                    </span>
+                    <span class="cut-price">{{
+                      items.Premium | currency: "INR":"symbol":"3.0"
+                      }}</span>
+                  </div>
+                  <p class="gst-tag">*Exclusive of GST</p>
+                  <div class="p-detls">
+                    <div class="row mb-2">
+                      <div class="col-md-6 bdr_R" *ngIf="!plan.isTp">
+                        IDV:
+                        {{ items.IDVVAlue | currency: "INR":"symbol":"3.0" }}
+                      </div>
+                      <div class="col-md-6 text-capitalize" [ngClass]="{ 'col-md-12': plan.isTp }">
+                        {{ plan.isMultiYear.value }} plan
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 bdr_R">
+                        <a data-toggle="modal" data-target="#carExampleModalCenter" (click)="selectTab(0, items)"
+                          class="view-details">View Plan Details</a>
+                      </div>
+                      <div class="col-md-6">
+                        <a [href]="
+                            items.garageURL != null ? items.garageURL : ''
+                          " target="_blank" class="view-details mt-1">View Garages</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="buy-nw">
+                    <a class="btn-buy" (click)="onBuyPlanClick1(items)">Buy Now</a>
+                  </div>
+                  <div class="cover-plan" *ngIf="plan.SubCateCode == 4">
+                    Bundled Cover (1 Year OD + {{ plan.isMultiYear.value }} TP)
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="price-plan">
+                <div class="price-box">
+                  <div class="image">
+                    <figure>
+                      <img [src]="item.CompanyLogo" alt="CompanyLogo" />
+                    </figure>
+                  </div>
+                  <ul class="policy-tag">
+                    <li *ngIf="plan.paCover">
+                      <i class="fa fa-check"></i> PA (Cover)
+                    </li>
+                  </ul>
+                  <div class="price-tag">
+                    <span class="cut">
+                      {{
+                        premiumWithoutDiscount(item)
+                          | currency: "INR":"symbol":"3.0"
+                      }}
+                    </span>
+                    <span class="cut-price">{{
+                      item.Premium | currency: "INR":"symbol":"3.0"
+                    }}</span>
+                  </div>
+                  <p class="gst-tag">*Exclusive of GST</p>
+                  <p class="idv-tag mb-1" *ngIf="!plan.isTp">
+                    IDV:
+                    {{ item.MinIDVVAlue | currency: "INR":"symbol":"3.0" }}
+                  </p>
+                  <p class="idv-tag mt-1">{{ plan.isMultiYear.value }} plan</p>
+                  <div class="col-md-6 bdr_R">
+                    <a
+                      data-toggle="modal"
+                      data-target="#carExampleModalCenter"
+                      (click)="selectTab(0, item)"
+                      class="view-details"
+                      >View Plan Details</a
+                    >
+                  </div>
+                  <div class="col-md-6">
+                    <a
+                      [href]="
+                        item.garageURL != null ? item.garageURL : ''
+                      "
+                      target="_blank"
+                      class="view-details mt-1"
+                      >View Garages</a
+                    >
+                  </div>
+                  <div class="buy-nw">
+                    <a class="btn-buy" (click)="onBuyPlanClick1(item)"
+                      >Buy Now</a
+                    >
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+
+          <div class="row response-model p-4 mt-5" *ngIf="!disableControlsUntilLoading">
+            <div class=" col-lg-12 col-12 col-md-12">
+              <p style="margin: 0;"><span class="response-model-note">Note: </span> We did not receive any response from
+                the following insurer for the given input data.
+              </p>
+            </div>
+
+
+            <div class="col-lg-12 col-12 col-md-12 row mb-2 response-model-div">
+
+              <div class="col-md-2 col-6 col-lg-2 list-group response-model-company-image"
+                *ngFor="let items of responseResult">
+                <figure class="list-group-item list-group-item-action ">
+                  <img class="response-model-company-logo"
+                    src='{{ "assets/img/company-logos/motor/" + items.data.ImageName }}'
+                    alt='{{items?.data?.APIMethod?.split(" /")[0]}}' />
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br /><br /><br />
+  </div>
+</section>
+<!-- Bike Result-->
+
+<!-- New Modal for IDV  -->
+<!-- id="idvModal" -->
+<div class="modal fadein price_filter policyexpiry" [ngStyle]="{'display' : this.idvPopUp}" data-backdrop="static"
+  tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+          <button type="button" class="close color-black" data-dismiss="modal" aria-label="Close"
+            (click)="closeModalDialog()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-3 hamarab-text">
+            <p class="hamara-text">Cover Value (IDV):</p>
+            <span class="hamara__wrap__subtitle">
+              The maximum value you will receive in case of total damage or
+              theft.
+            </span>
+          </div>
+          <div class="col-md-9 filter">
+            <mat-radio-group aria-label="Select an option" class="row" [formControl]="idvRadioType">
+              <div class="col-md-2">
+                <label>
+                  <small>Min IDV</small>
+                  <br />
+                  <i aria-hidden="true" class="fa fa-rupee marL5"> </i>
+                  {{ minIdv }}
+                </label>
+              </div>
+              <div class="col-md-8 idv_slider">
+                <mat-slider #gridsize [(ngModel)]="formatLabel" (change)="updateSetting($event)" min="{{ minIdv }}"
+                  [value]="gridsize.value" max="{{ maxIdv }}">
+                </mat-slider>
+              </div>
+              <div class="col-md-2">
+                <label>
+                  <small>Max IDV</small>
+                  <br />
+                  <i aria-hidden="true" class="fa fa-rupee marL5"></i>
+                  {{ maxIdv }}
+                </label>
+              </div>
+              <div class="col-md-2">
+                <mat-checkbox [value]="'3'" class="marL0" (change)="onChangeIdv($event);setCustomIdv($event)">
+                  Set your own
+                </mat-checkbox>
+              </div>
+
+              <div class="col-md-7">
+                <div class="idv-input">
+                  <mat-form-field class="example-full-width" floatLabel="never">
+                    <input matInput type="text" placeholder="Enter your own IDV value" appOnlyNumbers maxlength="7"
+                      [formControl]="idvInputValue" min="{{ minIdv }}" max="{{ maxIdv }}" [(ngModel)]="gridsize.value"
+                      required />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-3 filter">
+                <input type="button" value="Set Value" (click)="onSetValueClick(this.idvRadioType.value)"
+                  class="w--button" />
+              </div>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <div class="col-md-12 text-error">
+              {{ idvErrMsg }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Old Modal for IDV  -->
+<!-- <div class="modal fade price_filter" id="idvModal" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-3" style="border-right: 1px solid #d2d6d8f2;">
+                        <p class="hamara-text">Cover Value (IDV):</p>
+                        <span class="hamara__wrap__subtitle">
+                            The maximum value you will receive in case of total damage or theft.
+                        </span>
+                    </div>
+                    <div class="col-md-7 filter">
+
+                        <mat-radio-group aria-label="Select an option" [formControl]="idvRadioType"
+                            (change)="onChangeIdv()">
+                            <mat-radio-button [value]="1">Lowest
+                                <i aria-hidden="true" class="fa fa-rupee marL5"> </i> (9,216)
+                            </mat-radio-button>
+                            <mat-radio-button [value]="2">Recommended
+                                <i aria-hidden="true" class="fa fa-rupee marL5"></i> (12,000)
+                            </mat-radio-button>
+                            <mat-radio-button [value]="4">Maximum
+                                <i aria-hidden="true" class="fa fa-rupee marL5"></i> (20,000)
+                            </mat-radio-button>
+                            <mat-radio-button [value]="3" class="marL0">
+                                Set your own
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <div class="idv-input">
+                            <mat-form-field class="example-full-width" floatLabel='never'>
+                                <input matInput placeholder="Enter your own IDV value" appOnlyNumbers maxlength="6"
+                                    [formControl]="idvInputValue" max="{{maxIdv}}" min="{{minIdv}}" id="idvId" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 filter">
+                        <input type="button" value="Set Value" (click)="onSetValueClick(this.idvRadioType.value)"
+                            class="w--button" style="width: 100%;">
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-error">
+                            {{idvErrMsg}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<car-plan-and-premium-details #cpp [data]="premiumDataPlans" [plan]='plan'>
+</car-plan-and-premium-details>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<!-- <div class="modal fade Plan_Details" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3" style="padding: 0px;">
+                            <div class="plan_card">
+                                <div class="company_logo">
+                                    <img src="./assets/img/insurance/icici.png" alt="">
+                                </div>
+                                <label class="price">Cover Value(IDV) :
+                                    <strong> <i aria-hidden="true" class="fa fa-rupee marL5"></i> 2,11,956 </strong>
+                                </label>
+                                <p class="claim">New No Claim Bonus</p>
+                                <p class="claim">(NCB): <strong> 35% </strong></p>
+                                <button class="btn communication-address" type="submit" style="margin-top: 15px;">
+                                    Buy Now <br> <i aria-hidden="true" class="fa fa-inr"></i> 7,433
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <mat-tab-group [(selectedIndex)]="selectedIndex">
+                                <mat-tab label="Premium Breakup">
+                                    <div class="col-md-8 mx-auto" style="padding-top: 20px;">
+                                        <table class="Premium_Breakup">
+                                            <tr>
+                                                <th>Basic Covers</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Basic OD Premium</td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> 2,187</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 20px;">Basic TP Premium</td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> 2,187</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Addon Covers</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 20px;">Personal Accident Cover</td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> 2,187</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Discounts</th>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid #d4d4d4;">
+                                                <td>No Claim Bonus</td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> -350</td>
+                                            </tr>
+                                            <tr style="color: #2a4798;">
+                                                <td style="padding-bottom: 20px;">Premium:</td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> 3,744</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Taxes</th>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid #d4d4d4;">
+                                                <td>GST (18%)</td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> 674</td>
+                                            </tr>
+                                            <tr style="color: #2a4798;">
+                                                <td>Amount payable including GST </td>
+                                                <td><i aria-hidden="true" class="fa fa-rupee"></i> 4,418</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Cashless Garages">
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select name="state" class="form-control">
+                                                    <option value="">Select State</option>
+                                                    <option value="1">Madhya Pradesh</option>
+                                                    <option value="1">Andhra Pradesh</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select name="state" class="form-control">
+                                                    <option value="">Select City</option>
+                                                    <option value="1">Ambikanagara</option>
+                                                    <option value="1">Bagalkot</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>9 garages found in your area</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table style="width: 100%">
+                                                    <tr style="border-bottom: 1px solid #d2d2d2;">
+                                                        <th style="width: 80%;">Garage</th>
+                                                        <th style="width: 20%;">Contact Number</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>M/S.Canaraa Auto Centre</td>
+                                                        <td>9611898939</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid #d2d2d2;">
+                                                        <td style="font-size: 14px; padding-bottom: 10px;">No.- 24,26,
+                                                            4Th Main Santhurpti
+                                                            Nagar, Kothnoor Main Road,
+                                                            Jp Nagar 7Th Phase Bangalore</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr style="padding-top: 10px;">
+                                                        <td>M/S.Fast Cars Auto Services Llp</td>
+                                                        <td>9880133887</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 14px;">No.- 24,26, 4Th Main Santhurpti
+                                                            Nagar, Kothnoor Main Road,
+                                                            Jp Nagar 7Th Phase Bangalore</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Large modal -->
+<!-- <div
+  class="modal fade bd-example-modal-lg Plan_Details"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 7px 16px; background: #fbfbfc">
+        <h5 class="modal-title">Refine Plans</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row col-md-12" style="padding-top: 10px">
+          <label class="col-md-2" style="padding-top: 7px"
+            >Select Coverage :</label
+          >
+          <div class="col-md-4">
+            <select class="form-control" name="plans">
+              <option value="100000">1L to 3L</option>
+              <option value="400000">4L to 5L</option>
+              <option value="600000">6L to 9L</option>
+              <option value="1000000">10L to 14L</option>
+              <option value="1500000">15L to 24L</option>
+              <option value="2500000">25L+</option>
+            </select>
+          </div>
+        </div>
+        <hr />
+        <div class="row col-md-12">
+          <div class="col-md-4">
+            <div>
+              <table>
+                <tr>
+                  <td class="colum-table2">Room Rent Limit</td>
+                  <td>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>No preference</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Only plans with no room limit</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Must have Single Room or higher</mat-checkbox>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="margin-top: 10px">
+              <table>
+                <tr>
+                  <td class="colum-table2">
+                    Pre existing disease waiting period
+                  </td>
+                  <td>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>No preference</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Covered after 2 years or less</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Covered after 3 years or less</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Covered after 4 years or less</mat-checkbox>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div>
+              <table>
+                <tr>
+                  <td class="colum-table2">Copay</td>
+                  <td>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Doesn’t Matter</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Only plans without any co-pay</mat-checkbox>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="margin-top: 10px">
+              <table>
+                <tr>
+                  <td class="colum-table2">Critical Illness</td>
+                  <td>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Doesn’t Matter</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox
+                      >Only plans with additional Critical Illness
+                      covers</mat-checkbox
+                    >
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="margin-top: 10px">
+              <table>
+                <tr>
+                  <td class="colum-table2">Maternity Cover</td>
+                  <td>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Doesn’t Matter</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Only plans with Maternity cover</mat-checkbox>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div>
+              <table>
+                <tr>
+                  <td class="colum-table2">Prefered brands</td>
+                  <td>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Apollo Munich Health Insurance</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Max Bupa Health Insurance</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Religare</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>HDFC ERGO</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>ManipalCigna</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox
+                      >Kotak Mahindra General Insurance</mat-checkbox
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Aditya Birla Health Insurance</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Royal Sundaram</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox>Raheja QBE General Insurance</mat-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="colum-table2">
+                    <mat-checkbox
+                      >Edelweiss General Insurance Company Limited</mat-checkbox
+                    >
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Apply Filters</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- modal for taking policy expiry date -->
+<!-- id="policyExpiryDateModal"  -->
+<div class="modal fadin policyexpiry" [ngStyle]="{'display': this.display}" data-backdrop="static" tabindex="-1"
+  role="dialog" aria-labelledby="modal-dialog modal-sm" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered policyexpiry modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title text-center">
+          <!-- <ul class="nav nav-tabs" role="tablist"> -->
+          <!-- <li
+              class="nav-item"
+              (click)="onClickPreviousPolicyTab('date')"
+              [class.disabled]="this.popupActive == 'ncb'"
+            >
+              <a class="nav-link" [class.active]="popupActive == 'date'">
+                Previous policy expiry Date
+              </a>
+            </li> -->
+          <!-- <li class="nav-item" (click)="onClickPreviousPolicyTab('ncb')"> -->
+          <!-- <a class="nav-link" [class.active]="popupActive == 'ncb'"> -->
+          <h4>Previous NCB</h4>
+          <!-- </a>
+            </li> -->
+          <!-- </ul> -->
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+
+        <!-- <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 col-lg-12">
+          <div class="field-wrapper">
+            <!-- <div [hidden]="popupActive == 'ncb'">
+              <mat-form-field>
+                <mat-label>
+                  {{
+                    plan.PrvPolicyExCode == yesno.YES
+                      ? "When did your policy expired ?"
+                      : "When will your policy expired?"
+                  }}
+                </mat-label>
+                <input
+                  matInput
+                  [formControl]="prvPolicyExDate"
+                  required
+                  [matDatepicker]="dp4"
+                  placeholder="01/01/2020"
+                  [max]="maxDate"
+                  [min]="minDate"
+                  maxlength="10"
+                />
+                <mat-datepicker-toggle matSuffix [for]="dp4">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div> -->
+            <div [hidden]="popupActive == 'date'">
+              <mat-form-field>
+                <mat-label>Select your previous NCB</mat-label>
+                <mat-select title="Select NCB" [formControl]="ncbInput">
+                  <mat-option [value]="item.value" *ngFor="let item of ncbList">{{ item.value }} %
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-10 text-error">
+              {{ ncbExpDateErrMsg }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <div class="col-md-10 text-center"></div>
+        <button type="button" class="btn1" class="btn btn-primary">
+          {{ popupActive == "date" ? "Next" : "Update" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div
+  class="modal fade"
+  id="policyExpiryDateModal"
+  data-backdrop="static"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Previous policy expiry date"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="tabbable text-center">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" (click)="onClickPreviousPolicyTab('date')">
+              <a
+                class="nav-link"
+                [class.active]="popupActive == 'date'"
+                [class.disabled]="this.popupActive == 'ncb'"
+              >
+                Previous policy expiry Date
+              </a>
+            </li>
+            <li class="nav-item" (click)="onClickPreviousPolicyTab('ncb')">
+              <a
+                class="nav-link"
+                [class.active]="popupActive == 'ncb'"
+                [class.disabled]="!isNcbEditable"
+              >
+                Previous NCB
+              </a>
+            </li>
+          </ul>
+        </div>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-10 offset-md-1">
+          <div class="field-wrapper">
+            <div [hidden]="popupActive == 'ncb'">
+              <mat-form-field>
+                <mat-label>
+                  {{
+                    plan.PrvPolicyExCode == yesno.YES
+                      ? "When did your policy expired ?"
+                      : "When will your policy expired?"
+                  }}
+                </mat-label>
+                <input
+                  matInput
+                  [formControl]="prvPolicyExDate"
+                  required
+                  [matDatepicker]="dp4"
+                  placeholder="01/01/2020"
+                  [max]="maxDate"
+                  [min]="minDate"
+                  maxlength="10"
+                />
+                <mat-datepicker-toggle matSuffix [for]="dp4">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div [hidden]="popupActive == 'date'">
+              <mat-form-field>
+                <mat-label>Select your previous NCB</mat-label>
+                <mat-select title="Select NCB" [formControl]="ncbInput">
+                  <mat-option [value]="item.value" *ngFor="let item of ncbList"
+                    >{{ item.value }} %
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <div class="col-md-10 text-center">
+          <div class="col-md-10 text-error">
+            {{ ncbExpDateErrMsg }}
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onClickOkPrvPolicyModal()"
+        >
+          {{ popupActive == "date" ? "Next" : "OK" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <div
+  class="modal fade"
+  id="policyExpiryDateModal"
+  data-backdrop="static"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Previous policy expiry date"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="tabbable text-center">
+          <ul class="nav nav-tabs" role="tablist">
+            <li
+              class="nav-item"
+              (click)="onClickPreviousPolicyTab('date')"
+              [class.disabled]="this.popupActive == 'ncb'"
+            >
+              <a class="nav-link" [class.active]="popupActive == 'date'">
+                Previous policy expiry Date
+              </a>
+            </li>
+            <li class="nav-item" (click)="onClickPreviousPolicyTab('ncb')">
+              <a
+                class="nav-link"
+                [class.active]="popupActive == 'ncb'"
+                [class.disabled]="!isNcbEditable"
+              >
+                Previous NCB
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-10 offset-md-1">
+          <div class="field-wrapper">
+            <div [hidden]="popupActive == 'ncb'">
+              <mat-form-field>
+                <mat-label>
+                  {{
+                    plan.PrvPolicyExCode == yesno.YES
+                      ? "When did your policy expire ?"
+                      : "When will your policy expire?"
+                  }}
+                </mat-label>
+                <input
+                  matInput
+                  [formControl]="prvPolicyExDate"
+                  required
+                  [matDatepicker]="dp4"
+                  placeholder="01/01/2020"
+                  maxlength="10"
+                />
+                <mat-datepicker-toggle matSuffix [for]="dp4">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div [hidden]="popupActive == 'date'">
+              <mat-form-field>
+                <mat-label>Select your previous NCB</mat-label>
+                <mat-select title="Select NCB" [formControl]="ncbInput">
+                  <mat-option [value]="item.value" *ngFor="let item of ncbList"
+                    >{{ item.value }} %
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <div class="col-md-10 text-center">
+          <div class="col-md-10 text-error">
+            {{ ncbExpDateErrMsg }}
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onClickOkPrvPolicyModal()"
+        >
+          {{ popupActive == "date" ? "Next" : "OK" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="container">
+  <div class="modal fadein policyexpiry last-insurer" [ngStyle]="{'display':this.myModal}" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" *ngIf="GetIPlansHealth != null">
+        <div class="modal-header text-center">
+          <div class="modal-title">
+            <h4>Last Policy</h4>
+          </div>
+          <button type="button" class="close" (click)="closeModalDialog()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img src='{{ "assets/img/company-logos/motor/" + GetIPlansHealth.imageName  }}' class="img-style" alt="" />
+          <p class="mt-3 mb-0">
+            <b>
+              Is your previous policy with <br />
+              {{ GetIPlansHealth.ProductName }}
+            </b>
+            ?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button class="ins-price price_btn" (click)="modelclose(1)">
+            Yes
+          </button>
+          <button mat-raised-button class="ins-price price_btn" (click)="modelclose(2)">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal after answering 'Yes' to the modal above -->
+<!-- id="hadPolicy" changes by kishori -->
+<div class="container">
+  <div class="modal fadein policyexpiry last-insurer" [ngStyle]="{'display':this.hadPolicy}" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content content1" *ngIf="GetIPlansHealth != null">
+        <div class="modal-body text-center">
+          <img src='{{ "assets/img/company-logos/motor/" + GetIPlansHealth.imageName  }}' class="img-style1" alt="" />
+          <p class="mt-3 mb-0 text-justify">
+            Since your existing policy is with
+            <b>{{ GetIPlansHealth.ProductName }}</b>, the insurer does not allow you to renew your policy online from
+            <b>{{ GetIPlansHealth.ProductName }}</b>. <br />
+            You can choose to renew your policy from other options available on
+            our portal.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button class="btn btn-block my-btn" (click)="hadPolicyModalClose()">
+            Continue looking for other Plans
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<!-- id="AddonsClose" -->
+<!-- <div [ngClass]="{'additionalCovers open' : AddonsClose}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true"> -->
+<!-- <div class="modal-dialog modal-sm" role="document"> -->
+<div class="modal-dialog policyexpiry modal-sm " role="document" [ngClass]="{'additionalCovers open' : AddonsClose}"
+  [ngStyle]="{'display':this.AddCoverDisplay}">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Select Your Addons & Accessories</h5>
+      <button type="button" (click)="closeModalDialog()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ul class="addcovers">
+        <h4>Addons</h4>
+        <li class="example-section" [matTooltip]="item.AddOnCodeDetail" matTooltipPosition="left"
+          *ngFor="let item of additionalCoverAccessories">
+          <mat-checkbox multiple *ngIf="!plan.isTp" (change)="addons($event,item)" [value]="item.RecordNo"
+            class="example-margin" [disabled]='disableZeroDep && +item.RecordNo==1'
+            [checked]='(plan.zeroDp && +item.RecordNo==1)||isChecked(+item.RecordNo)'>
+            {{ item.AddOnCoverName }}
+          </mat-checkbox>
+          <!-- <mat-checkbox multiple *ngIf="!plan.isTp" (change)="addons($event,item)" [value]="item.RecordNo"
+              class="example-margin" [checked]='plan.zeroDp && +item.RecordNo==1'>
+              {{ item.AddOnCoverName }}
+            </mat-checkbox> -->
+        </li>
+      </ul>
+      <ul class="addcovers">
+        <h4>Accessories</h4>
+        <form #insuredMembersForm="ngForm" name="insuredMembersForm">
+          <li class="example-section" [matTooltip]="item.AddOnCodeDetail" matTooltipPosition="left"
+            *ngFor="let item of additionalCoverAdditionalCovers;let i = index">
+            <mat-checkbox multiple *ngIf="!plan.isTp || item.RecordNo == 14"
+              (change)="checkAddons($event,item,insuredMembersForm,i)" [value]="item.AddOnCoverName"
+              class="example-margin" [checked]='item.RecordNo === 14 && checkAddon'>
+              {{ item.AddOnCoverName }}
+            </mat-checkbox>
+            <div class="Accessories-input" [hidden]="showAccessories(item.RecordNo)">
+              <mat-error *ngIf="item.value < minValue" [ngClass]="'classlight'">
+                Minimum amount should not be less than {{minValue}}
+              </mat-error>
+              <mat-error [ngClass]="'classlight'" *ngIf="item.value > maxValue">
+                Maximum amount should not be more than {{maxValue}}
+              </mat-error>
+              <input type="text" appOnlyNumbers name="accessories{{i}}" [(ngModel)]="item.value"
+                (change)="arrayValue(item.RecordNo,$event)" required class="form-control" />
+              <div class="min-value">
+                <span>Min <br />Amount {{ minValue | number: "1.0-0" }}</span>
+              </div>
+              <div class="max-value">
+                <span>Max <br />Amount {{ maxValue | number: "1.0-0" }}</span>
+              </div>
+            </div>
+            <div class="Accessories-input" [ngClass]="{'marB40':showExternalAccessories(item.RecordNo)}"
+              [hidden]="showExternalAccessories(item.RecordNo)">
+              <mat-error [ngClass]="'classlight'" *ngIf="item.value < minV">
+                Minimum amount should not be less than {{minV}}
+              </mat-error>
+              <mat-error [ngClass]="'classlight'" *ngIf="item.value > maxV">
+                Maximum amount should not be more than {{maxV}}
+              </mat-error>
+              <input type="text" appOnlyNumbers name="accessories{{i}}" [(ngModel)]="item.value"
+                (change)="arrayValue(item.RecordNo,$event)" required class="form-control" />
+              <div class="min-value">
+                <span>Min <br />Amount {{ minV | number: "1.0-0" }}</span>
+              </div>
+              <div class="max-value">
+                <span>Max <br />Amount {{ maxV | number: "1.0-0" }}</span>
+              </div>
+            </div>
+          </li>
+          <!-- <button mat-raised-button type="button" style="display: none;" id="submitAddonBtn" #submitAddonBtn
+            class="btnstyle" *ngIf="showSubmitButton" (click)="onSubmitAddons()">Submit</button> -->
+        </form>
+      </ul>
+      <ul class="addcovers" *ngIf="!plan.isOdOnly">
+        <h4>Additional Covers</h4>
+        <li class="example-section" [matTooltip]="item.AddOnCodeDetail" matTooltipPosition="left"
+          *ngFor="let item of additionalCoverVoluntaryInsurerDiscounts">
+          <mat-checkbox multiple [value]="item.AddOnCoverName" class="example-margin"
+            [checked]='(plan.paCover && +item.RecordNo==16) || (item.RecordNo!==16 && checkAddon)'
+            (change)='addons($event,item)'>
+            {{ item.AddOnCoverName }}
+          </mat-checkbox>
+
+          <div class="Volutary-Disacount" *ngIf='item.RecordNo===17 && showUnnamedCover'>
+            <br>
+            <span *ngFor='let cover of unnamedPassengerCovers'>
+              <button type="button" class="discount" (click)='onChooseUnnamedCover(item, cover)'
+                [ngClass]="{ selected:+selectedUnnamedCover  == +cover }">
+                <i class="fa fa-inr"></i>
+                {{cover | number: "1.0-0"}}</button>
+            </span>
+          </div>
+
+
+        </li>
+      </ul>
+
+      <ul class="addcovers Voluntary" *ngIf="!plan.isTp">
+        <h4>Voluntary Insurer Discounts</h4>
+        <li class="example-section" [matTooltip]="voluntaryInsurer.AddOnCodeDetail" matTooltipPosition="left"
+          *ngFor="let voluntaryInsurer of additionalCoverAddons">
+          <div class="Volutary-Disacount" *ngIf="voluntaryInsurer.RecordNo == 18">
+            {{ voluntaryInsurer.AddOnCodeDetail }}
+            <span *ngFor="let item of VoluntaryInsurerDiscounts">
+              <button type="button" class="discount" [ngClass]="{ selected: selectedVoluntaryInsurer == item }"
+                (click)="getVoluntaryInsurerDiscounts(item,voluntaryInsurer.RecordNo,voluntaryInsurer)"><i
+                  class="fa fa-inr" *ngIf="item != 'None'"></i>{{item}}</button>
+            </span>
+          </div>
+          <div class="Volutary-Disacount" *ngIf="voluntaryInsurer.RecordNo == 19">
+            {{ voluntaryInsurer.AddOnCodeDetail }}
+            <br>
+            <span *ngFor="let item of yesNolist">
+              <button type="button" class="discount" [ngClass]="{ selected: antiTheftValue == +item.value }"
+                (click)="getVoluntaryInsurerDiscounts(item,voluntaryInsurer.RecordNo,voluntaryInsurer);onSubmitAntiTheft(voluntaryInsurer)"
+                [value]="+item.value">{{item.viewValue}}</button>
+            </span>
+
+            <!-- <button mat-raised-button style="display: none;" type="button" class="btnstyle" #showAntiTheftSubmitBtn
+              id="showAntiTheftSubmitBtn" (click)="onSubmitAntiTheft(voluntaryInsurer)"
+              *ngIf='showAntiTheftSubmit'>Submit</button> -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <!-- <button mat-raised-button color="warn" (click)="closeModalDialog()">No Thanks</button> -->
+      <button mat-raised-button color="primary" (click)="callForQuotation()">Apply</button>
+    </div>
+
+  </div>
+  <!-- </div> -->
+
+</div>
+
+
+<!-- Modal for Addons' confirmation id="addonConfirmation" changes by kishori -->
+<div class="modal fadein policyexpiry" [ngStyle]="{'display' : this.addonConfirmation }" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Addons check</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div> -->
+      <div class="modal-body pb-0">
+        <h4 class="text-center mb-0">Did you have these addons in your previous policy ?</h4>
+        <br>
+        <!-- <ul>
+          <li>Zero Depreciation</li>
+          <li>Engine Protection Cover</li>
+          <li>Invoice</li>
+          <li>Tyre Protector</li>
+          <li>Consumables</li>
+        </ul> -->
+        <!-- <hr> -->
+        <ul *ngFor='let addon of addonInPreviousPolicy|async'>
+          <li> {{addon.AddOnCoverName}}</li>
+
+        </ul>
+      </div>
+      <div class="modal-footer text-right">
+
+        <!-- <button mat-raised-button style="background-color: #ec691f; color: white" data-dismiss="modal">Cancel</button> -->
+        <button mat-raised-button class="closemodaldialog" data-dismiss="modal" (click)="closeModalDialog()">
+          No</button>
+        <button mat-raised-button class="closemodaldialog" (click)='hadAddonsInPreviousPolicy()'>Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--PA cover model start-->
+
+
+<div class="container">
+  <div class="modal fadein policyexpiry last-insurer" [ngStyle]="{'display':this.myPAcoverModel}" role="dialog">
+    <div class="modal-dialog modal-md ">
+      <div class="modal-content" *ngIf="GetIPlansHealth != null">
+        <div class="modal-header text-center">
+          <div class="modal-title">
+            <h4>PA cover is mandatory.<br /> Please select the reason why you are not taking PA cover. </h4>
+          </div>
+
+          <button type="button" class="close" data-dismiss="modal" (click)="closeModalDialog()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <section class="example-section">
+            <mat-radio-group [(ngModel)]="PaCoverReason" class="row">
+
+              <mat-radio-button style="margin-left: 0;" class="example-margin col-md-12" value="1">The owner does not
+                have driving license.
+              </mat-radio-button>
+              <mat-radio-button data-toggle="modal" data-target="#paCoverFormModal" style="margin-left: 0;"
+                class="example-margin col-md-12" value="2">Owner already has PA
+                cover of at least 15
+                lacs.</mat-radio-button>
+              <!---->
+
+
+              <mat-radio-button *ngIf="this.GetIPlansHealth.CompanyCode == '19'" style="margin-left: 0;"
+                class="example-margin col-md-12" value="3">Name of Company/Institution</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div class="modal-footer">
+
+          <button mat-raised-button class="ins-price price_btn" (click)="modelclose1(PaCoverReason)">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-container *ngIf="this.GetIPlansHealth?.CompanyCode =='19'">
+    <div class="container">
+      <div class="modal fade " data-backdrop="static" data-keyboard="false" id="paCoverFormModal" tabindex="-1"
+        aria-labelledby="paCoverFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-size-increase">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="paCoverFormModalLabel">Previous Policy PA Cover</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="PACoverForm" (submit)="PAcoverForm()">
+                <div class="field-wrapper">
+                  <!-- <mat-form-field appearance="outline">
+                  <mat-label>insurance company name</mat-label>
+                  <input matInput formControlName="Companyname" />
+                </mat-form-field>  -->
+
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Previous Policy Insurer </mat-label>
+                    <input type="text" placeholder="Previous Policy Insurer " matInput required
+                      formControlName="Companyname" [matAutocomplete]="autoPPInsurer" />
+                    <mat-autocomplete autoActiveFirstOption #autoPPInsurer="matAutocomplete">
+                      <mat-option *ngFor="let item of ppInsurerList | async" [value]="
+                                                    item.InsuranceCompanyDesc
+                                                  ">
+                        {{ item.InsuranceCompanyDesc }}
+                      </mat-option>
+                      <mat-option [value]="" *ngIf="!ppInsurerList">
+                        <p class="text-danger">Not Found</p>
+                      </mat-option>
+                    </mat-autocomplete>
+
+                    <mat-error *ngIf='this.PACoverForm.get("Companyname")?.errors?.["requireMatch"]'>
+                      Please select a valid option from the list!
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="field-wrapper">
+                  <mat-form-field appearance="outline">
+                    <mat-label>policy start date</mat-label>
+                    <input matInput [matDatepicker]="dp1" (click)="dp1.open()" formControlName="PolicyStratDate"
+                      [placeholder]="date" [maxlength]="10" />
+                    <mat-datepicker-toggle matSuffix [for]="dp1">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #dp1 [startAt]="minDate" disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="field-wrapper">
+                  <mat-form-field appearance="outline">
+                    <mat-label>policy end date</mat-label>
+                    <input matInput [matDatepicker]="dp2" (click)="dp2.open()" formControlName="PolicyEndDate"
+                      [placeholder]="date" [maxlength]="10" />
+                    <mat-datepicker-toggle matSuffix [for]="dp2">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #dp2 [startAt]="minDate" disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                  <mat-form-field appearance="outline">
+                    <mat-label>policy no.</mat-label>
+                    <input appUppercase appTrim type="text" matInput formControlName="PolicyNo" [minlength]="6"
+                      [maxLength]="25" />
+                  </mat-form-field>
+                </div>
+                <div class="field-wrapper">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Sum Insured</mat-label>
+                    <input matInput appOnlyNumbers type="text" formControlName="SumInsured" />
+                    <mat-error class="text-error text-left" *ngIf="PACoverForm.get('SumInsured')?.errors?.['min']">
+                      Sum Insured should be at least of 15,00,000.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="col-md-12 text-error text-left" *ngIf="(ErrMsg && PACoverForm.invalid)">
+                      {{ ErrMsg }}
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-secondary" style="display: none;" data-dismiss="modal"
+                    #closeModal>Close</button>
+                  <button type="submit" mat-raised-button style="background-color: #ec691f; color: white ">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!--PA cover model end-->
+
+
+<!--Zero Dep cover question start-->
+<div class="container">
+  <div class="modal fadein policyexpiry last-insurer" [ngStyle]="{'display':this.myZeroDepQuesModal}" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" *ngIf="GetIPlansHealth != null">
+        <div class="modal-header text-center">
+          <div class="modal-title">
+            <h4>Zero Depreciation</h4>
+          </div>
+
+          <button type="button" class="close" data-dismiss="modal" (click)="closeModalDialog()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img src='{{ "assets/img/company-logos/motor/" + GetIPlansHealth.imageName  }}' style="
+              width: 100%;
+              max-height: 90px;
+              max-width: 100px;
+              height: 100%;
+            " alt="{{GetIPlansHealth.ProductName}}" />
+          <p class="mb-3 mt-0">
+            <b>
+              Owner's previous policy had Zero Depreciation cover.
+            </b>
+            ?
+          </p>
+          <p *ngIf="this.hadZeroDep===false" class="text-danger " style="font-size: 10px;">
+            This Insurer does not allow buying a Zero Depreciation cover unless owner's previous policy also had it.
+            Please select Yes to proceed further.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button class="ins-price price_btn" (click)="zeroDepModelClose(1)">
+            Yes
+          </button>
+          <button mat-raised-button class="ins-price price_btn" (click)="zeroDepModelClose(2)">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Zero Dep cover question end-->
+
+<app-quotes-sharing-modal #shareQuotesModal [quotesDetailsForSharing]='quotesDetailsForSharing'>
+</app-quotes-sharing-modal>
+
+<app-response-modal #showResponseModal [responseDetails]='responseDetails'>
+</app-response-modal>
